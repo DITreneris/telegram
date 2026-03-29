@@ -6,5 +6,6 @@ __pycache__/
 data/state.json
 
 # Web build and deps (reproducible via npm)
+node_modules/
 web/node_modules/
 web/dist/

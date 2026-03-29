@@ -31,3 +31,5 @@ Produkcinis išėjimas: katalogas `dist/`.
 3. Jei šaknis lieka visas repozitorijos katalogas, Vercel gali bandyti Python — naudokite šaknies [`vercel.json`](../vercel.json) (`installCommand` / `buildCommand` / `outputDirectory: web/dist`) arba vis tiek nustatykite Root Directory į `web`.
 
 Slaptų kintamųjų šiai statinei aplikacijai nereikia.
+
+**Pastaba:** Vite 8 reikalauja Node **≥20.19** (žr. repo šaknies `.nvmrc` ir `engines` laukus).

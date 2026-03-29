@@ -1,0 +1,7 @@
+{
+  "name": "telegram-repo-root",
+  "private": true,
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

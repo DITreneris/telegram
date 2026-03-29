@@ -8,11 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- Root [vercel.json](vercel.json): Vercel builds from `web/` (`npm ci`, `npm run build`) and publishes `web/dist` when the connected Git root is the whole repository, avoiding Python entrypoint detection on a Python-heavy tree.
+- Root [vercel.json](vercel.json): Vercel builds from `web/` (`npm ci`, `npm run build`) and publishes `web/dist` when the connected Git root is the whole repository; `framework: null` selects the **Other** preset so Vercel does not treat the repo as Python.
+- Root [package.json](package.json) and [.nvmrc](.nvmrc) (`22`): pin Node for Vercel (Vite 8 requires Node **≥20.19**); [web/package.json](web/package.json) `engines` aligned.
 
 ### Changed
 
 - [web/README.md](web/README.md): Vercel — recommend Root Directory `web`, or rely on root `vercel.json` if the project root stays the repo root.
+- [`.gitignore`](.gitignore): ignore root `node_modules/` if present.
 
 ## [0.3.1] - 2026-03-29
 
