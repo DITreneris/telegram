@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/state.json
+
+# Web build and deps (reproducible via npm)
+web/node_modules/
+web/dist/

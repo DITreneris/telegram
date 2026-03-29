@@ -1,0 +1,78 @@
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for **released** tags when you publish versions; until then, use `[Unreleased]` and date-stamped notes as needed.
+
+## [Unreleased]
+
+## [0.3.1] - 2026-03-29
+
+### Changed
+
+- Admin gate in [bot/handlers.py](bot/handlers.py) uses `update.effective_user.id` vs `ADMIN_CHAT_ID` (still the admin’s Telegram **user** id); delivery remains `update.effective_chat.id`. [docs/RUNBOOK.md](docs/RUNBOOK.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [.cursor/rules/python-bot.mdc](.cursor/rules/python-bot.mdc).
+
+### Fixed
+
+- [bot/handlers.py](bot/handlers.py): after a successful send, `record_delivered` is wrapped in `try/except`; persistence failures are logged and the user gets a clear English message; narrowed `except` clauses for `/next` and `/status` (`TelegramError`, `OSError`, `ValueError`, `FileNotFoundError`, with `Exception` fallback and distinct log messages).
+
+### Added
+
+- [tests/test_handlers_next.py](tests/test_handlers_next.py): `test_cmd_next_record_failure_after_send`, `test_cmd_next_admin_in_group`; mocks set `effective_user` for the new gate.
+
+## [0.3.0] - 2026-03-29
+
+### Added
+
+- [docs/archive/](docs/archive/) for non-canonical material; [docs/archive/README.md](docs/archive/README.md). [docs/bot_concept_notes.txt](docs/bot_concept_notes.txt) is a short compatibility pointer; full notes: [docs/archive/bot_concept_notes.txt](docs/archive/bot_concept_notes.txt).
+- [tests/test_handlers_next.py](tests/test_handlers_next.py): contract-style tests for `/next` (`peek_next_item` before send, `record_delivered` only after success; no record on peek/send failure; non-admin skips orchestrator).
+
+### Changed
+
+- Root `30_posts.txt` moved to [docs/archive/30_posts.txt](docs/archive/30_posts.txt) (legacy JSON snapshot). Canonical social copy: [web/public/posts.json](web/public/posts.json). [docs/INDEX.md](docs/INDEX.md) documents what each `.txt` in the repo is for; [web/README.md](web/README.md) points to the archive snapshot.
+- [web/public/posts.json](web/public/posts.json): LinkedIn-oriented order — array cycles 10 themes so consecutive posts do not repeat the same `theme`; days 1–10 / 11–20 / 21–30 use copy variants (`option` 1 / 2 / 3). `id` values renumbered 1–30 to match the social copy UI ([web/src/main.ts](web/src/main.ts)).
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): **Marry — long-lived core** (peek does not write, record after success, manifest via `parse_manifest`, state via `state_store`, startup manifest load); test file pointers. **KISS** section (thin handlers, single `/next` lock, EN Telegram without i18n, admin gate, checklist).
+- Telegram bot user-facing strings (handlers, `/status` summary, sample `data/content.json`) are **English**; Cursor rules and [AGENTS.md](AGENTS.md) updated. Startup `validate_config` messages stay Lithuanian.
+- [AGENTS.md](AGENTS.md): „Where to look“ extended (`state_store`, `tests/`, `LOG_LEVEL`, [docs/archive/README.md](docs/archive/README.md)); **Quality assurance** section; optional `LOG_LEVEL` in run instructions.
+- [docs/VERSIONING.md](docs/VERSIONING.md): index rules include `docs/archive/`; changelog workflow clarified (`[Unreleased]` vs version section).
+- [`.gitignore`](.gitignore): `.pytest_cache/`, `web/node_modules/`, `web/dist/`.
+- Cursor: [`.cursor/rules/python-bot.mdc`](.cursor/rules/python-bot.mdc), [`.cursor/rules/project-core.mdc`](.cursor/rules/project-core.mdc), [`.cursor/rules/documentation.mdc`](.cursor/rules/documentation.mdc); skills [`.cursor/skills/telegram-bot-coding/SKILL.md`](.cursor/skills/telegram-bot-coding/SKILL.md), [`.cursor/skills/document-qa/SKILL.md`](.cursor/skills/document-qa/SKILL.md) — `pytest` / QA and changelog references aligned with the repo.
+
+## [0.2.0] - 2026-03-29
+
+### Added
+
+- Vienetiniai testai: [tests/test_state_store.py](tests/test_state_store.py), [tests/test_content_loader.py](tests/test_content_loader.py), [tests/test_config_validate.py](tests/test_config_validate.py) (`validate_config` su `importlib.reload`).
+- [docs/bot_concept_notes.txt](docs/bot_concept_notes.txt) — istoriniai / alternatyvios architektūros užrašai (ne kanonas); ankstesnis `bot_concetp.txt` pašalintas.
+- Neprivalomas `LOG_LEVEL` (`DEBUG` / `INFO` / `WARNING` / `ERROR` / `CRITICAL`): `resolve_log_level()` [config.py](config.py), naudojama [bot/main.py](bot/main.py); netinkama reikšmė → `INFO` su `UserWarning`. [`.env.example`](.env.example) ir [docs/RUNBOOK.md](docs/RUNBOOK.md).
+- Komentuota „Ateičiai“ sekcija [`.env.example`](.env.example) (`PUBLISH_CHAT_ID`, `ENABLE_SCHEDULED_POSTING`) — kol kas neskaitoma kode.
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): išplėstas „Future expansion“ (scheduler, target chat, dublikatų apsauga, feature flag’ai, manifest vs „dienų“ ciklas).
+- Vite frontend [web/](web/) — socialinių postų peržiūra ir vieno mygtuko kopijavimas; duomenys [web/public/posts.json](web/public/posts.json) (pradinė sinchronizacija su repo šaknies `30_posts.txt`, vėliau perkeltas į [docs/archive/30_posts.txt](docs/archive/30_posts.txt) nuo 0.3.0); LT sąsaja; Vercel: projekto šaknis `web` (žr. [web/README.md](web/README.md)).
+- `pytest` suite under `tests/` with [requirements-dev.txt](requirements-dev.txt) and [pytest.ini](pytest.ini); tests for `schemas.parse_manifest`, orchestrator queue/state on disk, ir [tests/test_config_log_level.py](tests/test_config_log_level.py) (`resolve_log_level`).
+- Orchestrator testas `test_peek_without_record_keeps_state` (būsena nesikeičia be `record_delivered`).
+- Application logging: `logging.basicConfig` in [bot/main.py](bot/main.py); `logger.exception` in [bot/handlers.py](bot/handlers.py) when handlers fail.
+- Root [README.md](README.md) (short overview; links to AGENTS and RUNBOOK).
+
+### Changed
+
+- [docs/RUNBOOK.md](docs/RUNBOOK.md): trikčių lentelė — `Siuntimas nepavyko` (absoliutūs keliai, API/tinklas), `ADMIN_CHAT_ID` / privatūs vs grupiniai pokalbiai; env lentelė aiškesnė dėl `effective_chat.id`.
+- Eilė: `last_delivered_id` atnaujinamas tik po sėkmingo siuntimo (`peek_next_item` + `record_delivered`); `/next` naudoja `asyncio.Lock`.
+- `ADMIN_CHAT_ID` nustatomas ir tikrinamas tik `validate_config()` metu (aiškios LT klaidos, `int` parse, ne 0).
+- Centralizuotas PTB `add_error_handler` ([bot/main.py](bot/main.py)); handlerių klaidų atsakymai naudotojui be vidinių detalių.
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): eilės semantika (`peek_next_item` / `record_delivered`).
+- [docs/RUNBOOK.md](docs/RUNBOOK.md): added **Running tests** (dev install + `pytest`).
+- [AGENTS.md](AGENTS.md): dev tests one-liner with anchor to RUNBOOK.
+- [AGENTS.md](AGENTS.md): „Where to look“ ir **How to run** papildyti Vite socialinių postų įrankiu (`web/`).
+- [docs/INDEX.md](docs/INDEX.md): RUNBOOK row summary now includes tests.
+
+### Fixed
+
+- [bot/handlers.py](bot/handlers.py): `_send_item` nepalieka „tylaus“ išėjimo nežinomam tipui (`RuntimeError`).
+
+## [0.1.0] - 2026-03-29
+
+### Added
+
+- Telegram bot MVP (admin-only `/start`, `/next`, `/status`, content queue from `data/content.json`).
+- `AGENTS.md`, [docs/INDEX.md](docs/INDEX.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/RUNBOOK.md](docs/RUNBOOK.md).
+- Cursor project rules (`.cursor/rules/`) and skills (`.cursor/skills/telegram-bot-coding`, `document-qa`).

@@ -1,0 +1,3 @@
+MOVED — full text is now at: docs/archive/bot_concept_notes.txt
+
+Canonical MVP for this repository: docs/ARCHITECTURE.md and data/content.json (version: 1).

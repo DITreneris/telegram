@@ -1,0 +1,26 @@
+---
+description: Documentation edits — sync docs/INDEX.md, CHANGELOG, relative links, AGENTS.md consistency
+globs: "docs/**/*.md,AGENTS.md,CHANGELOG.md"
+alwaysApply: false
+---
+
+# Documentation
+
+## Index
+
+- When you add, rename, move, or remove a doc under `docs/`, update [docs/INDEX.md](../docs/INDEX.md) in the same change (path, audience, summary, last reviewed date).
+- Follow [docs/VERSIONING.md](../docs/VERSIONING.md) for changelog entries and **Last reviewed** bumps.
+- If `AGENTS.md`’s “Where to look” or Cursor map should reflect the change, update it too.
+
+## Changelog
+
+- For **notable** doc or operational changes, add a bullet under `[Unreleased]` in [CHANGELOG.md](../CHANGELOG.md), or under the version section you are cutting — see [docs/VERSIONING.md](../docs/VERSIONING.md) for what counts and release workflow.
+
+## Style
+
+- Use relative links between repo files (e.g. `../AGENTS.md`, `RUNBOOK.md`).
+- Project markdown docs do not require YAML frontmatter unless you introduce a tool that needs it.
+
+## Source of truth
+
+- Prefer short docs that match the code. If behavior is not documented, add or fix docs rather than guessing.

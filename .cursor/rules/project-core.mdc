@@ -1,0 +1,29 @@
+---
+description: Core repo standards — secrets, scope of edits, Python style, English Telegram UX text
+alwaysApply: true
+---
+
+# Project core
+
+## Secrets and env
+
+- Never commit `.env` or real `BOT_TOKEN` / chat IDs. Use `.env.example` as the template only.
+- Config is loaded in `config.py` via `python-dotenv`; `validate_config()` runs at bot startup.
+
+## Changes
+
+- Make the smallest diff that solves the task. Do not refactor unrelated code or rename symbols without need.
+- Match existing style: `from __future__ import annotations`, type hints, pathlib for paths.
+
+## User-facing language
+
+- Telegram replies and any other text sent to users via the bot must be **English**. Keep them English unless the user explicitly asks for another language.
+
+## Layout
+
+- Bot wiring: `bot/main.py`, handlers in `bot/handlers.py`.
+- Queue and state: `orchestrator.py`, `state_store.py`, `data/content.json`, `data/state.json`.
+
+## Quality assurance
+
+- After meaningful Python changes, run `pytest` from the repo root with dev deps installed ([docs/RUNBOOK.md](../docs/RUNBOOK.md#running-tests)). See **Quality assurance** in [AGENTS.md](../AGENTS.md).

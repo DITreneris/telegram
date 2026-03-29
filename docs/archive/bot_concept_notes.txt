@@ -1,0 +1,259 @@
+PASTABA — ne kanonas
+--------------------
+Tai istoriniai / alternatyvios architektūros užrašai (pvz. Mode A, cycle_length).
+Kanoninis MVP šiame repozitorije: ../ARCHITECTURE.md ir data/content.json (version: 1).
+
+---
+
+Mode A channel publisher + cycle_length setting + content manifest.
+
+That gives you 30 days now, and 60/90 later with almost no architectural change.
+
+Telegram’s Bot API supports bots sending messages/media, and inline buttons are standard bot interactions. For Python, python-telegram-bot includes JobQueue, which is specifically meant for scheduled tasks.
+
+What breaks first
+
+The weak design is:
+
+day01.png ... day30.png
+if day > 30: day = 1
+30 CTAs assumed everywhere
+
+That works once, then becomes cleanup debt.
+
+Better option
+
+Use one reusable structure:
+
+Core settings
+{
+  "campaign_name": "promptanatomy_cycle_v1",
+  "cycle_length": 30,
+  "timezone": "Europe/Vilnius",
+  "post_time": "10:00",
+  "chat_id": "@your_channel",
+  "default_button_text": "Learn more"
+}
+Content items
+[
+  {
+    "day": 1,
+    "message_text": "Most people don’t have an AI problem. They have a structure problem.",
+    "meme_file": "day01.png",
+    "button_text": "See the system",
+    "button_url": "https://example.com/1",
+    "theme": "awareness",
+    "active": true
+  }
+]
+
+Then your bot only needs to know:
+
+what cycle length is active
+what content belongs to each day
+what day to send next
+
+That is the whole future-proofing layer.
+
+Recommended lean architecture
+Folder structure
+telegram_cycle_bot/
+├── app.py
+├── config.json
+├── content/
+│   ├── messages.json
+│   └── memes/
+│       ├── day01.png
+│       ├── day02.png
+│       └── ...
+├── state/
+│   └── campaign_state.json
+├── .env
+└── requirements.txt
+campaign_state.json
+{
+  "current_day": 0,
+  "last_sent_at": null,
+  "history": []
+}
+
+This is enough for Mode A.
+
+No database yet.
+No admin panel yet.
+No AI generation yet.
+
+How to make 30 / 60 / 90 days work
+Rule
+
+Never infer the cycle from file count.
+
+Instead:
+
+cycle_length is explicit
+content is validated against it
+scheduler uses modulo logic
+Logic
+next_day = (current_day % cycle_length) + 1
+
+So:
+
+30-day cycle today
+later change cycle_length to 60
+add days 31–60 to JSON
+done
+
+Same for 90.
+
+Best implementation choice
+Version 1
+
+Use:
+
+python-telegram-bot[job-queue]
+one scheduled daily job
+send_photo
+inline keyboard button
+
+python-telegram-bot documents JobQueue as a wrapper for APScheduler for periodic tasks, which fits your daily publishing use case well.
+
+Recommended content strategy
+
+Do not jump to 90 unique CTAs immediately.
+
+That is a content maintenance trap.
+
+Better rollout:
+
+v1: 30 days
+v2: 30 core + 30 variation days
+v3: 90 only if click data proves the channel does not fatigue
+
+Because the real risk is not code.
+It is weak content density.
+
+A bad 90-day cycle is worse than a sharp 30-day loop.
+
+Suggested campaign model
+Option A — Single reusable cycle
+one 30-day sequence
+repeats forever
+
+Good for:
+
+always-on channel posting
+Option B — Expandable campaign family
+cycle 30
+cycle 60
+cycle 90
+
+Example:
+
+{
+  "campaigns": {
+    "30d": { "cycle_length": 30 },
+    "60d": { "cycle_length": 60 },
+    "90d": { "cycle_length": 90 }
+  },
+  "active_campaign": "30d"
+}
+
+This is better if later you want:
+
+different funnels
+different meme sets
+seasonal campaigns
+launch vs evergreen modes
+
+My recommendation: build for one active campaign, but support multiple campaign configs.
+
+That is lean and scalable enough.
+
+Practical design decision
+Use these IDs
+
+Each content item should have both:
+
+day
+id
+
+Example:
+
+{
+  "id": "pa_001",
+  "day": 1,
+  "message_text": "...",
+  "meme_file": "day01.png",
+  "button_url": "https://example.com/?utm_campaign=30d&utm_content=pa_001"
+}
+
+Why:
+
+day controls sequence
+id controls analytics and future editing
+
+Without stable IDs, later reporting gets messy fast.
+
+Minimal production-safe rules
+If day content is missing, fail loudly and log it.
+Validate that cycle_length <= number_of_active_items.
+Validate every meme_file exists before publishing.
+Validate every URL exists syntactically before startup.
+Log each sent post with day, id, timestamp.
+Lean next-step architecture
+v1
+one channel
+one campaign
+one daily send
+local JSON state
+v2
+multiple campaigns in config
+switch active campaign without code edits
+v3
+Google Sheet / Notion / admin JSON generator
+click reporting dashboard
+Top 3 pitfalls
+Hardcoding 30 into the codebase
+Then 60/90 becomes a refactor.
+Confusing scalability with complexity
+You do not need a DB yet.
+Expanding content before proving clicks
+More days does not automatically mean better performance.
+My recommendation
+
+Build it like this:
+
+Mode A only
+1 active campaign
+configurable cycle_length
+JSON manifest
+daily scheduled publish
+stable content IDs for analytics
+
+That is the correct lean version.
+
+Here is the exact shape I would use:
+
+{
+  "campaign": {
+    "name": "promptanatomy_evergreen",
+    "cycle_length": 30,
+    "chat_id": "@your_channel",
+    "post_time": "10:00",
+    "timezone": "Europe/Vilnius"
+  },
+  "content": [
+    {
+      "id": "pa_001",
+      "day": 1,
+      "message_text": "Most people don’t have an AI problem. They have a structure problem.",
+      "meme_file": "day01.png",
+      "button_text": "See the system",
+      "button_url": "https://example.com/?utm_source=telegram&utm_medium=channel&utm_campaign=promptanatomy_evergreen&utm_content=pa_001",
+      "theme": "awareness",
+      "active": true
+    }
+  ]
+}
+
+Next best move: I can draft the full production-ready JSON schema + Python bot script for this exact expandable Mode A structure.

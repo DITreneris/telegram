@@ -1,0 +1,31 @@
+---
+description: python-telegram-bot handlers, bot_data, admin gate, orchestrator boundaries
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python Telegram bot
+
+## Application shape
+
+- Build `Application` in `bot/main.py`. Put shared objects on `application.bot_data` (e.g. `orchestrator`, `admin_chat_id`).
+- Register handlers with `CommandHandler`. New commands: add handler in `main.py`, implement async handler in `bot/handlers.py`.
+
+## Handlers
+
+- Handlers are `async`. Use `context.bot_data` for `Orchestrator` and admin id — not globals.
+- **Admin-only**: reuse `_deny_if_not_admin` / `_admin_id` pattern from `bot/handlers.py` for any privileged command (gate compares `update.effective_user.id` to `bot_data["admin_chat_id"]`, i.e. the configured admin **user** id).
+
+## Separation of concerns
+
+- **Handlers**: Telegram I/O, call `Orchestrator` or small helpers.
+- **Orchestrator** (`orchestrator.py`): ordering, `peek_next_item` / `record_delivered`, `status_text`, manifest reload via `load_content`.
+- **Parsing / validation**: `schemas.py`, `content_loader.py` — do not duplicate manifest rules in handlers.
+
+## Optional hooks
+
+- `schedule_next_delivery` in `orchestrator.py` is reserved for future scheduling; MVP does not use it.
+
+## Quality assurance
+
+- After substantive changes to handlers, orchestrator, schemas, `content_loader`, `state_store`, or `config.py`, run `pytest` from the repo root (install [requirements-dev.txt](../requirements-dev.txt) first). Add or extend tests in `tests/` when behavior changes.

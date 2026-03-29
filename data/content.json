@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "welcome_text",
+      "type": "text",
+      "text": "Welcome — lean orchestrator MVP. Use /next to send the next queued item (cycles)."
+    }
+  ]
+}
