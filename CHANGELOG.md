@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Root [vercel.json](vercel.json): Vercel builds from `web/` (`npm ci`, `npm run build`) and publishes `web/dist` when the connected Git root is the whole repository, avoiding Python entrypoint detection on a Python-heavy tree.
+
+### Changed
+
+- [web/README.md](web/README.md): Vercel — recommend Root Directory `web`, or rely on root `vercel.json` if the project root stays the repo root.
+
 ## [0.3.1] - 2026-03-29
 
 ### Changed

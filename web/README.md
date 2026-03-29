@@ -27,8 +27,7 @@ Produkcinis išėjimas: katalogas `dist/`.
 ## Vercel
 
 1. Importuokite šį GitHub repozitoriją į Vercel.
-2. **Root Directory:** `web`
-3. Build Command: `npm run build` (numatytasis)
-4. Output Directory: `dist` (numatytasis Vite)
+2. **Root Directory:** `web` (rekomenduojama). Tada Build: `npm run build`, Output: `dist`.
+3. Jei šaknis lieka visas repozitorijos katalogas, Vercel gali bandyti Python — naudokite šaknies [`vercel.json`](../vercel.json) (`installCommand` / `buildCommand` / `outputDirectory: web/dist`) arba vis tiek nustatykite Root Directory į `web`.
 
 Slaptų kintamųjų šiai statinei aplikacijai nereikia.
