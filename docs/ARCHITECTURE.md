@@ -20,7 +20,7 @@ An admin-only Telegram bot (MVP) built with **python-telegram-bot** (v20-style `
 | `bot/handlers.py` | Admin check, `/start`, `/next`, `/status`; send text, photo, or document per `ContentItem` |
 | `orchestrator.py` | Load manifest, `peek_next_item` / `record_delivered`, `status_text()` |
 | `content_loader.py` | Read JSON from disk, `parse_manifest()` |
-| `schemas.py` | `ContentItem`, `ContentManifest`, manifest validation (`version` must be `1`) |
+| `schemas.py` | `ContentItem`, `ContentManifest`, manifest validation (`version` must be `1`; optional media `caption` max `MAX_CAPTION_CHARS`) |
 | `state_store.py` | Load/save `data/state.json` with atomic write and `updated_at` timestamp |
 
 ## Keep it simple (KISS)
@@ -57,6 +57,7 @@ An admin-only Telegram bot (MVP) built with **python-telegram-bot** (v20-style `
 - `version` must be `1` (a new version = new contract or file, not silent breakage).
 - Media paths are resolved only under `base_dir`; stored as absolute `Path` after validation.
 - Item `id` values must be **unique** so `_next_after` is deterministic.
+- Optional `caption` on `photo` / `document` items is validated to **at most 140 characters** when present (`schemas.MAX_CAPTION_CHARS`); see **Image or document plus long copy** below.
 
 **State (`state_store.py`):**
 
@@ -70,14 +71,56 @@ An admin-only Telegram bot (MVP) built with **python-telegram-bot** (v20-style `
 
 **Tests as contract witnesses:** `tests/test_orchestrator.py`, `tests/test_schemas.py`, `tests/test_state_store.py`, and `tests/test_handlers_next.py` (handler call order for `/next` with mocks).
 
+## Telegram delivery paths
+
+The repository exposes **two independent ways** to send text to Telegram. They do **not** share runtime state: the HTTP publish path never calls `Orchestrator` and never writes `data/state.json`.
+
+| Path | Entry | Content source | State |
+|------|--------|----------------|--------|
+| **Polling bot (queue)** | `python run.py` → [`bot/main.py`](../bot/main.py) | `data/content.json` via `Orchestrator` | `last_delivered_id` in `data/state.json` advances only after a successful bot send (`peek` → send → `record_delivered`) |
+| **HTTP publish (web UI)** | Browser → `POST /api/publish` → [`api/publish.ts`](../api/publish.ts) | Free-form post body from the social copy UI (not the manifest queue) | No queue cursor; long text is split server-side to fit Telegram’s ~4096-character message limit |
+
+Vercel env vars, bearer auth, and limitations (e.g. **text-only**; images from `posts.json` are not sent through this API) are documented in [`web/README.md`](../web/README.md) (`PUBLISH_BEARER_TOKEN`, `TELEGRAM_BOT_TOKEN` or `BOT_TOKEN`, `TELEGRAM_PUBLISH_CHAT_ID` or `PUBLISH_CHAT_ID`).
+
+```mermaid
+flowchart TB
+  subgraph queuePath [Queue_path]
+    manifest[data_content_json]
+    orch[Orchestrator]
+    handlers[Python_handlers]
+    statefile[data_state_json]
+    manifest --> orch
+    orch --> handlers
+    handlers --> statefile
+  end
+  subgraph httpPath [HTTP_publish_path]
+    ui[web_UI]
+    api[api_publish_ts]
+    tgapi[Telegram_Bot_API]
+    ui --> api
+    api --> tgapi
+  end
+```
+
 ## Data
 
-- **`data/content.json`**: Manifest with `version: 1` and `items[]`. Each item has `id`, `type` (`text` \| `photo` \| `document`), and fields per type (e.g. `text`, or `path` relative to repo root for media, optional `caption`).
+- **`data/content.json`**: Manifest with `version: 1` and `items[]`. Each item has `id`, `type` (`text` \| `photo` \| `document`), and fields per type (e.g. `text`, or `path` relative to repo root for media, optional `caption` up to **140** characters when set—enforced in `parse_manifest`).
 - **`data/state.json`**: `last_delivered_id` (string or null), `updated_at` (ISO string). Created/updated by `state_store.save_atomic`.
 
 ## Queue semantics
 
 `Orchestrator.peek_next_item()` reloads the manifest and state, finds the item after `last_delivered_id` in order (wraps to the first item), and returns that `ContentItem` **without** writing state. After a successful Telegram send, the handler calls `record_delivered(item.id)` so `last_delivered_id` reflects only delivered content. If `last_delivered_id` is missing or unknown, the next item is the first in the manifest.
+
+## Image or document plus long copy (Telegram and cross-channel)
+
+**Telegram Bot API (context):** media captions are limited to about **1024** characters; plain message text to about **4096** characters. Putting a long “LinkedIn-style” body entirely in a photo caption hits the caption limit and weakens the post.
+
+**Recommended pattern in this repo (no extra schema fields):** use **two consecutive `items`** in `content.json`:
+
+1. A **`photo`** or **`document`** item with an optional **`caption`** that acts as a short **hook**. The manifest enforces **at most 140 characters** for `caption` when it is set. That hook is suitable for Telegram’s caption and is intended to double as copy for a future **X/Twitter**-style short post (same text source).
+2. A following **`text`** item with the **full body**, including any **call to action**. That long block is delivered via `send_message` and is **not** intended for reuse on Twitter when a short-form integration is added—the Twitter path should use only the hook-sized caption field.
+
+One logical “drop” therefore requires **two `/next` invocations** in order. The queue is **cyclic**: after the last item, the next item wraps to the first—keep paired hook + body entries adjacent in the manifest if you want them delivered back-to-back in each cycle.
 
 ## Future expansion (not implemented)
 

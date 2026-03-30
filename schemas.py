@@ -8,6 +8,9 @@ from typing import Any, Literal
 
 ContentType = Literal["text", "photo", "document"]
 
+# Hook text shared with Telegram media caption and future short-form channels (e.g. X/Twitter).
+MAX_CAPTION_CHARS = 140
+
 
 @dataclass(frozen=True)
 class ContentItem:
@@ -83,6 +86,11 @@ def parse_manifest(raw: dict[str, Any], *, base_dir: Path) -> ContentManifest:
                 raise ValueError(f'Item "{item_id}": kelias turi būti po projekto šaknimi.')
             if not p.is_file():
                 raise ValueError(f'Item "{item_id}": failas nerastas: {p}')
+            if caption is not None and len(caption) > MAX_CAPTION_CHARS:
+                raise ValueError(
+                    f'Item "{item_id}" ({ctype}): laukas "caption" negali būti ilgesnis nei '
+                    f"{MAX_CAPTION_CHARS} simbolių (dabar {len(caption)})."
+                )
             out.append(
                 ContentItem(
                     id=item_id,

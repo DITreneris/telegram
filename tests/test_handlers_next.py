@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 from unittest.mock import AsyncMock, MagicMock, call
 
-from bot.handlers import _RECORD_FAILED_MSG, cmd_next
+from bot.handlers import MAX_MESSAGE_CHARS, _RECORD_FAILED_MSG, cmd_next
 from schemas import ContentItem
 
 _ADMIN_ID = 42
@@ -48,6 +48,29 @@ def test_cmd_next_peek_then_send_then_record() -> None:
     context.bot.send_message.assert_awaited_once_with(chat_id=_ADMIN_ID, text="Body")
     orch.record_delivered.assert_called_once_with("n1")
     assert orch.mock_calls == [call.peek_next_item(), call.record_delivered("n1")]
+
+
+def test_cmd_next_long_text_sends_multiple_messages_then_records_once() -> None:
+    chunk_a = "a" * MAX_MESSAGE_CHARS
+    chunk_b = "bb"
+    body = chunk_a + chunk_b
+    item = ContentItem(id="long1", type="text", text=body)
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    update = _update(_ADMIN_ID)
+    context = _context(orch)
+
+    async def run() -> None:
+        await cmd_next(update, context)
+
+    asyncio.run(run())
+
+    orch.peek_next_item.assert_called_once()
+    assert context.bot.send_message.await_args_list == [
+        call(chat_id=_ADMIN_ID, text=chunk_a),
+        call(chat_id=_ADMIN_ID, text=chunk_b),
+    ]
+    orch.record_delivered.assert_called_once_with("long1")
 
 
 def test_cmd_next_peek_error_does_not_record() -> None:

@@ -42,9 +42,9 @@ Admin-only Telegram bot (MVP) that delivers queued items from `data/content.json
 
 - Prieš sujungiant esminius Python pakeitimus: `pytest` iš repo šaknies (tas pats interpretatorius kaip `pip install -r requirements-dev.txt`).
 - Keičiant `config.validate_config`, eilę, manifestą, būsenos įrašymą ar siuntimą — pridėkite ar atnaujinkite testus `tests/` (žr. esamus `test_*` failus).
-- Dabartinė istorija: [CHANGELOG.md](CHANGELOG.md) (pvz. `[0.3.1]`).
+- Dabartinė istorija: [CHANGELOG.md](CHANGELOG.md) (pvz. `[0.3.5]`).
 
-**Socialinių postų kopijavimas (frontend):** `cd web`, `npm install`, `npm run dev`. Vercel: nustatykite projekto šaknį į katalogą `web` (žr. [web/README.md](web/README.md)).
+**Socialinių postų kopijavimas (frontend):** `cd web`, `npm install`, `npm run dev`. **Vercel:** projekto šaknis turi būti **visa repozitorija**, jei naudojate Telegram publish (`vercel.json` + `api/`); šaknis **`web`** tinka tik jei publish nenaudojate. Įdiegti URL ir `/api/publish` pavyzdžiai: [web/README.md](web/README.md) (skiltis **Įdiegta (pavyzdiniai URL)**).
 
 ## Cursor assets
 

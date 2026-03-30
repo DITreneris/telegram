@@ -6,10 +6,10 @@ For **how** the index, changelog, and reviews fit together, see [VERSIONING.md](
 
 | Path | Audience | Summary | Last reviewed |
 |------|----------|---------|---------------|
-| [INDEX.md](INDEX.md) | Human, agent | This index; links to changelog and versioning policy | 2026-03-29 |
+| [INDEX.md](INDEX.md) | Human, agent | This index; links to changelog and versioning policy | 2026-03-30 |
 | [VERSIONING.md](VERSIONING.md) | Human, agent | Documentation management: index, archive folder, changelog (Unreleased vs version section), Last reviewed, semver notes | 2026-03-29 |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Human, agent | Modules, data flow, KISS + Marry (core contracts), manifest/state, future expansion hooks | 2026-03-29 |
-| [RUNBOOK.md](RUNBOOK.md) | Human, agent | Setup, env vars (incl. optional `LOG_LEVEL`), run, tests, troubleshooting (paths, `effective_user.id` vs `ADMIN_CHAT_ID`, delivery chat, EN Telegram bot messages) | 2026-03-29 |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Human, agent | Modules, data flow, two Telegram delivery paths (queue bot vs HTTP publish), KISS + Marry (core contracts), manifest/state, future expansion hooks | 2026-03-30 |
+| [RUNBOOK.md](RUNBOOK.md) | Human, agent | Setup, env vars (incl. optional `LOG_LEVEL`), run, tests, local bot vs web publish, troubleshooting (paths, queue vs Vercel publish, `effective_user.id` vs `ADMIN_CHAT_ID`, delivery chat, EN Telegram bot messages) | 2026-03-30 |
 
 ## Archive (non-canonical)
 

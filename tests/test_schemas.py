@@ -71,3 +71,31 @@ def test_parse_manifest_document_resolves_file(tmp_path: Path) -> None:
     m = parse_manifest(raw, base_dir=tmp_path)
     assert m.items[0].type == "document"
     assert Path(m.items[0].path) == doc.resolve()
+
+
+def test_parse_manifest_photo_caption_max_length_ok(tmp_path: Path) -> None:
+    img = tmp_path / "shot.png"
+    img.write_bytes(b"\x89PNG\r\n\x1a\n")
+    caption_140 = "x" * 140
+    raw = {
+        "version": 1,
+        "items": [
+            {"id": "p", "type": "photo", "path": "shot.png", "caption": caption_140},
+        ],
+    }
+    m = parse_manifest(raw, base_dir=tmp_path)
+    assert m.items[0].caption == caption_140
+
+
+def test_parse_manifest_photo_caption_too_long(tmp_path: Path) -> None:
+    img = tmp_path / "shot.png"
+    img.write_bytes(b"\x89PNG\r\n\x1a\n")
+    caption_141 = "x" * 141
+    raw = {
+        "version": 1,
+        "items": [
+            {"id": "p", "type": "photo", "path": "shot.png", "caption": caption_141},
+        ],
+    }
+    with pytest.raises(ValueError, match="caption"):
+        parse_manifest(raw, base_dir=tmp_path)

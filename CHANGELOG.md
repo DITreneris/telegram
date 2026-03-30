@@ -4,17 +4,74 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for **released** tags when you publish versions; until then, use `[Unreleased]` and date-stamped notes as needed.
 
+Section order within each release: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**, **Security**. Newest release at the top.
+
 ## [Unreleased]
+
+## [0.3.6] - 2026-04-02
+
+### Added
+
+- Web socialinių postų UI: paveikslėlio atsisiuntimas („Atsisiųsti paveikslėlį“), teksto redagavimas ir atkūrimas tik naršyklės sesijoje (`sessionStorage`); „Kopijuoti“ ir „Publikuoti į Telegram“ naudoja pataisytą tekstą ([web/src/main.ts](web/src/main.ts), [web/src/style.css](web/src/style.css)).
+
+### Changed
+
+- [web/README.md](web/README.md): dokumentuotas sesijos redagavimas ir paveikslėlio atsisiuntimas (skiltis **Turinys**).
+
+## [0.3.5] - 2026-04-01
+
+### Added
+
+- [tests/test_handlers_next.py](tests/test_handlers_next.py): `test_cmd_next_long_text_sends_multiple_messages_then_records_once` — ilgas `text` `/next` siunčiamas keliais `sendMessage` kvietimais.
+
+### Fixed
+
+- [bot/handlers.py](bot/handlers.py): `text` turinys skaidomas po 4096 simbolių (`split_telegram_text_chunks`, `MAX_MESSAGE_CHARS`), sinchronuojant su [api/publish.ts](api/publish.ts); ilgi `/next` įrašai nebekrenta dėl Telegram `sendMessage` limito.
+
+### Changed
+
+- [.env.example](.env.example): aiškiau, kad `ADMIN_CHAT_ID` yra naudotojo skaitinis id, ne grupės pokalbio id.
+- [web/README.md](web/README.md): Node 22 (`.nvmrc` / `engines`) vs lokalaus Node 20 `EBADENGINE` pastaba.
+
+## [0.3.4] - 2026-03-31
+
+### Added
+
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): section **Telegram delivery paths** (queue bot vs `api/publish` web UI, no shared `state.json`; mermaid diagram).
+- [docs/RUNBOOK.md](docs/RUNBOOK.md): **Local bot vs web publish (Vercel)** and troubleshooting row when the web publish does not advance `/next` queue.
+- [docs/INDEX.md](docs/INDEX.md): updated summaries and Last reviewed for architecture and runbook.
+- [web/README.md](web/README.md): **Įdiegta (pavyzdiniai URL)** — production ir papildomi Vercel hostname’ai, `/api/publish` pilnas URL, `VITE_PUBLISH_API_URL` pastaba.
+
+### Changed
+
+- [AGENTS.md](AGENTS.md): Vercel šaknies nurodymai sutapatinti su `web/README` (visa repo su publish; tik `web` be publish); nuoroda į deployment URL skiltį.
+- [package.json](package.json) ir [web/package.json](web/package.json): `engines.node` pakeistas iš `>=20.19.0` į `22.x` (sutampa su [.nvmrc](.nvmrc); mažina Vercel CLI įspėjimą apie automatinį major Node atnaujinimą; Vite 8 reikalavimas ≥20.19 išlieka tenkinamas).
+
+## [0.3.3] - 2026-03-30
 
 ### Added
 
 - Root [vercel.json](vercel.json): Vercel builds from `web/` (`npm ci`, `npm run build`) and publishes `web/dist` when the connected Git root is the whole repository; `framework: null` selects the **Other** preset so Vercel does not treat the repo as Python.
 - Root [package.json](package.json) and [.nvmrc](.nvmrc) (`22`): pin Node for Vercel (Vite 8 requires Node **≥20.19**); [web/package.json](web/package.json) `engines` aligned.
+- Telegram **publish from the social copy UI**: [web/src/main.ts](web/src/main.ts) adds **Publikuoti į Telegram** per post; calls `POST /api/publish` with `Authorization: Bearer` (prompt + [sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) on first use, or optional `VITE_PUBLISH_BEARER_TOKEN`; optional `VITE_PUBLISH_API_URL`). Long text is split server-side to respect Telegram’s 4096-character limit.
+- Vercel serverless [api/publish.ts](api/publish.ts): validates bearer, sends `sendMessage` via Telegram Bot API using env `TELEGRAM_BOT_TOKEN` or `BOT_TOKEN`, target `TELEGRAM_PUBLISH_CHAT_ID` or `PUBLISH_CHAT_ID`, and `PUBLISH_BEARER_TOKEN`. Root [package.json](package.json) dependency `@vercel/node` for the function runtime.
+- [web/src/vite-env.d.ts](web/src/vite-env.d.ts): `ImportMetaEnv` for optional publish-related `VITE_*` variables.
 
 ### Changed
 
-- [web/README.md](web/README.md): Vercel — recommend Root Directory `web`, or rely on root `vercel.json` if the project root stays the repo root.
+- [vercel.json](vercel.json): `installCommand` is `npm ci && cd web && npm ci` so root `api/` dependencies install alongside the Vite app.
+- [web/README.md](web/README.md): Vercel — use **repository root** as the project root when using Telegram publish (`vercel.json` + `api/`); **Publikuoti į Telegram** section documents required env vars and limitations (text-only; images from `posts.json` not sent).
+- [web/src/style.css](web/src/style.css): `.card-actions` gap/wrap; `.btn-telegram` styles.
 - [`.gitignore`](.gitignore): ignore root `node_modules/` if present.
+- [web/public/posts.json](web/public/posts.json): each LinkedIn-style post opens with a thematic emoji plus 2–3 more varied emojis at key beats (3–4 per post total; existing ❌/✅ examples kept where present).
+
+## [0.3.2] - 2026-03-30
+
+### Added
+
+- Content manifest: optional `caption` on `photo` / `document` items is validated to at most **140** characters when set ([schemas.py](schemas.py) `MAX_CAPTION_CHARS`, `parse_manifest`); [tests/test_schemas.py](tests/test_schemas.py) covers at-limit and over-limit cases.
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): section **Image or document plus long copy** (Telegram caption vs message limits, two consecutive queue items for hook + full post, 140-char hook intended for future X/Twitter reuse, full text + CTA oriented to Telegram); **Data** / **Marry** bullets and modules table note the caption rule.
+- [docs/RUNBOOK.md](docs/RUNBOOK.md): content manifest note on caption length and pointer to the architecture section.
 
 ## [0.3.1] - 2026-03-29
 
@@ -46,7 +103,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - [AGENTS.md](AGENTS.md): „Where to look“ extended (`state_store`, `tests/`, `LOG_LEVEL`, [docs/archive/README.md](docs/archive/README.md)); **Quality assurance** section; optional `LOG_LEVEL` in run instructions.
 - [docs/VERSIONING.md](docs/VERSIONING.md): index rules include `docs/archive/`; changelog workflow clarified (`[Unreleased]` vs version section).
 - [`.gitignore`](.gitignore): `.pytest_cache/`, `web/node_modules/`, `web/dist/`.
-- Cursor: [`.cursor/rules/python-bot.mdc`](.cursor/rules/python-bot.mdc), [`.cursor/rules/project-core.mdc`](.cursor/rules/project-core.mdc), [`.cursor/rules/documentation.mdc`](.cursor/rules/documentation.mdc); skills [`.cursor/skills/telegram-bot-coding/SKILL.md`](.cursor/skills/telegram-bot-coding/SKILL.md), [`.cursor/skills/document-qa/SKILL.md`](.cursor/skills/document-qa/SKILL.md) — `pytest` / QA and changelog references aligned with the repo.
+- Cursor: [.cursor/rules/python-bot.mdc](.cursor/rules/python-bot.mdc), [.cursor/rules/project-core.mdc](.cursor/rules/project-core.mdc), [.cursor/rules/documentation.mdc](.cursor/rules/documentation.mdc); skills [.cursor/skills/telegram-bot-coding/SKILL.md](.cursor/skills/telegram-bot-coding/SKILL.md), [.cursor/skills/document-qa/SKILL.md](.cursor/skills/document-qa/SKILL.md) — `pytest` / QA and changelog references aligned with the repo.
 
 ## [0.2.0] - 2026-03-29
 

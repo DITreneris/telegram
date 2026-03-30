@@ -21,6 +21,16 @@ _RECORD_FAILED_MSG = (
     "Delivered but could not save progress; check disk/logs — may resend on next /next."
 )
 
+# Same limit as Telegram Bot API sendMessage and api/publish.ts.
+MAX_MESSAGE_CHARS = 4096
+
+
+def split_telegram_text_chunks(text: str) -> list[str]:
+    """Split body text so each part fits Telegram's message length limit."""
+    if len(text) <= MAX_MESSAGE_CHARS:
+        return [text]
+    return [text[i : i + MAX_MESSAGE_CHARS] for i in range(0, len(text), MAX_MESSAGE_CHARS)]
+
 
 def _admin_id(context: ContextTypes.DEFAULT_TYPE) -> int:
     return int(context.bot_data["admin_chat_id"])
@@ -75,7 +85,8 @@ async def _send_item(
     chat_id = update.effective_chat.id
     if item.type == "text":
         assert item.text is not None
-        await context.bot.send_message(chat_id=chat_id, text=item.text)
+        for chunk in split_telegram_text_chunks(item.text):
+            await context.bot.send_message(chat_id=chat_id, text=chunk)
         return
     assert item.path is not None
     path = Path(item.path)

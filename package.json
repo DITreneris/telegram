@@ -2,6 +2,9 @@
   "name": "telegram-repo-root",
   "private": true,
   "engines": {
-    "node": ">=20.19.0"
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@vercel/node": "^5.5.16"
   }
 }
