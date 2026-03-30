@@ -12,6 +12,7 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 - [api/publish.ts](api/publish.ts): nuotrauką serveris pats atsisiunčia iš to paties host ir siunčia Telegram kaip `multipart/form-data` (patikimesnė nei URL `sendPhoto`, kurią Telegram dažnai atmeta).
 - [web/src/main.ts](web/src/main.ts): publikavimo klaidos pranešime rodomas API `detail` (Telegram / fetch paaiškinimas).
+- [api/publish.ts](api/publish.ts), [web/src/main.ts](web/src/main.ts): maži paveikslėliai (≤~3MB) siunčiami **base64** iš naršyklės — apeina Vercel **Deployment Protection** 401 ant serverio `fetch`; didesniems — URL + optional `VERCEL_AUTOMATION_BYPASS_SECRET` (`x-vercel-protection-bypass`).
 
 ## [0.3.7] - 2026-04-03
 

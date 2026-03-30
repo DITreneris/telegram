@@ -61,6 +61,7 @@ The **social copy UI** can publish post text (and, when the post has `image`, an
 | `Send failed. Check logs.` | Media paths are resolved to **absolute** paths under `BASE_DIR` when the manifest loads (`schemas.parse_manifest`), not from process cwd. Also check Telegram API/network, rate limits, bad or oversized files, and logs for the real exception. |
 | `Delivered but could not save progress...` | Telegram send succeeded but writing `data/state.json` failed (disk, permissions, etc.). Check logs; the next `/next` may deliver the same item again until state saves. |
 | Published from the web UI but `/next` did not advance the queue | **Expected.** The Vercel/serverless publish endpoint does not call `Orchestrator` or write `state.json`. Use `/next` in the bot for manifest queue progress. See [ARCHITECTURE.md](ARCHITECTURE.md) (**Telegram delivery paths**). |
+| Publish photo: `Could not fetch image (HTTP 401)` | **Vercel Deployment Protection** blocks serverless `fetch` to your static files. The web UI sends small images (≤~3MB) as **base64** automatically; for larger files set env **`VERCEL_AUTOMATION_BYPASS_SECRET`** (Protection Bypass for Automation) or shrink the asset. See [`web/README.md`](../web/README.md). |
 
 ## State file
 

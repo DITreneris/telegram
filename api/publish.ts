@@ -6,6 +6,8 @@ const MAX_MESSAGE_CHARS = 4096;
 const MAX_CAPTION_CHARS = 1024;
 /** Bot API upload practical limit for photos (bytes). */
 const MAX_PHOTO_BYTES = 10 * 1024 * 1024;
+/** Decoded image max when sent as JSON base64 (Vercel ~4.5MB request body limit). */
+const MAX_PHOTO_BASE64_BYTES = 3 * 1024 * 1024;
 
 function splitTelegramChunks(text: string): string[] {
   if (text.length <= MAX_MESSAGE_CHARS) return [text];
@@ -41,11 +43,51 @@ function photoUrlAllowed(photoUrl: string, req: VercelRequest): boolean {
   return u.hostname.toLowerCase() === allowedHost;
 }
 
+function protectionBypassHeaders(): Record<string, string> {
+  const secret = (
+    process.env.VERCEL_AUTOMATION_BYPASS_SECRET ??
+    process.env.PUBLISH_STATIC_BYPASS_SECRET ??
+    ""
+  ).trim();
+  const h: Record<string, string> = { Accept: "image/*,*/*;q=0.8" };
+  if (secret) {
+    h["x-vercel-protection-bypass"] = secret;
+  }
+  return h;
+}
+
+async function sendPhotoBytesToTelegram(
+  token: string,
+  chatId: string,
+  buf: Uint8Array,
+  mime: string,
+  filename: string,
+  caption: string,
+): Promise<{ ok: true } | { ok: false; detail: string }> {
+  const form = new FormData();
+  form.append("chat_id", chatId);
+  form.append("photo", new Blob([buf], { type: mime }), filename);
+  if (caption.length > 0) {
+    form.append("caption", caption);
+  }
+
+  const tgPhoto = await fetch(`${TELEGRAM_API}/bot${token}/sendPhoto`, {
+    method: "POST",
+    body: form,
+  });
+
+  if (!tgPhoto.ok) {
+    const detail = await tgPhoto.text();
+    return { ok: false, detail: detail.slice(0, 500) };
+  }
+  return { ok: true };
+}
+
 /**
- * Telegram often fails when given a remote photo URL (TLS, redirects, edge caches).
- * Fetch the file on this host and upload as multipart — same URL the browser used.
+ * Fetch image from same deployment URL, then multipart to Telegram.
+ * Uses Vercel deployment-protection bypass headers when env secret is set.
  */
-async function sendPhotoMultipart(
+async function sendPhotoMultipartFromUrl(
   token: string,
   chatId: string,
   photoUrl: string,
@@ -56,7 +98,7 @@ async function sendPhotoMultipart(
   let imgRes: Response;
   try {
     imgRes = await fetch(photoUrl, {
-      headers: { Accept: "image/*,*/*;q=0.8" },
+      headers: protectionBypassHeaders(),
       redirect: "follow",
     });
   } catch (e) {
@@ -65,10 +107,14 @@ async function sendPhotoMultipart(
   }
 
   if (!imgRes.ok) {
+    const hint =
+      imgRes.status === 401
+        ? " If the site uses Vercel Deployment Protection, set VERCEL_AUTOMATION_BYPASS_SECRET (same value as in Vercel → Protection Bypass) or publish from the UI (small images are sent as base64)."
+        : "";
     return {
       ok: false,
       phase: "fetch",
-      detail: `Could not fetch image (HTTP ${imgRes.status}).`,
+      detail: `Could not fetch image (HTTP ${imgRes.status}).${hint}`,
     };
   }
 
@@ -106,21 +152,16 @@ async function sendPhotoMultipart(
       ? ctRaw.split(";")[0]?.trim() || "image/png"
       : "image/png";
 
-  const form = new FormData();
-  form.append("chat_id", chatId);
-  form.append("photo", new Blob([buf], { type: mime }), filename);
-  if (caption.length > 0) {
-    form.append("caption", caption);
-  }
-
-  const tgPhoto = await fetch(`${TELEGRAM_API}/bot${token}/sendPhoto`, {
-    method: "POST",
-    body: form,
-  });
-
-  if (!tgPhoto.ok) {
-    const detail = await tgPhoto.text();
-    return { ok: false, phase: "telegram", detail: detail.slice(0, 500) };
+  const up = await sendPhotoBytesToTelegram(
+    token,
+    chatId,
+    buf,
+    mime,
+    filename,
+    caption,
+  );
+  if (!up.ok) {
+    return { ok: false, phase: "telegram", detail: up.detail };
   }
   return { ok: true };
 }
@@ -184,15 +225,45 @@ export default async function handler(
       ? (body as { photo: string }).photo.trim()
       : "";
 
+  const photoBase64 =
+    typeof body === "object" &&
+    body !== null &&
+    typeof (body as { photoBase64?: unknown }).photoBase64 === "string"
+      ? (body as { photoBase64: string }).photoBase64.replace(/\s+/g, "").trim()
+      : "";
+
+  const photoMimeRaw =
+    typeof body === "object" &&
+    body !== null &&
+    typeof (body as { photoMime?: unknown }).photoMime === "string"
+      ? (body as { photoMime: string }).photoMime.trim()
+      : "";
+  const photoMime =
+    photoMimeRaw.length > 0
+      ? photoMimeRaw.split(";")[0]?.trim() || "image/png"
+      : "image/png";
+
+  const photoFilenameRaw =
+    typeof body === "object" &&
+    body !== null &&
+    typeof (body as { photoFilename?: unknown }).photoFilename === "string"
+      ? (body as { photoFilename: string }).photoFilename.trim()
+      : "";
+  const photoFilename =
+    photoFilenameRaw.length > 0 ? photoFilenameRaw : "photo.png";
+
+  const hasPhotoBase64 = photoBase64.length > 0;
+  const hasPhotoUrl = photoRaw.length > 0;
+  const hasPhoto = hasPhotoBase64 || hasPhotoUrl;
+
   const hasText = text.trim().length > 0;
-  const hasPhoto = photoRaw.length > 0;
 
   if (!hasText && !hasPhoto) {
     res.status(400).json({ error: "Missing or empty text and photo" });
     return;
   }
 
-  if (hasPhoto && !photoUrlAllowed(photoRaw, req)) {
+  if (hasPhotoUrl && !hasPhotoBase64 && !photoUrlAllowed(photoRaw, req)) {
     res.status(400).json({
       error:
         "Photo URL must be https on the same host as this site (or http://localhost for local dev).",
@@ -213,19 +284,62 @@ export default async function handler(
         ? remainder.slice(MAX_CAPTION_CHARS)
         : "";
 
-    const photoResult = await sendPhotoMultipart(token, chatId, photoRaw, caption);
-    if (!photoResult.ok) {
-      const errMsg =
-        photoResult.phase === "fetch"
-          ? "Could not load image for upload."
-          : "Telegram API rejected the photo.";
-      res.status(502).json({
-        error: errMsg,
-        detail: photoResult.detail,
-      });
-      return;
+    if (hasPhotoBase64) {
+      let decoded: Buffer;
+      try {
+        decoded = Buffer.from(photoBase64, "base64");
+      } catch {
+        res.status(400).json({ error: "Invalid photoBase64 encoding." });
+        return;
+      }
+      if (decoded.length === 0) {
+        res.status(400).json({ error: "photoBase64 decoded to empty data." });
+        return;
+      }
+      if (decoded.length > MAX_PHOTO_BASE64_BYTES) {
+        res.status(400).json({
+          error: "Image too large for JSON upload (max ~3MB decoded).",
+          detail:
+            "Shrink the file or rely on photo URL + VERCEL_AUTOMATION_BYPASS_SECRET for large images with Deployment Protection.",
+        });
+        return;
+      }
+      const up = await sendPhotoBytesToTelegram(
+        token,
+        chatId,
+        new Uint8Array(decoded),
+        photoMime,
+        photoFilename,
+        caption,
+      );
+      if (!up.ok) {
+        res.status(502).json({
+          error: "Telegram API rejected the photo.",
+          detail: up.detail,
+        });
+        return;
+      }
+      parts += 1;
+    } else {
+      const photoResult = await sendPhotoMultipartFromUrl(
+        token,
+        chatId,
+        photoRaw,
+        caption,
+      );
+      if (!photoResult.ok) {
+        const errMsg =
+          photoResult.phase === "fetch"
+            ? "Could not load image for upload."
+            : "Telegram API rejected the photo.";
+        res.status(502).json({
+          error: errMsg,
+          detail: photoResult.detail,
+        });
+        return;
+      }
+      parts += 1;
     }
-    parts += 1;
   }
 
   const chunks = remainder.length > 0 ? splitTelegramChunks(remainder) : [];

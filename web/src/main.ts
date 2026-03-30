@@ -18,6 +18,22 @@ const publishApiBase = (import.meta.env.VITE_PUBLISH_API_URL ?? "/api/publish").
   "",
 );
 
+/** Keep under api/publish JSON body limits on Vercel (~4.5MB); larger images use URL + server fetch. */
+const MAX_PUBLISH_IMAGE_BASE64_BYTES = 3 * 1024 * 1024;
+
+function blobToBase64(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => {
+      const dataUrl = r.result as string;
+      const i = dataUrl.indexOf(",");
+      resolve(i >= 0 ? dataUrl.slice(i + 1) : dataUrl);
+    };
+    r.onerror = () => reject(r.error ?? new Error("FileReader failed"));
+    r.readAsDataURL(blob);
+  });
+}
+
 function getPublishBearer(): string | null {
   const fromEnv = import.meta.env.VITE_PUBLISH_BEARER_TOKEN?.trim();
   if (fromEnv) return fromEnv;
@@ -33,16 +49,47 @@ function getPublishBearer(): string | null {
 
 async function publishPostToTelegram(
   text: string,
-  options?: { imagePath?: string | null },
+  options?: { imagePath?: string | null; imageFilename?: string },
 ): Promise<{ ok: true; parts: number } | { ok: false; message: string }> {
   const bearer = getPublishBearer();
   if (!bearer) {
     return { ok: false, message: "Publishing cancelled." };
   }
 
-  const body: { text: string; photo?: string } = { text };
+  const body: {
+    text: string;
+    photo?: string;
+    photoBase64?: string;
+    photoMime?: string;
+    photoFilename?: string;
+  } = { text };
+
   if (options?.imagePath) {
-    body.photo = new URL(options.imagePath, window.location.origin).href;
+    const rel = options.imagePath;
+    const imgRes = await fetch(rel);
+    if (!imgRes.ok) {
+      return {
+        ok: false,
+        message: `Nepavyko įkelti paveikslėlio (HTTP ${imgRes.status}).`,
+      };
+    }
+    const blob = await imgRes.blob();
+    const name = (options.imageFilename?.trim() || "photo.png").replace(/[/\\]/g, "_");
+    if (blob.size <= MAX_PUBLISH_IMAGE_BASE64_BYTES) {
+      try {
+        body.photoBase64 = await blobToBase64(blob);
+      } catch (e) {
+        return {
+          ok: false,
+          message: `Nepavyko paruošti paveikslėlio: ${String(e)}`,
+        };
+      }
+      body.photoMime =
+        imgRes.headers.get("content-type")?.split(";")[0]?.trim() || "image/png";
+      body.photoFilename = name;
+    } else {
+      body.photo = new URL(rel, window.location.origin).href;
+    }
   }
 
   const res = await fetch(publishApiBase, {
@@ -426,6 +473,7 @@ async function main(): Promise<void> {
         paint();
         const result = await publishPostToTelegram(getEffectiveContent(post), {
           imagePath: post.image ?? null,
+          imageFilename: post.image ? imageDownloadFilename(post) : undefined,
         });
         publishingId = null;
         paint();
