@@ -8,6 +8,11 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ## [Unreleased]
 
+### Fixed
+
+- [api/publish.ts](api/publish.ts): nuotrauką serveris pats atsisiunčia iš to paties host ir siunčia Telegram kaip `multipart/form-data` (patikimesnė nei URL `sendPhoto`, kurią Telegram dažnai atmeta).
+- [web/src/main.ts](web/src/main.ts): publikavimo klaidos pranešime rodomas API `detail` (Telegram / fetch paaiškinimas).
+
 ## [0.3.7] - 2026-04-03
 
 ### Added

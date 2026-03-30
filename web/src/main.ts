@@ -66,12 +66,15 @@ async function publishPostToTelegram(
   }
 
   if (!res.ok) {
-    const msg =
-      typeof payload === "object" &&
-      payload !== null &&
-      typeof (payload as { error?: unknown }).error === "string"
-        ? (payload as { error: string }).error
-        : `HTTP ${res.status}`;
+    const p =
+      typeof payload === "object" && payload !== null
+        ? (payload as { error?: unknown; detail?: unknown })
+        : null;
+    let msg =
+      p && typeof p.error === "string" ? p.error : `HTTP ${res.status}`;
+    if (p && typeof p.detail === "string" && p.detail.trim()) {
+      msg += ` — ${p.detail.trim()}`;
+    }
     return { ok: false, message: msg };
   }
 
