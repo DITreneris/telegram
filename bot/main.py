@@ -8,7 +8,6 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 
 from bot.handlers import cmd_next, cmd_start, cmd_status
 from config import (
-    ADMIN_CHAT_ID,
     BASE_DIR,
     BOT_TOKEN,
     CONTENT_PATH,
@@ -31,6 +30,9 @@ def run_bot() -> None:
         format="%(levelname)s %(name)s %(message)s",
     )
     validate_config()
+    # ADMIN_CHAT_ID is set inside validate_config(); avoid a stale import-time None.
+    from config import ADMIN_CHAT_ID
+
     assert ADMIN_CHAT_ID is not None
     orch = Orchestrator(
         content_path=CONTENT_PATH,

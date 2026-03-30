@@ -8,6 +8,10 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ## [Unreleased]
 
+### Fixed
+
+- [bot/main.py](bot/main.py): read `ADMIN_CHAT_ID` after `validate_config()` so `run_bot` sees the resolved id (avoids a stale `None` from import-time binding).
+
 ## [0.3.6] - 2026-04-02
 
 ### Added
