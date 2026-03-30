@@ -66,7 +66,9 @@ async function sendPhotoBytesToTelegram(
 ): Promise<{ ok: true } | { ok: false; detail: string }> {
   const form = new FormData();
   form.append("chat_id", chatId);
-  form.append("photo", new Blob([buf], { type: mime }), filename);
+  const ab = new ArrayBuffer(buf.byteLength);
+  new Uint8Array(ab).set(buf);
+  form.append("photo", new Blob([ab], { type: mime }), filename);
   if (caption.length > 0) {
     form.append("caption", caption);
   }
@@ -160,7 +162,7 @@ async function sendPhotoMultipartFromUrl(
     filename,
     caption,
   );
-  if (!up.ok) {
+  if (up.ok === false) {
     return { ok: false, phase: "telegram", detail: up.detail };
   }
   return { ok: true };
@@ -312,7 +314,7 @@ export default async function handler(
         photoFilename,
         caption,
       );
-      if (!up.ok) {
+      if (up.ok === false) {
         res.status(502).json({
           error: "Telegram API rejected the photo.",
           detail: up.detail,
@@ -327,7 +329,7 @@ export default async function handler(
         photoRaw,
         caption,
       );
-      if (!photoResult.ok) {
+      if (photoResult.ok === false) {
         const errMsg =
           photoResult.phase === "fetch"
             ? "Could not load image for upload."

@@ -10,9 +10,23 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ### Fixed
 
+- [api/publish.ts](api/publish.ts): suderinamumas su **TypeScript 5.9** (`Blob` iš `ArrayBuffer` kopijos; `ok === false` susiaurinimas prieš `.detail` / `.phase`).
+
+### Added
+
+- [tsconfig.api.json](tsconfig.api.json), [package.json](package.json) script `check:api`, devDependency `typescript` ~5.9.3 — lokaliai: `npm run check:api`.
+
+## [0.3.8] - 2026-04-04
+
+### Fixed
+
 - [api/publish.ts](api/publish.ts): nuotrauką serveris pats atsisiunčia iš to paties host ir siunčia Telegram kaip `multipart/form-data` (patikimesnė nei URL `sendPhoto`, kurią Telegram dažnai atmeta).
 - [web/src/main.ts](web/src/main.ts): publikavimo klaidos pranešime rodomas API `detail` (Telegram / fetch paaiškinimas).
 - [api/publish.ts](api/publish.ts), [web/src/main.ts](web/src/main.ts): maži paveikslėliai (≤~3MB) siunčiami **base64** iš naršyklės — apeina Vercel **Deployment Protection** 401 ant serverio `fetch`; didesniems — URL + optional `VERCEL_AUTOMATION_BYPASS_SECRET` (`x-vercel-protection-bypass`).
+
+### Changed
+
+- Patvirtinta produkcijoje (Vercel): web „Publikuoti į Telegram“ sėkmingai pristato **tekstą ir paveikslėlį**; sėkmės atveju UI rodo pranešimą „Įrašas išsiųstas į Telegram. Tekstas ir paveikslėlis.“ ([web/src/main.ts](web/src/main.ts)).
 
 ## [0.3.7] - 2026-04-03
 
