@@ -8,6 +8,17 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ## [Unreleased]
 
+## [0.3.7] - 2026-04-03
+
+### Added
+
+- [api/publish.ts](api/publish.ts): optional JSON `photo` (HTTPS URL, same host as the request; `http://localhost` allowed for local dev) — `sendPhoto` with caption up to 1024 characters, remainder via `sendMessage` chunks; body may be photo-only.
+- [web/src/main.ts](web/src/main.ts): „Publikuoti į Telegram“ sends `post.image` when set.
+
+### Changed
+
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/RUNBOOK.md](docs/RUNBOOK.md), [docs/INDEX.md](docs/INDEX.md), [web/README.md](web/README.md): HTTP publish path dokumentuotas su optional nuotrauka ir same-host `photo` URL taisykle.
+
 ### Fixed
 
 - [bot/main.py](bot/main.py): read `ADMIN_CHAT_ID` after `validate_config()` so `run_bot` sees the resolved id (avoids a stale `None` from import-time binding).

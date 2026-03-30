@@ -23,7 +23,7 @@ Produkcinis išėjimas: katalogas `dist/`.
 
 - Kanoninis duomenų failas šiam UI: **`public/posts.json`**. Senesnis snapshot (buvęs repo šaknyje `30_posts.txt`) saugomas [docs/archive/30_posts.txt](../docs/archive/30_posts.txt) ir gali skirtis nuo dabartinio `posts.json`.
 - Redaguokite `posts.json` ir perbuildinkite (arba naudokite `npm run dev` su karštu perkrovimu).
-- UI: įrašą su `image` galima **atsisiųsti** (rankiniam įkėlimui kartu su nukopijuotu tekstu); posto **tekstą** galima pataisyti tik **šioje naršyklės sesijoje** (perkrovus puslapį vėl bus `posts.json` turinys).
+- UI: įrašą su `image` galima **atsisiųsti** (rankiniam įkėlimui kartu su nukopijuotu tekstu); **Publikuoti į Telegram** siunčia ir paveikslėlį (`sendPhoto`), jei `image` nurodytas — URL turi būti **to paties domeno** kaip svetainė (Telegram atsisiunčia failą viešai). Posto **tekstą** galima pataisyti tik **šioje naršyklės sesijoje** (perkrovus puslapį vėl bus `posts.json` turinys).
 
 ## Vercel
 
@@ -48,6 +48,6 @@ Naršyklė negali saugoti `BOT_TOKEN`. Siuntimą vykdo serverless funkcija repoz
 2. Vercel **Environment Variables**: `TELEGRAM_BOT_TOKEN` (arba `BOT_TOKEN`), `TELEGRAM_PUBLISH_CHAT_ID` arba `PUBLISH_CHAT_ID` (kanalas ar pokalbis, kur botas gali rašyti), `PUBLISH_BEARER_TOKEN` (ilgas atsitiktinis stringas).
 3. Pirmą kartą paspaudus „Publikuoti į Telegram“, naršyklė paprašys to paties rakto kaip `PUBLISH_BEARER_TOKEN` (įrašomas į `sessionStorage`). Neprivaloma: `web/.env` su `VITE_PUBLISH_BEARER_TOKEN` — **raktas matysis JS rinkinyje**, naudokite tik jei suprantate riziką.
 
-Ilgi įrašai skaidomi į kelias žinutes (Telegram limitas 4096 simbolių). Nuotraukos iš `posts.json` šiuo metu nesiunčiamos.
+Ilgas tekstas: iki **1024** simbolių eina į nuotraukos **caption** (jei yra `photo`), likutis — atskiromis žinutėmis (iki **4096** simbolių kiekvienai). Jei `VITE_PUBLISH_API_URL` rodo į **kitą domeną** nei statiniai failai, paveikslėlio URL turi būti absoliutus ir to **paties host**, kurį mato `api/publish` (dažniausiai laikyk UI ir API ant to paties Vercel host).
 
 **Pastaba:** Vite 8 reikalauja Node **≥20.19**. Repozitorijoje oficialiai naudojamas **Node 22** ([`../.nvmrc`](../.nvmrc), `engines.node`: `22.x` šaknyje ir `web/`): lokaliai paleiskite `nvm use` (arba atitikmenį), kad sutaptų su Vercel. Jei liekate ant Node 20.x, `npm` gali rodyti `EBADENGINE`, bet build dažnai vis tiek pavyksta.

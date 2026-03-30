@@ -44,7 +44,7 @@ Commented keys under „Ateičiai“ in [`.env.example`](../.env.example) are pl
 
 Running **`python run.py`** starts the **queue bot**: it reads `data/content.json`, advances `data/state.json` on successful `/next` deliveries, and supports text, photo, and document items per the manifest.
 
-The **social copy UI** can publish post text via **`POST /api/publish`** (see [`web/README.md`](../web/README.md)). That path uses the same bot token style on the server but is **separate** from the queue: it does not update `last_delivered_id`. For a full comparison, see [ARCHITECTURE.md](ARCHITECTURE.md) (section **Telegram delivery paths**).
+The **social copy UI** can publish post text (and, when the post has `image`, an optional same-origin photo URL) via **`POST /api/publish`** (see [`web/README.md`](../web/README.md)). That path uses the same bot token style on the server but is **separate** from the queue: it does not update `last_delivered_id`. For a full comparison, see [ARCHITECTURE.md](ARCHITECTURE.md) (section **Telegram delivery paths**).
 
 ## Troubleshooting
 
@@ -60,7 +60,7 @@ The **social copy UI** can publish post text via **`POST /api/publish`** (see [`
 | `Could not prepare content. Check logs.` / manifest errors | JSON syntax and schema: `version`, required fields per item type in `schemas.py` |
 | `Send failed. Check logs.` | Media paths are resolved to **absolute** paths under `BASE_DIR` when the manifest loads (`schemas.parse_manifest`), not from process cwd. Also check Telegram API/network, rate limits, bad or oversized files, and logs for the real exception. |
 | `Delivered but could not save progress...` | Telegram send succeeded but writing `data/state.json` failed (disk, permissions, etc.). Check logs; the next `/next` may deliver the same item again until state saves. |
-| Published from the web UI but `/next` did not advance the queue | **Expected.** The Vercel/serverless publish endpoint sends message text only; it does not call `Orchestrator` or write `state.json`. Use `/next` in the bot for manifest queue progress. See [ARCHITECTURE.md](ARCHITECTURE.md) (**Telegram delivery paths**). |
+| Published from the web UI but `/next` did not advance the queue | **Expected.** The Vercel/serverless publish endpoint does not call `Orchestrator` or write `state.json`. Use `/next` in the bot for manifest queue progress. See [ARCHITECTURE.md](ARCHITECTURE.md) (**Telegram delivery paths**). |
 
 ## State file
 

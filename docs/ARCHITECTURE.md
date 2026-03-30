@@ -78,9 +78,9 @@ The repository exposes **two independent ways** to send text to Telegram. They d
 | Path | Entry | Content source | State |
 |------|--------|----------------|--------|
 | **Polling bot (queue)** | `python run.py` → [`bot/main.py`](../bot/main.py) | `data/content.json` via `Orchestrator` | `last_delivered_id` in `data/state.json` advances only after a successful bot send (`peek` → send → `record_delivered`) |
-| **HTTP publish (web UI)** | Browser → `POST /api/publish` → [`api/publish.ts`](../api/publish.ts) | Free-form post body from the social copy UI (not the manifest queue) | No queue cursor; long text is split server-side to fit Telegram’s ~4096-character message limit |
+| **HTTP publish (web UI)** | Browser → `POST /api/publish` → [`api/publish.ts`](../api/publish.ts) | Post text from the social copy UI (not the manifest queue); optional `photo` URL (HTTPS, **same host** as the request) for `sendPhoto` | No queue cursor; caption up to ~1024 characters, then remaining text in ~4096-character messages |
 
-Vercel env vars, bearer auth, and limitations (e.g. **text-only**; images from `posts.json` are not sent through this API) are documented in [`web/README.md`](../web/README.md) (`PUBLISH_BEARER_TOKEN`, `TELEGRAM_BOT_TOKEN` or `BOT_TOKEN`, `TELEGRAM_PUBLISH_CHAT_ID` or `PUBLISH_CHAT_ID`).
+Vercel env vars, bearer auth, and publish behaviour (text + optional image URL, same-host check on `photo`) are documented in [`web/README.md`](../web/README.md) (`PUBLISH_BEARER_TOKEN`, `TELEGRAM_BOT_TOKEN` or `BOT_TOKEN`, `TELEGRAM_PUBLISH_CHAT_ID` or `PUBLISH_CHAT_ID`).
 
 ```mermaid
 flowchart TB

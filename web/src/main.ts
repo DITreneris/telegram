@@ -33,10 +33,16 @@ function getPublishBearer(): string | null {
 
 async function publishPostToTelegram(
   text: string,
+  options?: { imagePath?: string | null },
 ): Promise<{ ok: true; parts: number } | { ok: false; message: string }> {
   const bearer = getPublishBearer();
   if (!bearer) {
     return { ok: false, message: "Publishing cancelled." };
+  }
+
+  const body: { text: string; photo?: string } = { text };
+  if (options?.imagePath) {
+    body.photo = new URL(options.imagePath, window.location.origin).href;
   }
 
   const res = await fetch(publishApiBase, {
@@ -45,7 +51,7 @@ async function publishPostToTelegram(
       "Content-Type": "application/json",
       Authorization: `Bearer ${bearer}`,
     },
-    body: JSON.stringify({ text }),
+    body: JSON.stringify(body),
   });
 
   let payload: unknown;
@@ -415,15 +421,18 @@ async function main(): Promise<void> {
         if (!post || publishingId !== null) return;
         publishingId = id;
         paint();
-        const result = await publishPostToTelegram(getEffectiveContent(post));
+        const result = await publishPostToTelegram(getEffectiveContent(post), {
+          imagePath: post.image ?? null,
+        });
         publishingId = null;
         paint();
         if (result.ok) {
+          const mediaNote = post.image ? " Tekstas ir paveikslėlis." : "";
           const note =
             result.parts > 1
               ? ` Posted in ${result.parts} parts (Telegram message length limit).`
               : "";
-          window.alert(`Įrašas išsiųstas į Telegram.${note}`);
+          window.alert(`Įrašas išsiųstas į Telegram.${mediaNote}${note}`);
         } else {
           window.alert(`Nepavyko publikuoti: ${result.message}`);
         }
