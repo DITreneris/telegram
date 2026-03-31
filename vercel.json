@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "npm ci && cd web && npm ci",
-  "buildCommand": "cd web && npm run build",
+  "buildCommand": "node scripts/sync_polls_to_web.mjs && cd web && npm run build",
   "outputDirectory": "web/dist"
 }

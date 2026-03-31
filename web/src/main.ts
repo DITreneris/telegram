@@ -6,12 +6,26 @@ type Post = {
   option: number;
   image?: string;
   content: string;
+  topic_key?: string;
 };
+
+type PollItem = {
+  id: string;
+  related_post_id: number;
+  question: string;
+  options: string[];
+  correct_option_id: number;
+  theme_note?: string;
+};
+
+type PublishFilter = "all" | "published" | "unpublished";
+type SortMode = "order" | "id_asc" | "id_desc" | "theme_asc";
 
 const TWITTER_HINT_LIMIT = 280;
 
 const PUBLISH_BEARER_STORAGE_KEY = "tgPublishBearer";
 const CONTENT_EDITS_STORAGE_KEY = "socialPostsContentEdits";
+const PUBLISHED_STORAGE_KEY = "socialPostsPublished";
 
 const publishApiBase = (import.meta.env.VITE_PUBLISH_API_URL ?? "/api/publish").replace(
   /\/$/,
@@ -141,12 +155,16 @@ function isPostRow(x: unknown): x is Post {
   const imageOk =
     o.image === undefined ||
     (typeof o.image === "string" && o.image.length > 0);
+  const topicKeyOk =
+    o.topic_key === undefined ||
+    (typeof o.topic_key === "string" && o.topic_key.length > 0);
   return (
     typeof o.id === "number" &&
     typeof o.theme === "string" &&
     typeof o.option === "number" &&
     typeof o.content === "string" &&
-    imageOk
+    imageOk &&
+    topicKeyOk
   );
 }
 
@@ -158,6 +176,97 @@ async function loadPosts(): Promise<Post[]> {
   const posts = data.filter(isPostRow);
   if (posts.length === 0) throw new Error("Nėra tinkamų įrašų.");
   return posts;
+}
+
+function isPollItem(x: unknown): x is PollItem {
+  if (typeof x !== "object" || x === null) return false;
+  const o = x as Record<string, unknown>;
+  if (typeof o.id !== "string" || !o.id.trim()) return false;
+  if (typeof o.related_post_id !== "number" || !Number.isFinite(o.related_post_id)) {
+    return false;
+  }
+  if (typeof o.question !== "string" || !o.question.trim()) return false;
+  if (!Array.isArray(o.options)) return false;
+  for (const opt of o.options) {
+    if (typeof opt !== "string" || !opt.trim()) return false;
+  }
+  if (typeof o.correct_option_id !== "number" || !Number.isFinite(o.correct_option_id)) {
+    return false;
+  }
+  if (o.correct_option_id < 0 || o.correct_option_id >= o.options.length) return false;
+  if (o.theme_note !== undefined) {
+    if (typeof o.theme_note !== "string" || !o.theme_note.trim()) return false;
+  }
+  return true;
+}
+
+async function loadPolls(): Promise<Map<number, PollItem[]>> {
+  const empty = new Map<number, PollItem[]>();
+  const res = await fetch("/polls.json");
+  if (!res.ok) return empty;
+  let data: unknown;
+  try {
+    data = await res.json();
+  } catch {
+    return empty;
+  }
+  if (typeof data !== "object" || data === null) return empty;
+  const root = data as Record<string, unknown>;
+  if (root.version !== 1) return empty;
+  if (!Array.isArray(root.items)) return empty;
+  const items = root.items.filter(isPollItem);
+  const byPost = new Map<number, PollItem[]>();
+  for (const p of items) {
+    const pid = p.related_post_id;
+    const list = byPost.get(pid) ?? [];
+    list.push(p);
+    byPost.set(pid, list);
+  }
+  for (const [, list] of byPost) {
+    list.sort((a, b) => a.id.localeCompare(b.id));
+  }
+  return byPost;
+}
+
+function loadPublishedFromStorage(): Map<number, string> {
+  const raw = localStorage.getItem(PUBLISHED_STORAGE_KEY);
+  if (!raw) return new Map();
+  try {
+    const o = JSON.parse(raw) as unknown;
+    if (typeof o !== "object" || o === null) return new Map();
+    const m = new Map<number, string>();
+    for (const [k, v] of Object.entries(o as Record<string, unknown>)) {
+      const id = Number(k);
+      if (!Number.isFinite(id) || typeof v !== "string") continue;
+      m.set(id, v);
+    }
+    return m;
+  } catch {
+    return new Map();
+  }
+}
+
+function savePublishedToStorage(m: Map<number, string>): void {
+  if (m.size === 0) {
+    localStorage.removeItem(PUBLISHED_STORAGE_KEY);
+    return;
+  }
+  const o: Record<string, string> = {};
+  for (const [id, at] of m) o[String(id)] = at;
+  localStorage.setItem(PUBLISHED_STORAGE_KEY, JSON.stringify(o));
+}
+
+function prunePublished(posts: Post[], m: Map<number, string>): void {
+  const ids = new Set(posts.map((p) => p.id));
+  for (const id of [...m.keys()]) {
+    if (!ids.has(id)) m.delete(id);
+  }
+}
+
+function formatPublishedLabel(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleString();
 }
 
 function loadContentEditsFromStorage(): Map<number, string> {
@@ -200,6 +309,50 @@ function uniqueThemes(posts: Post[]): string[] {
   const s = new Set<string>();
   for (const p of posts) s.add(p.theme);
   return [...s].sort((a, b) => a.localeCompare(b));
+}
+
+function matchesSearch(p: Post, q: string): boolean {
+  const s = q.trim().toLowerCase();
+  if (!s) return true;
+  const tk = p.topic_key?.toLowerCase() ?? "";
+  return (
+    p.theme.toLowerCase().includes(s) ||
+    p.content.toLowerCase().includes(s) ||
+    tk.includes(s)
+  );
+}
+
+function filterAndSortPosts(
+  posts: Post[],
+  opts: {
+    filterTheme: string;
+    searchQuery: string;
+    publishFilter: PublishFilter;
+    sortMode: SortMode;
+    published: Map<number, string>;
+  },
+): Post[] {
+  let list = posts.filter((p) =>
+    opts.filterTheme === "" ? true : p.theme === opts.filterTheme,
+  );
+  list = list.filter((p) => matchesSearch(p, opts.searchQuery));
+  if (opts.publishFilter === "published") {
+    list = list.filter((p) => opts.published.has(p.id));
+  } else if (opts.publishFilter === "unpublished") {
+    list = list.filter((p) => !opts.published.has(p.id));
+  }
+  const orderIndex = new Map(posts.map((p, i) => [p.id, i] as const));
+  list = [...list];
+  if (opts.sortMode === "order") {
+    list.sort((a, b) => (orderIndex.get(a.id) ?? 0) - (orderIndex.get(b.id) ?? 0));
+  } else if (opts.sortMode === "id_asc") {
+    list.sort((a, b) => a.id - b.id);
+  } else if (opts.sortMode === "id_desc") {
+    list.sort((a, b) => b.id - a.id);
+  } else if (opts.sortMode === "theme_asc") {
+    list.sort((a, b) => a.theme.localeCompare(b.theme));
+  }
+  return list;
 }
 
 async function copyText(text: string): Promise<boolean> {
@@ -267,18 +420,62 @@ function charInfoHtml(length: number): string {
   return `Simbolių: ${length}${hint}`;
 }
 
+function pollBlockHtml(p: Post, pollsByPost: Map<number, PollItem[]>): string {
+  const polls = pollsByPost.get(p.id);
+  if (!polls || polls.length === 0) return "";
+  const blocks = polls.map((poll) => {
+    const opts = poll.options
+      .map(
+        (opt, i) =>
+          `<li class="poll-option"><span class="poll-option-idx">${i + 1}.</span> ${escapeHtml(opt)}</li>`,
+      )
+      .join("");
+    const correctIdx = poll.correct_option_id;
+    const correctLabel =
+      correctIdx >= 0 && correctIdx < poll.options.length
+        ? escapeHtml(poll.options[correctIdx] ?? "")
+        : "";
+    const note =
+      poll.theme_note?.trim() ?
+        `<p class="poll-theme-note">${escapeHtml(poll.theme_note.trim())}</p>`
+      : "";
+    return `
+      <div class="poll-item" data-poll-id="${escapeAttr(poll.id)}">
+        <h3 class="poll-question">${escapeHtml(poll.question.trim())}</h3>
+        <ol class="poll-options">${opts}</ol>
+        <p class="poll-correct"><span class="poll-correct-label">Teisingas variantas:</span> ${correctLabel}</p>
+        ${note}
+      </div>`;
+  });
+  return `
+    <section class="poll-block" aria-label="Apklausos">
+      <h3 class="poll-block-title">Apklausa (quiz)</h3>
+      ${blocks.join("")}
+    </section>`;
+}
+
 function render(
   root: HTMLElement,
   posts: Post[],
   themes: string[],
   filterTheme: string,
+  searchQuery: string,
+  publishFilter: PublishFilter,
+  sortMode: SortMode,
+  pollsByPost: Map<number, PollItem[]>,
+  published: Map<number, string>,
   copiedId: number | null,
   publishingId: number | null,
   editingIds: Set<number>,
   getEffectiveContent: (p: Post) => string,
 ): void {
-  const filtered =
-    filterTheme === "" ? posts : posts.filter((p) => p.theme === filterTheme);
+  const displayed = filterAndSortPosts(posts, {
+    filterTheme,
+    searchQuery,
+    publishFilter,
+    sortMode,
+    published,
+  });
 
   root.innerHTML = `
     <header class="page-header">
@@ -287,32 +484,77 @@ function render(
         Nukopijuokite tekstą ir įklijuokite rankiniu būdu į LinkedIn, X (Twitter), WhatsApp ar Facebook.
         Jei sukonfigūruotas Vercel API, galite publikuoti į Telegram mygtuku žemiau.
         Tekstą galite pataisyti šioje naršyklės sesijoje; perkrovus puslapį vėl bus <code>posts.json</code> turinys.
+        Apklausos kraunamos iš <code>polls.json</code> (sinchronizuojama iš <code>data/polls.json</code> prieš build).
+        Žyma „Publikuota“ saugoma šioje naršyklėje (ne Telegram istorija).
       </p>
-      <div class="toolbar">
-        <label class="filter-label" for="theme-filter">Filtruoti pagal temą</label>
-        <select id="theme-filter" class="theme-select" aria-label="Filtruoti pagal temą">
-          <option value="">Visos temos</option>
-          ${themes
-            .map(
-              (t) =>
-                `<option value="${escapeAttr(t)}" ${t === filterTheme ? "selected" : ""}>${escapeHtml(t)}</option>`,
-            )
-            .join("")}
-        </select>
-        <span class="count-badge">Rodoma: ${filtered.length} / ${posts.length}</span>
+      <div class="toolbar toolbar-grid">
+        <div class="toolbar-row">
+          <label class="filter-label" for="theme-filter">Filtruoti pagal temą</label>
+          <select id="theme-filter" class="theme-select" aria-label="Filtruoti pagal temą">
+            <option value="">Visos temos</option>
+            ${themes
+              .map(
+                (t) =>
+                  `<option value="${escapeAttr(t)}" ${t === filterTheme ? "selected" : ""}>${escapeHtml(t)}</option>`,
+              )
+              .join("")}
+          </select>
+        </div>
+        <div class="toolbar-row">
+          <label class="filter-label" for="search-posts">Paieška</label>
+          <input
+            type="search"
+            id="search-posts"
+            class="search-input"
+            placeholder="Tema, tekstas, topic_key…"
+            value="${escapeAttr(searchQuery)}"
+            aria-label="Ieškoti postų"
+          />
+        </div>
+        <div class="toolbar-row toolbar-row-split">
+          <div class="toolbar-field">
+            <label class="filter-label" for="publish-filter">Būsena (Telegram publish)</label>
+            <select id="publish-filter" class="theme-select" aria-label="Filtruoti pagal publikavimą">
+              <option value="all" ${publishFilter === "all" ? "selected" : ""}>Visi</option>
+              <option value="unpublished" ${publishFilter === "unpublished" ? "selected" : ""}>Tik nepublikuoti</option>
+              <option value="published" ${publishFilter === "published" ? "selected" : ""}>Tik publikuoti</option>
+            </select>
+          </div>
+          <div class="toolbar-field">
+            <label class="filter-label" for="sort-posts">Rūšiavimas</label>
+            <select id="sort-posts" class="theme-select" aria-label="Rūšiavimas">
+              <option value="order" ${sortMode === "order" ? "selected" : ""}>Kaip posts.json</option>
+              <option value="id_asc" ${sortMode === "id_asc" ? "selected" : ""}>ID didėjančiai</option>
+              <option value="id_desc" ${sortMode === "id_desc" ? "selected" : ""}>ID mažėjančiai</option>
+              <option value="theme_asc" ${sortMode === "theme_asc" ? "selected" : ""}>Tema A–Z</option>
+            </select>
+          </div>
+        </div>
+        <span class="count-badge">Rodoma: ${displayed.length} / ${posts.length}</span>
       </div>
     </header>
     <main class="cards" role="list">
-      ${filtered
+      ${displayed
         .map((p) => {
           const eff = getEffectiveContent(p);
           const isEditing = editingIds.has(p.id);
           const dirty = eff !== p.content;
+          const pubAt = published.get(p.id);
+          const topicKeyBadge =
+            p.topic_key?.trim() ?
+              `<span class="badge badge-topic" title="topic_key">${escapeHtml(p.topic_key.trim())}</span>`
+            : "";
+          const publishedBadge =
+            pubAt ?
+              `<span class="badge badge-published" title="${escapeAttr(pubAt)}">Publikuota: ${escapeHtml(formatPublishedLabel(pubAt))}</span>`
+            : "";
           return `
         <article class="card" role="listitem" data-post-id="${p.id}">
           <div class="card-meta">
             <span class="badge">Įrašas #${p.id}</span>
             <span class="badge badge-soft">Variantas ${p.option}</span>
+            ${topicKeyBadge}
+            ${publishedBadge}
             ${
               dirty
                 ? `<span class="badge badge-dirty" title="Pakeitimas galioja tik šioje naršyklės sesijoje">Sesija</span>`
@@ -343,6 +585,7 @@ function render(
               ? `<textarea class="card-body card-body-edit" data-content-id="${p.id}" rows="14" aria-label="Redaguojamas tekstas"></textarea>`
               : `<pre class="card-body" tabindex="0">${escapeHtml(eff)}</pre>`
           }
+          ${pollBlockHtml(p, pollsByPost)}
           <div class="card-actions">
             ${
               p.image
@@ -388,6 +631,16 @@ function escapeAttr(s: string): string {
   return escapeHtml(s).replaceAll("'", "&#39;");
 }
 
+function parsePublishFilter(v: string): PublishFilter {
+  if (v === "published" || v === "unpublished") return v;
+  return "all";
+}
+
+function parseSortMode(v: string): SortMode {
+  if (v === "id_asc" || v === "id_desc" || v === "theme_asc" || v === "order") return v;
+  return "order";
+}
+
 async function main(): Promise<void> {
   const app = document.querySelector<HTMLElement>("#app");
   if (!app) return;
@@ -400,15 +653,24 @@ async function main(): Promise<void> {
     return;
   }
 
+  const pollsByPost = await loadPolls();
+
   const contentEdits = loadContentEditsFromStorage();
   pruneContentEdits(posts, contentEdits);
   saveContentEditsToStorage(contentEdits);
+
+  const published = loadPublishedFromStorage();
+  prunePublished(posts, published);
+  savePublishedToStorage(published);
 
   const getEffectiveContent = (p: Post): string =>
     contentEdits.get(p.id) ?? p.content;
 
   const themes = uniqueThemes(posts);
   let filterTheme = "";
+  let searchQuery = "";
+  let publishFilter: PublishFilter = "all";
+  let sortMode: SortMode = "order";
   let copiedId: number | null = null;
   let publishingId: number | null = null;
   let copyResetTimer: ReturnType<typeof setTimeout> | null = null;
@@ -420,6 +682,11 @@ async function main(): Promise<void> {
       posts,
       themes,
       filterTheme,
+      searchQuery,
+      publishFilter,
+      sortMode,
+      pollsByPost,
+      published,
       copiedId,
       publishingId,
       editingIds,
@@ -432,6 +699,33 @@ async function main(): Promise<void> {
     const sel = app.querySelector<HTMLSelectElement>("#theme-filter");
     sel?.addEventListener("change", () => {
       filterTheme = sel.value;
+      copiedId = null;
+      editingIds.clear();
+      if (copyResetTimer) clearTimeout(copyResetTimer);
+      paint();
+    });
+
+    const searchEl = app.querySelector<HTMLInputElement>("#search-posts");
+    searchEl?.addEventListener("input", () => {
+      searchQuery = searchEl.value;
+      copiedId = null;
+      editingIds.clear();
+      if (copyResetTimer) clearTimeout(copyResetTimer);
+      paint();
+    });
+
+    const pubEl = app.querySelector<HTMLSelectElement>("#publish-filter");
+    pubEl?.addEventListener("change", () => {
+      publishFilter = parsePublishFilter(pubEl.value);
+      copiedId = null;
+      editingIds.clear();
+      if (copyResetTimer) clearTimeout(copyResetTimer);
+      paint();
+    });
+
+    const sortEl = app.querySelector<HTMLSelectElement>("#sort-posts");
+    sortEl?.addEventListener("change", () => {
+      sortMode = parseSortMode(sortEl.value);
       copiedId = null;
       editingIds.clear();
       if (copyResetTimer) clearTimeout(copyResetTimer);
@@ -476,6 +770,10 @@ async function main(): Promise<void> {
           imageFilename: post.image ? imageDownloadFilename(post) : undefined,
         });
         publishingId = null;
+        if (result.ok) {
+          published.set(id, new Date().toISOString());
+          savePublishedToStorage(published);
+        }
         paint();
         if (result.ok) {
           const mediaNote = post.image ? " Tekstas ir paveikslėlis." : "";

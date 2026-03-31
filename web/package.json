@@ -7,7 +7,9 @@
     "node": "22.x"
   },
   "scripts": {
+    "predev": "node ../scripts/sync_polls_to_web.mjs",
     "dev": "vite",
+    "prebuild": "node ../scripts/sync_polls_to_web.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

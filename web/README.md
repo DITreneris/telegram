@@ -1,6 +1,6 @@
 # Socialinių postų kopijavimas (Vite)
 
-Statinė naršyklės aplikacija: rodo įrašus iš [`public/posts.json`](public/posts.json) ir leidžia vienu paspaudimu nukopijuoti posto tekstą rankiniam publikavimui (LinkedIn, X, WhatsApp, Facebook).
+Statinė naršyklės aplikacija: rodo įrašus iš [`public/posts.json`](public/posts.json), susietas apklausas iš [`public/polls.json`](public/polls.json) (generuojamas build metu), ir leidžia vienu paspaudimu nukopijuoti posto tekstą rankiniam publikavimui (LinkedIn, X, WhatsApp, Facebook).
 
 ## Paleisti lokaliai
 
@@ -9,6 +9,8 @@ cd web
 npm install
 npm run dev
 ```
+
+Prieš `dev` / `build` automatiškai paleidžiamas [`../scripts/sync_polls_to_web.mjs`](../scripts/sync_polls_to_web.mjs): kopijuoja kanoninį [`../data/polls.json`](../data/polls.json) → `public/polls.json`. Jei `data/polls.json` trūksta, komanda nutrūks su klaida.
 
 ## Build
 
@@ -19,11 +21,17 @@ npm run preview
 
 Produkcinis išėjimas: katalogas `dist/`.
 
+Vercel (repo šaknis): [`vercel.json`](../vercel.json) `buildCommand` taip pat paleidžia `sync_polls_to_web.mjs` prieš `web` build.
+
 ## Turinys
 
 - Kanoninis duomenų failas šiam UI: **`public/posts.json`**. Senesnis snapshot (buvęs repo šaknyje `30_posts.txt`) saugomas [docs/archive/30_posts.txt](../docs/archive/30_posts.txt) ir gali skirtis nuo dabartinio `posts.json`.
+- **Apklausos:** kanonas repozitorijoje — [`data/polls.json`](../data/polls.json). `public/polls.json` yra **generuojamas** (žr. `.gitignore`); necommitinkite jo rankiniu būdu.
 - Redaguokite `posts.json` ir perbuildinkite (arba naudokite `npm run dev` su karštu perkrovimu).
 - UI: įrašą su `image` galima **atsisiųsti** (rankiniam įkėlimui kartu su nukopijuotu tekstu); **Publikuoti į Telegram** siunčia ir paveikslėlį (`sendPhoto`), jei `image` nurodytas — URL turi būti **to paties domeno** kaip svetainė (Telegram atsisiunčia failą viešai). Posto **tekstą** galima pataisyti tik **šioje naršyklės sesijoje** (perkrovus puslapį vėl bus `posts.json` turinys).
+- **Valdikliai:** paieška (tema, tekstas, `topic_key`), rūšiavimas (eilė kaip faile, pagal `id`, pagal temą A–Z), filtras pagal temą, filtras **publikuota / nepublikuota** (žr. žemiau).
+- **Žyma „Publikuota“:** po sėkmingo **Publikuoti į Telegram** įrašoma į naršyklės **`localStorage`** (`socialPostsPublished`) — tai ne Telegram istorija ir ne sinchronizuojama tarp įrenginių; skirta vietiniam darbo eigai.
+- Jei įraše yra **`topic_key`**, rodomas atitinkamas ženkliukas. Prie įrašų su `related_post_id` iš `polls.json` rodomas **Apklausa (quiz)** blokas (klausimas, variantai, teisingas atsakymas peržiūrai, `theme_note`).
 
 ## Vercel
 

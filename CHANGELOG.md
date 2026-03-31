@@ -10,6 +10,8 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ### Added
 
+- **Web marketing UI:** [`web/src/main.ts`](web/src/main.ts) loads `/polls.json`, shows quiz blocks per `related_post_id`, optional `topic_key` badge, **search** (theme / content / topic_key), **sort** (file order, id, theme A–Z), **publish-state filter** (all / published / unpublished). Successful **Publikuoti į Telegram** records timestamp in **`localStorage`** (`socialPostsPublished`). Styles: [`web/src/style.css`](web/src/style.css).
+- [`scripts/sync_polls_to_web.mjs`](scripts/sync_polls_to_web.mjs): copy [`data/polls.json`](data/polls.json) → `web/public/polls.json`. Wired in [`vercel.json`](vercel.json) `buildCommand` and [`web/package.json`](web/package.json) `predev` / `prebuild`. [`web/public/polls.json`](web/public/polls.json) gitignored.
 - **[data/polls.json](data/polls.json):** ten quiz rows (`related_post_id` **1–10**), one per core curriculum theme in the first post cycle; stable ids `poll_post_001_hot_or_not` … `poll_post_010_hot_or_not`.
 - **Post-quiz debrief:** for manifest items with `type` **`poll`**, when `theme_note` is set, [`bot/handlers.py`](bot/handlers.py) `send_content_item` sends it via `send_message` after `send_poll` (chunks if needed). [`schemas.py`](schemas.py): `MAX_MESSAGE_CHARS` and validation so poll `theme_note` does not exceed Telegram message size.
 - Tests: [`tests/test_schemas.py`](tests/test_schemas.py) (poll `theme_note` too long), [`tests/test_handlers_next.py`](tests/test_handlers_next.py) / [`tests/test_handlers_scheduled.py`](tests/test_handlers_scheduled.py) (poll + debrief).

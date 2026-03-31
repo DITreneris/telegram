@@ -10,4 +10,5 @@ data/content.generated.json
 node_modules/
 web/node_modules/
 web/dist/
+web/public/polls.json
 .vercel
