@@ -24,7 +24,7 @@ alwaysApply: false
 
 ## Optional hooks
 
-- `schedule_next_delivery` in `orchestrator.py` is reserved for future scheduling; MVP does not use it.
+- `schedule_next_delivery` in `orchestrator.py` is a no-op stub; daily timing uses `JobQueue` in `bot/main.py` when `ENABLE_SCHEDULED_POSTING` is set.
 
 ## Quality assurance
 

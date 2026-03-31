@@ -8,13 +8,43 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ## [Unreleased]
 
-### Fixed
+### Added
 
-- [api/publish.ts](api/publish.ts): suderinamumas su **TypeScript 5.9** (`Blob` iš `ArrayBuffer` kopijos; `ok === false` susiaurinimas prieš `.detail` / `.phase`).
+- Optional **scheduled queue delivery** at **08:00** and **19:00** (`ENABLE_SCHEDULED_POSTING`, `SCHEDULE_TZ`, optional `SCHEDULE_TARGET_CHAT_ID`) via python-telegram-bot `JobQueue`; same peek → send → `record_delivered` flow as `/next` with shared `asyncio.Lock` ([`bot/main.py`](bot/main.py), [`bot/handlers.py`](bot/handlers.py)).
+- [`config.py`](config.py): schedule validation; [`requirements.txt`](requirements.txt): `python-telegram-bot[job-queue]`, `tzdata`.
+- Tests: [`tests/test_handlers_scheduled.py`](tests/test_handlers_scheduled.py), config cases in [`tests/test_config_validate.py`](tests/test_config_validate.py).
+
+### Changed
+
+- [`bot/handlers.py`](bot/handlers.py): `send_content_item` for shared send logic; [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), [`docs/RUNBOOK.md`](docs/RUNBOOK.md), [`.env.example`](.env.example), [`docs/INDEX.md`](docs/INDEX.md).
+
+## [0.3.10] - 2026-04-06
+
+### Added
+
+- [tests/test_orchestrator.py](tests/test_orchestrator.py): tests that `status_text()` next line matches `peek_next_item()`.
+
+### Changed
+
+- [orchestrator.py](orchestrator.py): `/status` via `status_text()` includes the next queue item `id` and `type` (aligned with `peek_next_item`).
+- [bot/handlers.py](bot/handlers.py): `/start` help mentions `/status` shows the next item.
+- [.env.example](.env.example): note that `/next` delivers to the command chat (`effective_chat`), not `ADMIN_CHAT_ID`.
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): document `/status` next line and modules table tweak.
+- [docs/INDEX.md](docs/INDEX.md): ARCHITECTURE index summary (`/status` next id/type) and Last reviewed.
+
+## [0.3.9] - 2026-04-05
 
 ### Added
 
 - [tsconfig.api.json](tsconfig.api.json), [package.json](package.json) script `check:api`, devDependency `typescript` ~5.9.3 — lokaliai: `npm run check:api`.
+
+### Fixed
+
+- [api/publish.ts](api/publish.ts): suderinamumas su **TypeScript 5.9** (`Blob` iš `ArrayBuffer` kopijos; `ok === false` susiaurinimas prieš `.detail` / `.phase`).
+
+### Changed
+
+- Vercel: publish API (`BOT_TOKEN` / `TELEGRAM_BOT_TOKEN`, `PUBLISH_CHAT_ID` / `TELEGRAM_PUBLISH_CHAT_ID`, `PUBLISH_BEARER_TOKEN`) turi būti **Project → Settings → Environment Variables** su pažymėta **Production** (ir **Preview**, jei naudoji preview URL); jei kintamieji tik prie vieno deployment ar tik Preview, production gali grąžinti 503 „Publish is not configured on the server.“
 
 ## [0.3.8] - 2026-04-04
 

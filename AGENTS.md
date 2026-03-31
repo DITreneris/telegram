@@ -33,7 +33,7 @@ Admin-only Telegram bot (MVP) that delivers queued items from `data/content.json
 
 1. `python -m venv .venv` then activate (Windows: `.venv\Scripts\activate`).
 2. `pip install -r requirements.txt`
-3. Copy `.env.example` to `.env` and set `BOT_TOKEN`, `ADMIN_CHAT_ID`, and optionally `LOG_LEVEL`.
+3. Copy `.env.example` to `.env` and set `BOT_TOKEN`, `ADMIN_CHAT_ID`, and optionally `LOG_LEVEL` or scheduled posting (`ENABLE_SCHEDULED_POSTING`, `SCHEDULE_TZ`, `SCHEDULE_TARGET_CHAT_ID` — see [docs/RUNBOOK.md](docs/RUNBOOK.md)).
 4. From repo root: `python run.py`
 
 **Tests (dev):** `pip install -r requirements-dev.txt`, then from repo root `pytest` (see [docs/RUNBOOK.md](docs/RUNBOOK.md#running-tests)).

@@ -6,7 +6,7 @@ import asyncio
 import logging
 from pathlib import Path
 
-from telegram import InputFile, Update
+from telegram import Bot, InputFile, Update
 from telegram.error import TelegramError
 from telegram.ext import ContextTypes
 
@@ -54,7 +54,7 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "Lean orchestrator (MVP).\n"
         "Commands:\n"
         "/next — next queued item (cycles)\n"
-        "/status — status"
+        "/status — queue summary and next item (id and type)"
     )
 
 
@@ -76,23 +76,18 @@ async def cmd_status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     await update.message.reply_text(text)
 
 
-async def _send_item(
-    update: Update,
-    context: ContextTypes.DEFAULT_TYPE,
-    item: ContentItem,
-) -> None:
-    assert update.effective_chat
-    chat_id = update.effective_chat.id
+async def send_content_item(bot: Bot, chat_id: int, item: ContentItem) -> None:
+    """Send one manifest item to Telegram (same rules as /next delivery)."""
     if item.type == "text":
         assert item.text is not None
         for chunk in split_telegram_text_chunks(item.text):
-            await context.bot.send_message(chat_id=chat_id, text=chunk)
+            await bot.send_message(chat_id=chat_id, text=chunk)
         return
     assert item.path is not None
     path = Path(item.path)
     if item.type == "photo":
         with path.open("rb") as f:
-            await context.bot.send_photo(
+            await bot.send_photo(
                 chat_id=chat_id,
                 photo=InputFile(f, filename=path.name),
                 caption=item.caption,
@@ -100,13 +95,53 @@ async def _send_item(
         return
     if item.type == "document":
         with path.open("rb") as f:
-            await context.bot.send_document(
+            await bot.send_document(
                 chat_id=chat_id,
                 document=InputFile(f, filename=path.name),
                 caption=item.caption,
             )
         return
     raise RuntimeError(f"Unknown content type (internal error): {item.type!r}")
+
+
+async def run_scheduled_delivery(context: ContextTypes.DEFAULT_TYPE) -> None:
+    """JobQueue callback: same sequence as /next (peek → send → record on success)."""
+    raw_target = context.bot_data.get("schedule_target_chat_id")
+    if raw_target is None:
+        logger.error("scheduled_delivery: schedule_target_chat_id missing; skip.")
+        return
+    chat_id = int(raw_target)
+    orch: Orchestrator = context.bot_data["orchestrator"]
+    async with _next_lock:
+        try:
+            item = orch.peek_next_item()
+        except (ValueError, FileNotFoundError, OSError):
+            logger.exception("scheduled_delivery: content preparation error")
+            return
+        except Exception:
+            logger.exception("scheduled_delivery: unexpected content preparation error")
+            return
+        try:
+            await send_content_item(context.bot, chat_id, item)
+        except TelegramError:
+            logger.exception("scheduled_delivery: telegram send error")
+            return
+        except OSError:
+            logger.exception("scheduled_delivery: media read or io error")
+            return
+        except Exception:
+            logger.exception("scheduled_delivery: unexpected send error")
+            return
+        try:
+            orch.record_delivered(item.id)
+        except (OSError, ValueError):
+            logger.exception(
+                "scheduled_delivery: could not persist delivery state (may resend on next tick)"
+            )
+        except Exception:
+            logger.exception(
+                "scheduled_delivery: unexpected error saving delivery state (may resend on next tick)"
+            )
 
 
 async def cmd_next(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -125,8 +160,9 @@ async def cmd_next(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             logger.exception("cmd_next: unexpected content preparation error")
             await update.message.reply_text("Could not prepare content. Check logs.")
             return
+        assert update.effective_chat
         try:
-            await _send_item(update, context, item)
+            await send_content_item(context.bot, update.effective_chat.id, item)
         except TelegramError:
             logger.exception("cmd_next: telegram send error")
             await update.message.reply_text("Send failed. Check logs.")

@@ -28,10 +28,13 @@ Tests live under `tests/`; `pytest.ini` sets `pythonpath` so imports resolve fro
 | `BOT_TOKEN` | Yes | Telegram bot token from BotFather |
 | `ADMIN_CHAT_ID` | Yes | Your Telegram **user** id (same as [`.env.example`](../.env.example)); the bot compares it to `update.effective_user.id` for **authorization**. Messages are still sent to `update.effective_chat.id` (private chat or group where you run the command). |
 | `LOG_LEVEL` | No | Logging level: `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL` (default `INFO`; unknown values fall back to `INFO` with a warning) |
+| `ENABLE_SCHEDULED_POSTING` | No | When `true` / `1` / `yes`, registers two daily queue sends at **08:00** and **19:00** (see [ARCHITECTURE.md](ARCHITECTURE.md)). Default off. |
+| `SCHEDULE_TZ` | No | IANA timezone for those times (default `Europe/Vilnius`). Invalid values fail at startup. |
+| `SCHEDULE_TARGET_CHAT_ID` | No | Chat id for scheduled sends. If unset, uses `ADMIN_CHAT_ID` (fine for private DM with the bot). Use the **group** chat id if `/next` runs in a group and scheduled posts should go there too. |
 
-If either required variable is missing or invalid at startup, `validate_config()` in `config.py` raises a clear error.
+If either required variable is missing or invalid at startup, `validate_config()` in `config.py` raises a clear error. When `ENABLE_SCHEDULED_POSTING` is on, `SCHEDULE_TZ` must be valid and `SCHEDULE_TARGET_CHAT_ID` (if set) must be a non-zero integer.
 
-Commented keys under „Ateičiai“ in [`.env.example`](../.env.example) are placeholders for future features; they are not read by the bot until implemented.
+See [`.env.example`](../.env.example) for commented optional keys (HTTP publish, etc.).
 
 ## Content manifest
 
@@ -42,7 +45,7 @@ Commented keys under „Ateičiai“ in [`.env.example`](../.env.example) are pl
 
 ## Local bot vs web publish (Vercel)
 
-Running **`python run.py`** starts the **queue bot**: it reads `data/content.json`, advances `data/state.json` on successful `/next` deliveries, and supports text, photo, and document items per the manifest.
+Running **`python run.py`** starts the **queue bot**: it reads `data/content.json`, advances `data/state.json` on successful `/next` deliveries (and on successful **scheduled** sends when `ENABLE_SCHEDULED_POSTING` is enabled), and supports text, photo, and document items per the manifest.
 
 The **social copy UI** can publish post text (and, when the post has `image`, an optional same-origin photo URL) via **`POST /api/publish`** (see [`web/README.md`](../web/README.md)). That path uses the same bot token style on the server but is **separate** from the queue: it does not update `last_delivered_id`. For a full comparison, see [ARCHITECTURE.md](ARCHITECTURE.md) (section **Telegram delivery paths**).
 

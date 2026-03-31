@@ -6,6 +6,7 @@ import logging
 import os
 import warnings
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from dotenv import load_dotenv
 
@@ -19,6 +20,10 @@ _LOG_LEVEL_NAMES = frozenset({"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"})
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip()
 ADMIN_CHAT_ID: int | None = None
+
+ENABLE_SCHEDULED_POSTING = False
+SCHEDULE_TIMEZONE: ZoneInfo | None = None
+SCHEDULE_TARGET_CHAT_ID: int | None = None
 
 
 def resolve_log_level() -> int:
@@ -35,8 +40,15 @@ def resolve_log_level() -> int:
     return int(getattr(logging, raw))
 
 
+def _parse_env_bool(raw: str | None, default: bool) -> bool:
+    if raw is None or not str(raw).strip():
+        return default
+    return str(raw).strip().lower() in ("1", "true", "yes", "on")
+
+
 def validate_config() -> None:
     global ADMIN_CHAT_ID
+    global ENABLE_SCHEDULED_POSTING, SCHEDULE_TIMEZONE, SCHEDULE_TARGET_CHAT_ID
     if not BOT_TOKEN:
         raise ValueError("Nustatyk BOT_TOKEN aplinkos kintamąjį arba .env faile.")
     raw = os.getenv("ADMIN_CHAT_ID", "").strip()
@@ -55,3 +67,30 @@ def validate_config() -> None:
     if aid == 0:
         raise ValueError("ADMIN_CHAT_ID negali būti 0.")
     ADMIN_CHAT_ID = aid
+
+    ENABLE_SCHEDULED_POSTING = _parse_env_bool(os.getenv("ENABLE_SCHEDULED_POSTING"), False)
+    SCHEDULE_TIMEZONE = None
+    SCHEDULE_TARGET_CHAT_ID = None
+
+    if ENABLE_SCHEDULED_POSTING:
+        tz_name = (os.getenv("SCHEDULE_TZ") or "Europe/Vilnius").strip() or "Europe/Vilnius"
+        try:
+            SCHEDULE_TIMEZONE = ZoneInfo(tz_name)
+        except ZoneInfoNotFoundError as exc:
+            raise ValueError(
+                f'Naudojamas nežinomas SCHEDULE_TZ: {tz_name!r} (IANA laiko juosta, pvz. "Europe/Vilnius").'
+            ) from exc
+
+        raw_target = (os.getenv("SCHEDULE_TARGET_CHAT_ID") or "").strip()
+        if not raw_target:
+            SCHEDULE_TARGET_CHAT_ID = ADMIN_CHAT_ID
+        else:
+            try:
+                tid = int(raw_target)
+            except ValueError as exc:
+                raise ValueError(
+                    "SCHEDULE_TARGET_CHAT_ID turi būti sveikasis skaičius (Telegram pokalbio id)."
+                ) from exc
+            if tid == 0:
+                raise ValueError("SCHEDULE_TARGET_CHAT_ID negali būti 0.")
+            SCHEDULE_TARGET_CHAT_ID = tid

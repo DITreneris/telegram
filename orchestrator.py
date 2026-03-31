@@ -11,7 +11,7 @@ from state_store import save_atomic
 
 
 async def schedule_next_delivery(delay_seconds: float | None = None) -> None:
-    """Rezervuota: APScheduler / cron / išorinis trigger. MVP nenaudojama."""
+    """Reserved hook; daily jobs use JobQueue in bot/main.py (run_scheduled_delivery)."""
     del delay_seconds
 
 
@@ -49,8 +49,14 @@ class Orchestrator:
         manifest = self.load_manifest()
         state = load_state(self._state_path)
         last = state.get("last_delivered_id")
+        if not manifest.items:
+            next_line = "Next: none (empty queue)"
+        else:
+            nxt = self._next_after(manifest.items, last)
+            next_line = f"Next: id={nxt.id}, type={nxt.type}"
         return (
             f"Items: {len(manifest.items)}\n"
             f"Last delivered id: {last!r}\n"
+            f"{next_line}\n"
             f"Updated: {state.get('updated_at')!r}"
         )
