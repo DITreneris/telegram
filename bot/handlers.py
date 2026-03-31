@@ -7,11 +7,12 @@ import logging
 from pathlib import Path
 
 from telegram import Bot, InputFile, Update
+from telegram.constants import PollType
 from telegram.error import TelegramError
 from telegram.ext import ContextTypes
 
 from orchestrator import Orchestrator
-from schemas import ContentItem
+from schemas import MAX_MESSAGE_CHARS, ContentItem
 
 logger = logging.getLogger(__name__)
 
@@ -20,9 +21,6 @@ _next_lock = asyncio.Lock()
 _RECORD_FAILED_MSG = (
     "Delivered but could not save progress; check disk/logs — may resend on next /next."
 )
-
-# Same limit as Telegram Bot API sendMessage and api/publish.ts.
-MAX_MESSAGE_CHARS = 4096
 
 
 def split_telegram_text_chunks(text: str) -> list[str]:
@@ -53,7 +51,7 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(
         "Lean orchestrator (MVP).\n"
         "Commands:\n"
-        "/next — next queued item (cycles)\n"
+        "/next — next queued item: text, photo, document, or poll (cycles)\n"
         "/status — queue summary and next item (id and type)"
     )
 
@@ -82,6 +80,21 @@ async def send_content_item(bot: Bot, chat_id: int, item: ContentItem) -> None:
         assert item.text is not None
         for chunk in split_telegram_text_chunks(item.text):
             await bot.send_message(chat_id=chat_id, text=chunk)
+        return
+    if item.type == "poll":
+        assert item.poll_question is not None
+        assert item.poll_options is not None
+        assert item.poll_correct_option_id is not None
+        await bot.send_poll(
+            chat_id=chat_id,
+            question=item.poll_question,
+            options=list(item.poll_options),
+            type=PollType.QUIZ,
+            correct_option_id=item.poll_correct_option_id,
+        )
+        if item.theme_note:
+            for chunk in split_telegram_text_chunks(item.theme_note):
+                await bot.send_message(chat_id=chat_id, text=chunk)
         return
     assert item.path is not None
     path = Path(item.path)

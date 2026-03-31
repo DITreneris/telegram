@@ -5,8 +5,10 @@ from __future__ import annotations
 import asyncio
 from unittest.mock import AsyncMock, MagicMock, call
 
-from bot.handlers import MAX_MESSAGE_CHARS, _RECORD_FAILED_MSG, cmd_next
-from schemas import ContentItem
+from telegram.constants import PollType
+
+from bot.handlers import _RECORD_FAILED_MSG, cmd_next
+from schemas import MAX_MESSAGE_CHARS, ContentItem
 
 _ADMIN_ID = 42
 
@@ -18,6 +20,7 @@ def _context(orch: MagicMock) -> MagicMock:
     ctx.bot.send_message = AsyncMock()
     ctx.bot.send_photo = AsyncMock()
     ctx.bot.send_document = AsyncMock()
+    ctx.bot.send_poll = AsyncMock()
     return ctx
 
 
@@ -48,6 +51,67 @@ def test_cmd_next_peek_then_send_then_record() -> None:
     context.bot.send_message.assert_awaited_once_with(chat_id=_ADMIN_ID, text="Body")
     orch.record_delivered.assert_called_once_with("n1")
     assert orch.mock_calls == [call.peek_next_item(), call.record_delivered("n1")]
+
+
+def test_cmd_next_poll_sends_quiz_then_records() -> None:
+    item = ContentItem(
+        id="p1",
+        type="poll",
+        poll_question="Which works better?",
+        poll_options=("Write about dogs.", "Role: vet. Three diet tips as bullets."),
+        poll_correct_option_id=1,
+    )
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    update = _update(_ADMIN_ID)
+    context = _context(orch)
+
+    async def run() -> None:
+        await cmd_next(update, context)
+
+    asyncio.run(run())
+
+    context.bot.send_poll.assert_awaited_once_with(
+        chat_id=_ADMIN_ID,
+        question="Which works better?",
+        options=["Write about dogs.", "Role: vet. Three diet tips as bullets."],
+        type=PollType.QUIZ,
+        correct_option_id=1,
+    )
+    context.bot.send_message.assert_not_called()
+    orch.record_delivered.assert_called_once_with("p1")
+
+
+def test_cmd_next_poll_with_theme_note_sends_quiz_then_debrief_then_records() -> None:
+    item = ContentItem(
+        id="p2",
+        type="poll",
+        poll_question="Which works better?",
+        poll_options=("Write about dogs.", "Role: vet. Three diet tips as bullets."),
+        poll_correct_option_id=1,
+        theme_note="Structure beats vague asks.",
+    )
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    update = _update(_ADMIN_ID)
+    context = _context(orch)
+
+    async def run() -> None:
+        await cmd_next(update, context)
+
+    asyncio.run(run())
+
+    context.bot.send_poll.assert_awaited_once_with(
+        chat_id=_ADMIN_ID,
+        question="Which works better?",
+        options=["Write about dogs.", "Role: vet. Three diet tips as bullets."],
+        type=PollType.QUIZ,
+        correct_option_id=1,
+    )
+    context.bot.send_message.assert_awaited_once_with(
+        chat_id=_ADMIN_ID, text="Structure beats vague asks."
+    )
+    orch.record_delivered.assert_called_once_with("p2")
 
 
 def test_cmd_next_long_text_sends_multiple_messages_then_records_once() -> None:

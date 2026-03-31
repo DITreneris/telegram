@@ -17,9 +17,11 @@
 ## Running tests
 
 1. Install dev dependencies: `pip install -r requirements-dev.txt` (includes `pytest` and app requirements).
-2. From the **repository root**: `pytest`
+2. From the **repository root**, run tests with the **same interpreter** you used for `pip`: prefer `python -m pytest` (not only the bare `pytest` command), so the active environment is unambiguous.
 
 Tests live under `tests/`; `pytest.ini` sets `pythonpath` so imports resolve from the repo root.
+
+**Windows / multiple Python installs:** If `pytest` fails with `No module named pytest` or `python run.py` and tests use different versions, create and **activate** `.venv` (see **Setup** above), then `pip install -r requirements-dev.txt` and `python -m pytest` from the repo root inside that environment.
 
 ## Environment variables
 
@@ -42,10 +44,12 @@ See [`.env.example`](../.env.example) for commented optional keys (HTTP publish,
 - Must satisfy `schemas.parse_manifest`: root object, `version` must be `1`, `items` array with valid entries.
 - Media paths in items are resolved relative to `BASE_DIR` (repo root) per `schemas.py`.
 - Optional `caption` on `photo` / `document` items: at most **140** characters when set. For image plus long copy (hook then full text), see [ARCHITECTURE.md](ARCHITECTURE.md) (section **Image or document plus long copy**).
+- **`poll`** items: Telegram **quiz** polls (`question`, `options`, `correct_option_id`). Optional **`theme_note`** on a poll is sent as a **follow-up text message** in the same chat after the quiz (debrief). To rebuild the queue from `web/public/posts.json` + `data/polls.json`, see [QUEUE_SYNC.md](QUEUE_SYNC.md).
+- Regenerating `data/content.json` (e.g. `python scripts/sync_queue_from_posts.py --in-place`) **reorders** manifest items when post journey ordering changes. `data/state.json`’s `last_delivered_id` still points at the same id string, but the **next** item in sequence may differ from before. Either accept the new sequence or reset/adjust `last_delivered_id` after a sync (see [ARCHITECTURE.md](ARCHITECTURE.md)).
 
 ## Local bot vs web publish (Vercel)
 
-Running **`python run.py`** starts the **queue bot**: it reads `data/content.json`, advances `data/state.json` on successful `/next` deliveries (and on successful **scheduled** sends when `ENABLE_SCHEDULED_POSTING` is enabled), and supports text, photo, and document items per the manifest.
+Running **`python run.py`** starts the **queue bot**: it reads `data/content.json`, advances `data/state.json` on successful `/next` deliveries (and on successful **scheduled** sends when `ENABLE_SCHEDULED_POSTING` is enabled), and supports text, photo, document, and **poll** items per the manifest.
 
 The **social copy UI** can publish post text (and, when the post has `image`, an optional same-origin photo URL) via **`POST /api/publish`** (see [`web/README.md`](../web/README.md)). That path uses the same bot token style on the server but is **separate** from the queue: it does not update `last_delivered_id`. For a full comparison, see [ARCHITECTURE.md](ARCHITECTURE.md) (section **Telegram delivery paths**).
 

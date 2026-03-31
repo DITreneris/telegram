@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 data/state.json
+data/content.generated.json
 
 # Web build and deps (reproducible via npm)
 node_modules/

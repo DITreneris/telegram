@@ -20,7 +20,7 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 |--------|------------------|
 | `config.py` | `BASE_DIR`, `CONTENT_PATH`, `STATE_PATH`, env vars, `validate_config()` (incl. optional schedule flags), `resolve_log_level()` |
 | `bot/main.py` | Build app, wire `bot_data`, optional `JobQueue` daily jobs, register handlers, start polling |
-| `bot/handlers.py` | Admin check, `/start`, `/next`, `/status`; `send_content_item`, `run_scheduled_delivery`; send text, photo, or document per `ContentItem` |
+| `bot/handlers.py` | Admin check, `/start`, `/next`, `/status`; `send_content_item`, `run_scheduled_delivery`; send text, photo, document, or **poll** (Telegram quiz) per `ContentItem` |
 | `orchestrator.py` | Load manifest, `peek_next_item` / `record_delivered`, `status_text()` (includes next item `id` and `type`, same rule as `peek_next_item`) |
 | `content_loader.py` | Read JSON from disk, `parse_manifest()` |
 | `schemas.py` | `ContentItem`, `ContentManifest`, manifest validation (`version` must be `1`; optional media `caption` max `MAX_CAPTION_CHARS`) |
@@ -61,6 +61,7 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 - Media paths are resolved only under `base_dir`; stored as absolute `Path` after validation.
 - Item `id` values must be **unique** so `_next_after` is deterministic.
 - Optional `caption` on `photo` / `document` items is validated to **at most 140 characters** when present (`schemas.MAX_CAPTION_CHARS`); see **Image or document plus long copy** below.
+- **`poll`** items map to Telegram quiz polls (`send_poll` with `PollType.QUIZ`). If `theme_note` is set, a follow-up `send_message` runs after the poll (debrief). Authoring and merging from `posts.json` + `data/polls.json`: [QUEUE_SYNC.md](QUEUE_SYNC.md).
 
 **State (`state_store.py`):**
 
@@ -72,7 +73,7 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 
 - `load_manifest()` runs before `run_polling` so invalid `content.json` fails fast, not on first `/next`.
 
-**Tests as contract witnesses:** `tests/test_orchestrator.py`, `tests/test_schemas.py`, `tests/test_state_store.py`, `tests/test_handlers_next.py` (`/next` order with mocks), and `tests/test_handlers_scheduled.py` (scheduled callback).
+**Tests as contract witnesses:** `tests/test_orchestrator.py`, `tests/test_schemas.py`, `tests/test_state_store.py`, `tests/test_handlers_next.py` (`/next` order with mocks), `tests/test_handlers_scheduled.py` (scheduled callback), and `tests/test_queue_manifest_sync.py` (posts + polls → manifest).
 
 ## Telegram delivery paths
 
@@ -108,7 +109,7 @@ flowchart TB
 
 ## Data
 
-- **`data/content.json`**: Manifest with `version: 1` and `items[]`. Each item has `id`, `type` (`text` \| `photo` \| `document`), and fields per type (e.g. `text`, or `path` relative to repo root for media, optional `caption` up to **140** characters when set—enforced in `parse_manifest`).
+- **`data/content.json`**: Manifest with `version: 1` and `items[]`. Each item has `id`, `type` (`text` \| `photo` \| `document` \| `poll`), and fields per type (e.g. `text`, or `path` relative to repo root for media with optional `caption` up to **140** characters when set; for **`poll`**, quiz fields `question`, `options`, `correct_option_id`, plus optional `theme_note` and `related_post_id`—see `parse_manifest` in [`schemas.py`](../schemas.py) and [QUEUE_SYNC.md](QUEUE_SYNC.md)).
 - **`data/state.json`**: `last_delivered_id` (string or null), `updated_at` (ISO string). Created/updated by `state_store.save_atomic`.
 
 ## Queue semantics

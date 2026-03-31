@@ -4,7 +4,7 @@ This file is the **entry point** for people and for Cursor: where the project li
 
 ## Purpose
 
-Admin-only Telegram bot (MVP) that delivers queued items from `data/content.json` in order, with state in `data/state.json`. Commands: `/start`, `/next`, `/status`.
+Admin-only Telegram bot (MVP) that delivers queued items from `data/content.json` in order, with state in `data/state.json` (item types: text, photo, document, poll). Commands: `/start`, `/next`, `/status`.
 
 **“Agents” in this repo** means documented roles implemented via [Cursor project skills](.cursor/skills/) (optional invocation), not separate running processes.
 

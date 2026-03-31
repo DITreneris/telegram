@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "poll_post_001_hot_or_not",
+      "related_post_id": 1,
+      "question": "When output feels generic, what should you fix first?",
+      "options": [
+        "Switch to a newer model.",
+        "Clarify role, constraints, and desired output format."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI mirrors your inputs—upgrade structure before you blame the model."
+    },
+    {
+      "id": "poll_post_002_hot_or_not",
+      "related_post_id": 2,
+      "question": "You need a tight marketing line. Which style treats AI like a system, not a chat?",
+      "options": [
+        "Hi! Please help me write a short line about our AI course. Thanks!",
+        "Task: 1 line (max 12 words). Product: AI course for consultants. Tone: direct."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Stop saying please to your AI"
+    },
+    {
+      "id": "poll_post_003_hot_or_not",
+      "related_post_id": 3,
+      "question": "Which prompt is more likely to produce a controlled first draft?",
+      "options": [
+        "Write something about productivity.",
+        "Role: coach. Task: 3 bullet tips for managers. Max 80 words."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "poll_post_004_hot_or_not",
+      "related_post_id": 4,
+      "question": "You want a usable LinkedIn post. Which prompt is better?",
+      "options": [
+        "Write about AI for professionals.",
+        "Format: short. Audience: consultants. Goal: clicks. Tone: direct."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Define the output—format, audience, goal—not just the topic."
+    },
+    {
+      "id": "poll_post_005_hot_or_not",
+      "related_post_id": 5,
+      "question": "Which approach scales better across repeated tasks?",
+      "options": [
+        "Rewrite the whole prompt from scratch every time.",
+        "Reuse one structured template; swap only the inputs."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Random one-off prompts → random results. Templates stabilize quality."
+    },
+    {
+      "id": "poll_post_006_hot_or_not",
+      "related_post_id": 6,
+      "question": "Which input is more likely to give a repeatable, controlled result?",
+      "options": [
+        "Give me some productivity tips.",
+        "Role + task + output shape + constraints (length and tone)."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Move from conversation mode to configuration: role, context, output, limits."
+    },
+    {
+      "id": "poll_post_007_hot_or_not",
+      "related_post_id": 7,
+      "question": "Where does the biggest quality jump usually come from?",
+      "options": [
+        "Trying more tools and toggling models.",
+        "One structured prompt: role, context, output, and constraints."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Same model, better instruction—structure beats model-hopping."
+    },
+    {
+      "id": "poll_post_008_hot_or_not",
+      "related_post_id": 8,
+      "question": "Same task: a LinkedIn post about AI productivity. Which input wins?",
+      "options": [
+        "Write a LinkedIn post about AI productivity.",
+        "Audience: managers. Goal: save time. Format: scannable. One concrete example."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "poll_post_009_hot_or_not",
+      "related_post_id": 9,
+      "question": "What best describes serious prompting for real work?",
+      "options": [
+        "Typing whatever comes to mind in the chat box.",
+        "Designing instructions: audience, success criteria, structure."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Prompting is design, not casual typing."
+    },
+    {
+      "id": "poll_post_010_hot_or_not",
+      "related_post_id": 10,
+      "question": "Which pattern treats AI as a system, not a casual chat?",
+      "options": [
+        "Can you please help me improve this text? Thanks!",
+        "Task: rewrite. Role: editor. Goal: clarity. Constraints: shorter, no fluff."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "From toy to system: specify task, role, goal, and constraints."
+    }
+  ]
+}

@@ -2,9 +2,589 @@
   "version": 1,
   "items": [
     {
-      "id": "welcome_text",
+      "id": "post_003_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/03_Prompt_Anatomy.png",
+      "caption": "You're not prompting. You're guessing.",
+      "related_post_id": 3,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "post_003_text",
       "type": "text",
-      "text": "Welcome — lean orchestrator MVP. Use /next to send the next queued item (cycles)."
+      "text": "🎲 You're not prompting.\n\nYou're guessing.\n\nAnd your results prove it.\n\nMost people open ChatGPT and type:\n\n\"Give me ideas…\"\n\"Write something about…\"\n\"Help me improve…\"\n\nThat's not prompting.\n\nThat's hoping the model figures it out.\n\nAnd sometimes it does.\nMostly, it doesn't.\n\nBecause AI is not built to read your mind.\nIt's built to follow instructions.\n\nIf your input is unclear,\nthe output becomes a guess.\n\nAnd now you're stuck in a loop:\n\nTry → tweak → retry → still meh\n\nThe people getting consistent results\ndon't guess.\n\n🧩 They design.\n\nThey define:\n– what the AI is\n– what it sees\n– what it must produce\n– how good it needs to be\n\nThat's the difference:\n\nGuessing → random outputs\nPrompting → controlled outputs\n\nIf you're still \"trying things,\"\nyou're not using AI properly yet.\n\n⚡ You're experimenting without a system.\n\n📐 Build the system first.\n\n→ promptanatomy.app",
+      "related_post_id": 3,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "poll_post_003_hot_or_not",
+      "type": "poll",
+      "question": "Which prompt is more likely to produce a controlled first draft?",
+      "options": [
+        "Write something about productivity.",
+        "Role: coach. Task: 3 bullet tips for managers. Max 80 words."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 3,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "post_001_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/01_Prompt_Anatomy.png",
+      "caption": "Your AI isn't underperforming. You are.",
+      "related_post_id": 1,
+      "theme_note": "Your AI isn't underperforming. You are."
+    },
+    {
+      "id": "post_001_text",
+      "type": "text",
+      "text": "💥 Your AI isn't underperforming.\nYou are.\n\nHard truth—but necessary.\n\nMost people blame the model:\n\"ChatGPT is inconsistent.\"\n\"Claude is weak.\"\n\"Gemini is not reliable.\"\n\nNo.\n\nYou're feeding it chaos.\n\nVague inputs → vague outputs.\nNo structure → no control.\nRandom prompts → random results.\n\n⚡ You're not using AI.\nYou're hoping it works.\n\n🧭 Here's the shift:\n\nAI is not a tool.\nIt's a system that reflects your thinking.\n\nBad thinking → soft answers\nClear thinking → usable output\n\nThe difference?\n\nStructure.\n\nWhen you define:\n– role\n– context\n– output format\n– constraints\n\nThe model stops guessing.\nIt starts executing.\n\nThat's when AI becomes predictable.\n\nNot smarter.\nJust controlled.\n\n🎯 If your results feel inconsistent,\ndon't upgrade the model.\n\nUpgrade the way you prompt.\n\n→ promptanatomy.app",
+      "related_post_id": 1,
+      "theme_note": "Your AI isn't underperforming. You are."
+    },
+    {
+      "id": "poll_post_001_hot_or_not",
+      "type": "poll",
+      "question": "When output feels generic, what should you fix first?",
+      "options": [
+        "Switch to a newer model.",
+        "Clarify role, constraints, and desired output format."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 1,
+      "theme_note": "AI mirrors your inputs—upgrade structure before you blame the model."
+    },
+    {
+      "id": "post_002_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/02_Prompt_Anatomy.png",
+      "caption": "Stop saying \"please\" to your AI.",
+      "related_post_id": 2,
+      "theme_note": "Stop saying \"please\" to your AI."
+    },
+    {
+      "id": "post_002_text",
+      "type": "text",
+      "text": "🙅 Stop saying \"please\" to your AI.\n\nIt's not making you more effective.\nIt's making your outputs worse.\n\nMost people still write prompts like emails:\n\n\"Hi, could you please…\"\n\"Thank you!\"\n\"Would you mind…\"\n\nFeels natural.\n\nBut it kills precision.\n\nAI doesn't need politeness.\nIt needs clarity.\n\nWhen you soften your language,\nyou soften your instructions.\n\nAnd the model responds the same way:\n– less direct\n– less structured\n– less useful\n\nYou're not talking to a human.\nYou're configuring a system.\n\n🎯 Try this instead:\n\n❌ \"Please write a marketing post about AI\"\n✅ \"Write a LinkedIn post. Target: consultants. Goal: drive clicks. Tone: direct. Include 1 example.\"\n\nSame task.\nCompletely different result.\n\nPoliteness ≠ performance.\n\nClarity = control.\n\nIf you want better outputs,\nstop being polite.\n\nStart being precise.\n\n→ promptanatomy.app",
+      "related_post_id": 2,
+      "theme_note": "Stop saying \"please\" to your AI."
+    },
+    {
+      "id": "poll_post_002_hot_or_not",
+      "type": "poll",
+      "question": "You need a tight marketing line. Which style treats AI like a system, not a chat?",
+      "options": [
+        "Hi! Please help me write a short line about our AI course. Thanks!",
+        "Task: 1 line (max 12 words). Product: AI course for consultants. Tone: direct."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 2,
+      "theme_note": "Stop saying please to your AI"
+    },
+    {
+      "id": "post_004_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/04_Prompt_Anatomy.png",
+      "caption": "This one mistake makes your AI outputs useless.",
+      "related_post_id": 4,
+      "theme_note": "This one mistake makes your AI outputs useless."
+    },
+    {
+      "id": "post_004_text",
+      "type": "text",
+      "text": "🎯 This one mistake makes your AI outputs useless.\n\nYou don't define the output.\n\nMost people focus on the input:\n\"Write about…\"\n\"Give me ideas…\"\n\"Explain…\"\n\nBut they never specify what \"good\" looks like.\n\nSo the AI does what it's trained to do:\n\nBe safe.\nBe generic.\nBe broadly acceptable.\n\nResult?\n\nLooks fine.\nDoes nothing.\n\n✨ Here's the fix:\n\nStop focusing only on what you ask.\nStart defining what you expect.\n\n📋 Instead of:\n\"Write a LinkedIn post about AI\"\n\nUse:\n– Format (short, scannable, mobile-first)\n– Tone (direct, non-fluffy)\n– Goal (drive clicks)\n– Audience (consultants)\n\nNow the AI has a target.\n\nWithout that → it defaults to average.\n\nThis is the mistake 90% of users make.\n\nThey describe the topic.\nThey never define the outcome.\n\nAnd then they blame the AI.\n\n🔧 Define the output → control the result.\n\n→ promptanatomy.app",
+      "related_post_id": 4,
+      "theme_note": "This one mistake makes your AI outputs useless."
+    },
+    {
+      "id": "poll_post_004_hot_or_not",
+      "type": "poll",
+      "question": "You want a usable LinkedIn post. Which prompt is better?",
+      "options": [
+        "Write about AI for professionals.",
+        "Format: short. Audience: consultants. Goal: clicks. Tone: direct."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 4,
+      "theme_note": "Define the output—format, audience, goal—not just the topic."
+    },
+    {
+      "id": "post_005_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/05_Prompt_Anatomy.png",
+      "caption": "Your prompts are random → so are your results.",
+      "related_post_id": 5,
+      "theme_note": "Your prompts are random → so are your results."
+    },
+    {
+      "id": "post_005_text",
+      "type": "text",
+      "text": "🌀 Your prompts are random.\nSo are your results.\n\nAnd no, it's not the model.\n\nIt's your workflow.\n\nMost people approach AI like this:\n\nNew task → new prompt → new guess\n\nNo structure.\nNo consistency.\nNo system.\n\nSo every output is a surprise.\n\nSometimes good.\nMostly average.\n\nThat's not leverage.\nThat's luck.\n\n🎰 The people getting real value from AI\ndon't rely on randomness.\n\nThey reuse structure.\n\nSame logic.\nSame framework.\nDifferent inputs.\n\nThat's how you go from:\n\n\"Let's see what happens\"\n→\n\"I know what I'll get\"\n\nAI becomes predictable\nonly when your prompts are repeatable.\n\nIf every prompt is new,\nyou're starting from zero every time.\n\n🔁 Build once. Reuse forever.\n\nThat's the shift:\n\nRandom prompts → controlled system\n\n→ promptanatomy.app",
+      "related_post_id": 5,
+      "theme_note": "Your prompts are random → so are your results."
+    },
+    {
+      "id": "poll_post_005_hot_or_not",
+      "type": "poll",
+      "question": "Which approach scales better across repeated tasks?",
+      "options": [
+        "Rewrite the whole prompt from scratch every time.",
+        "Reuse one structured template; swap only the inputs."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 5,
+      "theme_note": "Random one-off prompts → random results. Templates stabilize quality."
+    },
+    {
+      "id": "post_006_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/06_Prompt_Anatomy.png",
+      "caption": "From random answers → to controlled outputs",
+      "related_post_id": 6,
+      "theme_note": "From random answers → to controlled outputs"
+    },
+    {
+      "id": "post_006_text",
+      "type": "text",
+      "text": "🎛️ From random answers → to controlled outputs.\n\nThat's the whole game.\n\nMost people are still here:\n\nAsk → hope → adjust → repeat\n\nIt feels like progress.\nIt's actually friction.\n\nBecause nothing is defined.\n\nNo structure\nNo expectations\nNo control\n\nSo the AI improvises.\n\n⚡ And you get:\n– inconsistent quality\n– unpredictable tone\n– outputs you can't reuse\n\n📊 Now compare that to this:\n\nDefine → execute → reuse\n\nYou tell the AI:\n– who it is\n– what it sees\n– what it must produce\n– how good it needs to be\n\nNow it doesn't guess.\n\nIt follows.\n\nThat's the shift:\n\nFrom \"conversation\"\n→ to \"configuration\"\n\nFrom random answers\n→ to controlled outputs\n\n🚀 Once you feel this difference,\nyou can't go back.\n\nAI stops being interesting.\n\nStarts being useful.\n\n→ promptanatomy.app",
+      "related_post_id": 6,
+      "theme_note": "From random answers → to controlled outputs"
+    },
+    {
+      "id": "poll_post_006_hot_or_not",
+      "type": "poll",
+      "question": "Which input is more likely to give a repeatable, controlled result?",
+      "options": [
+        "Give me some productivity tips.",
+        "Role + task + output shape + constraints (length and tone)."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 6,
+      "theme_note": "Move from conversation mode to configuration: role, context, output, limits."
+    },
+    {
+      "id": "post_007_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/07_Prompt_Anatomy.png",
+      "caption": "You're one prompt away from 10x better results.",
+      "related_post_id": 7,
+      "theme_note": "You're one prompt away from 10x better results."
+    },
+    {
+      "id": "post_007_text",
+      "type": "text",
+      "text": "🚀 You're one prompt away from 10x better results.\n\nNot a new tool.\nNot a better model.\n\nOne prompt.\n\nMost people try to improve results by switching AI:\n\nChatGPT → Claude → Gemini → back again\n\nSame frustration.\n\nBecause the problem isn't the model.\n\nIt's the input.\n\n💡 You're writing prompts like this:\n\"Write something good…\"\n\"Give me ideas…\"\n\nAnd expecting precision.\n\nThat's not how it works.\n\nThe jump happens when you add structure:\n\n– Role\n– Context\n– Output\n– Constraints\n\nSuddenly:\n– answers get sharper\n– tone becomes consistent\n– output becomes usable\n\nSame AI.\nDifferent behavior.\n\nThat's the unlock.\n\n🔑 You don't need more tools.\nYou need one well-designed prompt.\n\nBuild it once.\nReuse it everywhere.\n\n📈 That's how results compound.\n\n→ promptanatomy.app",
+      "related_post_id": 7,
+      "theme_note": "You're one prompt away from 10x better results."
+    },
+    {
+      "id": "poll_post_007_hot_or_not",
+      "type": "poll",
+      "question": "Where does the biggest quality jump usually come from?",
+      "options": [
+        "Trying more tools and toggling models.",
+        "One structured prompt: role, context, output, and constraints."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 7,
+      "theme_note": "Same model, better instruction—structure beats model-hopping."
+    },
+    {
+      "id": "post_008_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/08_Prompt_Anatomy.png",
+      "caption": "Same prompt vs structured prompt (before/after)",
+      "related_post_id": 8,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "post_008_text",
+      "type": "text",
+      "text": "⚖️ Same task.\nTwo prompts.\nCompletely different results.\n\nBefore:\n\"Write a LinkedIn post about AI productivity.\"\n\nAfter:\nRole: AI productivity expert\nAudience: managers\nGoal: save time\nFormat: short, scannable\nInclude: 1 concrete example\nTone: direct, no fluff\n\nThe first one gives you:\n– generic advice\n– predictable phrases\n– nothing worth posting\n\nThe second one gives you:\n– clear angle\n– usable structure\n– content you can actually publish\n\n🆚 Same AI.\nSame task.\n\nOnly one difference:\n\nStructure.\n\nMost people try to fix outputs\nby rewriting the same vague prompt.\n\nThat's why nothing changes.\n\nThe leap happens when you stop tweaking\nand start defining.\n\n✨ Before → random\nAfter → controlled\n\n👀 Once you see this,\nyou can't unsee it.\n\n→ promptanatomy.app",
+      "related_post_id": 8,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "poll_post_008_hot_or_not",
+      "type": "poll",
+      "question": "Same task: a LinkedIn post about AI productivity. Which input wins?",
+      "options": [
+        "Write a LinkedIn post about AI productivity.",
+        "Audience: managers. Goal: save time. Format: scannable. One concrete example."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 8,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "post_009_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/09_Prompt_Anatomy.png",
+      "caption": "The mistake 90% of AI users make",
+      "related_post_id": 9,
+      "theme_note": "The mistake 90% of AI users make"
+    },
+    {
+      "id": "post_009_text",
+      "type": "text",
+      "text": "📊 The mistake 90% of AI users make?\n\nThey think prompting = typing.\n\nIt doesn't.\n\nTyping is easy.\nPrompting is design.\n\nMost people open ChatGPT and write:\n\"Explain this…\"\n\"Give me ideas…\"\n\"Help me improve…\"\n\nAnd expect high-quality output.\n\nBut they never define:\n– what success looks like\n– who it's for\n– how it should be structured\n\nSo the AI does what it can:\n\nDefault to average.\n\nThat's why everything feels:\n– okay\n– safe\n– forgettable\n\nThe top 10% do one thing differently:\n\n🏗️ They don't type prompts.\nThey build them.\n\nClear role.\nClear context.\nClear output.\nClear constraints.\n\nThat's the difference between:\n\nUsing AI casually\nvs\nUsing AI professionally\n\nIf your results feel weak,\nyou're probably still typing.\n\n⚡ Start designing instead.\n\n→ promptanatomy.app",
+      "related_post_id": 9,
+      "theme_note": "The mistake 90% of AI users make"
+    },
+    {
+      "id": "poll_post_009_hot_or_not",
+      "type": "poll",
+      "question": "What best describes serious prompting for real work?",
+      "options": [
+        "Typing whatever comes to mind in the chat box.",
+        "Designing instructions: audience, success criteria, structure."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 9,
+      "theme_note": "Prompting is design, not casual typing."
+    },
+    {
+      "id": "post_010_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/10_Prompt_Anatomy.png",
+      "caption": "How I turned AI from toy → system",
+      "related_post_id": 10,
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "post_010_text",
+      "type": "text",
+      "text": "🧸 I stopped using AI like a toy.\n\nThat's when everything changed.\n\nAt first, it felt impressive:\n\nAsk something → get an answer\n\nCool.\nBut inconsistent.\n\nSometimes useful.\nOften not.\n\nBecause I was using it like everyone else:\n\nNo structure\nNo system\nJust trial and error\n\nThen I made one shift:\n\n🔧 I stopped \"asking\"\nand started defining.\n\nEvery prompt had:\n– role\n– context\n– output\n– constraints\n\nNow AI didn't improvise.\n\nIt executed.\n\n♻️ That's when it stopped being entertaining\nand started being productive.\n\nFrom:\n\"Let's see what it says\"\n\nTo:\n\"I know what I'll get\"\n\nThat's the difference between a toy and a system.\n\nMost people never cross that line.\n\n🎯 If AI still feels random to you,\nyou're probably still playing with it.\n\nBuild a system.\n\n→ promptanatomy.app",
+      "related_post_id": 10,
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "poll_post_010_hot_or_not",
+      "type": "poll",
+      "question": "Which pattern treats AI as a system, not a casual chat?",
+      "options": [
+        "Can you please help me improve this text? Thanks!",
+        "Task: rewrite. Role: editor. Goal: clarity. Constraints: shorter, no fluff."
+      ],
+      "correct_option_id": 1,
+      "related_post_id": 10,
+      "theme_note": "From toy to system: specify task, role, goal, and constraints."
+    },
+    {
+      "id": "post_013_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/13_Prompt_Anatomy.png",
+      "caption": "You're not prompting. You're guessing.",
+      "related_post_id": 13,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "post_013_text",
+      "type": "text",
+      "text": "🎯 Be honest.\n\nYou're not prompting AI.\nYou're throwing ideas at it.\n\nAnd hoping something sticks.\n\nThat's why your outputs feel inconsistent.\n\nBecause your inputs are inconsistent.\n\nMost users operate like this:\n\nNo structure\nNo constraints\nNo clear output definition\n\nSo the model fills the gaps.\n\nAnd it does it safely.\n\nThat means:\n– generic tone\n– predictable ideas\n– average quality\n\nIt's not a bug.\n\nIt's a mirror.\n\n🔮 AI reflects the level of precision you give it.\n\nIf you guess → it guesses\nIf you define → it delivers\n\nSimple.\n\n📐 The upgrade is not \"better wording.\"\n\nIt's structured prompting.\n\nFrom:\n\"Write something good\"\n\nTo:\n\"Role + context + output + constraints\"\n\nNow you're not guessing anymore.\n\nNow you're directing.\n\n→ promptanatomy.app",
+      "related_post_id": 13,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "post_011_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/11_Prompt_Anatomy.png",
+      "caption": "Your AI isn't underperforming. You are.",
+      "related_post_id": 11,
+      "theme_note": "Your AI isn't underperforming. You are."
+    },
+    {
+      "id": "post_011_text",
+      "type": "text",
+      "text": "🪞 Your AI is not the problem.\n\nYour inputs are.\n\nMost professionals are still operating like this:\n\n\"Write something about…\"\n\"Give me ideas for…\"\n\"Help me improve…\"\n\nAnd then they wonder why the output feels generic.\n\nBecause you gave it nothing to work with.\n\n💬 AI doesn't think for you.\nIt completes what you start.\n\nIf you start with vagueness,\nit finishes with mediocrity.\n\nSimple rule:\n\nGarbage prompt → polished garbage output\n\n🧱 The people getting real results with AI\nare not smarter.\n\nThey're more structured.\n\nThey don't \"ask.\"\n\nThey define:\n\nWhat the AI is\nWhat it sees\nWhat it must produce\nHow good it needs to be\n\nThat's the difference between:\n\nPlaying with AI\nvs\nWorking with AI\n\nIf your outputs feel weak,\nit's not a model issue.\n\nIt's an input design issue.\n\n🛠️ Fix that first.\n\n→ promptanatomy.app",
+      "related_post_id": 11,
+      "theme_note": "Your AI isn't underperforming. You are."
+    },
+    {
+      "id": "post_012_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/12_Prompt_Anatomy.png",
+      "caption": "Stop saying \"please\" to your AI.",
+      "related_post_id": 12,
+      "theme_note": "Stop saying \"please\" to your AI."
+    },
+    {
+      "id": "post_012_text",
+      "type": "text",
+      "text": "✂️ \"Please\" is slowing you down.\n\nNot emotionally.\nOperationally.\n\nMost AI users still operate in \"conversation mode.\"\n\nThey type like they're chatting.\n\nBut AI is not a chat partner.\nIt's an execution engine.\n\n🤖 Every extra word that doesn't add structure\nadds noise.\n\nAnd noise creates weaker outputs.\n\nWatch the difference:\n\nVersion 1:\n\"Hi, can you please help me write something about productivity?\"\n\nVersion 2:\n\"Role: productivity expert\nTask: write LinkedIn post\nAudience: managers\nGoal: save time\nTone: direct\"\n\nOne gets you fluff.\nOne gets you results.\n\nThe model doesn't reward politeness.\nIt rewards constraints.\n\nIf your prompts feel like conversations,\nyou're leaving performance on the table.\n\nSwitch from talking → to specifying.\n\n📍 That's the upgrade.\n\n→ promptanatomy.app",
+      "related_post_id": 12,
+      "theme_note": "Stop saying \"please\" to your AI."
+    },
+    {
+      "id": "post_014_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/14_Prompt_Anatomy.png",
+      "caption": "This one mistake makes your AI outputs useless.",
+      "related_post_id": 14,
+      "theme_note": "This one mistake makes your AI outputs useless."
+    },
+    {
+      "id": "post_014_text",
+      "type": "text",
+      "text": "🧱 Your AI outputs feel useless?\n\nHere's why.\n\nYou're not setting constraints.\n\nNo length\nNo structure\nNo tone\nNo goal\n\nSo the model fills the space with \"safe content.\"\n\nWhich means:\n– too long\n– too generic\n– no edge\n– no action\n\nIt's not broken.\n\nIt's unconstrained.\n\nAI performs best under pressure.\n\nClear limits → better decisions\nClear structure → better output\n\n📏 Try this:\n\n❌ \"Write something about productivity\"\n✅ \"Write 150-word LinkedIn post. Audience: managers. Goal: save time. Include 1 actionable tip.\"\n\nSame AI.\nDifferent result.\n\nMost people avoid constraints\nbecause they think it limits creativity.\n\nIt doesn't.\n\nIt removes randomness.\n\nIf your outputs feel unusable,\nyou didn't guide the system enough.\n\nAdd constraints.\n\nWatch what happens.\n\n→ promptanatomy.app",
+      "related_post_id": 14,
+      "theme_note": "This one mistake makes your AI outputs useless."
+    },
+    {
+      "id": "post_015_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/15_Prompt_Anatomy.png",
+      "caption": "Your prompts are random → so are your results.",
+      "related_post_id": 15,
+      "theme_note": "Your prompts are random → so are your results."
+    },
+    {
+      "id": "post_015_text",
+      "type": "text",
+      "text": "🔁 If your AI results feel inconsistent,\nlook at your prompts.\n\nThey're probably inconsistent too.\n\nMost users reinvent the prompt\nfor every single task.\n\nDifferent wording\nDifferent structure\nDifferent logic\n\nAnd then expect stable results.\n\nThat's not how systems work.\n\nAI needs patterns.\n\n📋 When you standardize your prompts:\n– same structure\n– same logic\n– same expectations\n\nYou remove variability.\n\nAnd output quality stabilizes.\n\nThis is where most people get stuck:\n\nThey optimize single prompts\ninstead of building reusable ones.\n\nThat's why nothing scales.\n\n🎲 The upgrade is simple:\n\nStop writing prompts.\nStart building prompt templates.\n\nThat's when AI becomes a tool,\nnot a gamble.\n\n→ promptanatomy.app",
+      "related_post_id": 15,
+      "theme_note": "Your prompts are random → so are your results."
+    },
+    {
+      "id": "post_016_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/16_Prompt_Anatomy.png",
+      "caption": "From random answers → to controlled outputs",
+      "related_post_id": 16,
+      "theme_note": "From random answers → to controlled outputs"
+    },
+    {
+      "id": "post_016_text",
+      "type": "text",
+      "text": "🎰 Most people use AI like a slot machine.\n\nPull the lever.\nSee what comes out.\n\nSometimes good.\nMostly average.\n\nThat's random answers.\n\nAnd random answers don't scale.\n\n♟️ If you want real value from AI,\nyou need control.\n\nControl comes from structure.\n\nNot better wording.\nNot longer prompts.\n\n🧩 Structure.\n\nHere's the difference:\n\n📊 Random mode:\n– vague input\n– no constraints\n– unpredictable output\n\nControlled mode:\n– defined role\n– clear context\n– specific output\n– measurable quality\n\nSame AI.\nDifferent result.\n\nThis is where professionals separate:\n\nThey don't chase better answers.\nThey build systems that produce them.\n\nFrom random → to repeatable\n\nThat's the upgrade.\n\n→ promptanatomy.app",
+      "related_post_id": 16,
+      "theme_note": "From random answers → to controlled outputs"
+    },
+    {
+      "id": "post_017_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/17_Prompt_Anatomy.png",
+      "caption": "You're one prompt away from 10x better results.",
+      "related_post_id": 17,
+      "theme_note": "You're one prompt away from 10x better results."
+    },
+    {
+      "id": "post_017_text",
+      "type": "text",
+      "text": "🔭 Everyone is looking for a better AI.\n\nAlmost no one is building a better prompt.\n\nThat's why most results plateau.\n\nBecause improvement doesn't come from the model.\n\nIt comes from the instruction.\n\nOne structured prompt can outperform\n10 random attempts.\n\nHere's what changes:\n\n🔄 Before:\n– vague task\n– unclear goal\n– generic output\n\nAfter:\n– defined role\n– clear objective\n– constrained format\n\nNow the AI stops guessing.\n\nIt executes.\n\nThat's the difference between:\nTrying to get lucky\nvs\nDesigning for results\n\n💎 If your outputs feel stuck,\nyou don't need more prompts.\n\nYou need one good one.\n\nAnd then you reuse it.\n\n→ promptanatomy.app",
+      "related_post_id": 17,
+      "theme_note": "You're one prompt away from 10x better results."
+    },
+    {
+      "id": "post_018_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/18_Prompt_Anatomy.png",
+      "caption": "Same prompt vs structured prompt (before/after)",
+      "related_post_id": 18,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "post_018_text",
+      "type": "text",
+      "text": "🧪 If you think AI is inconsistent,\nrun this test.\n\nGive it the same task two ways.\n\nVersion 1:\n\"Give me ideas for content.\"\n\nVersion 2:\nRole: content strategist\nAudience: consultants\nGoal: generate leads\nOutput: 5 LinkedIn post ideas\nEach: with hook + angle\nTone: sharp, non-generic\n\nNow compare.\n\nVersion 1:\n– broad\n– safe\n– forgettable\n\nVersion 2:\n– specific\n– usable\n– actionable\n\nNothing changed in the model.\n\nOnly the prompt.\n\n🔥 This is where most users get stuck:\n\nThey optimize wording\ninstead of structure.\n\nBut structure is what drives output quality.\n\nNot creativity.\nNot length.\n\n📝 If your results feel average,\nyou're still using Version 1 thinking.\n\nUpgrade the structure.\n\n→ promptanatomy.app",
+      "related_post_id": 18,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "post_019_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/19_Prompt_Anatomy.png",
+      "caption": "The mistake 90% of AI users make",
+      "related_post_id": 19,
+      "theme_note": "The mistake 90% of AI users make"
+    },
+    {
+      "id": "post_019_text",
+      "type": "text",
+      "text": "🎢 90% of AI users make the same mistake.\n\nThey chase better answers\ninstead of fixing their inputs.\n\nSo they:\n– switch tools\n– try new models\n– rewrite prompts again and again\n\nBut nothing really improves.\n\nBecause the core issue stays:\n\nNo structure.\n\nAI is only as good as the instructions you give it.\n\nIf those instructions are:\n– vague\n– inconsistent\n– incomplete\n\nYou get unstable results.\n\nAnd then you blame the AI.\n\n🧠 The top users don't do this.\n\nThey standardize how they prompt.\n\nThey use the same logic:\n– role\n– context\n– output\n– constraints\n\nNow results become predictable.\n\nNot perfect.\nBut reliable.\n\nThat's the real upgrade.\n\n📌 Not better AI.\nBetter prompting system.\n\n→ promptanatomy.app",
+      "related_post_id": 19,
+      "theme_note": "The mistake 90% of AI users make"
+    },
+    {
+      "id": "post_020_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/20_Prompt_Anatomy.png",
+      "caption": "How I turned AI from toy → system",
+      "related_post_id": 20,
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "post_020_text",
+      "type": "text",
+      "text": "🎡 AI is fun.\n\nUntil you try to use it for real work.\n\nThat's where most people hit the wall.\n\nBecause \"fun\" workflows don't scale.\n\nI used to:\n– test random prompts\n– chase better answers\n– tweak endlessly\n\nIt felt productive.\n\nIt wasn't.\n\nThe shift happened when I treated AI like a system:\n\n⚙️ Input → logic → output\n\nNot conversation.\nExecution.\n\nI built prompts that defined:\n– the role\n– the task\n– the expected result\n– the quality level\n\nNow outputs became:\n– consistent\n– reusable\n– actually valuable\n\nSame tools.\nDifferent approach.\n\n🏔️ That's when AI stopped being a toy\nand became part of my workflow.\n\nIf you want real results,\nyou don't need more prompts.\n\nYou need a system behind them.\n\n→ promptanatomy.app",
+      "related_post_id": 20,
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "post_023_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/23_Prompt_Anatomy.png",
+      "caption": "You're not prompting. You're guessing.",
+      "related_post_id": 23,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "post_023_text",
+      "type": "text",
+      "text": "🧩 Most people think they're \"using AI.\"\n\nThey're not.\n\nThey're guessing in front of a very smart autocomplete.\n\nThat's why results feel random.\n\nBecause there's no system behind the input.\n\nJust trial and error.\n\nYou write something.\nAI responds.\nYou adjust.\nRepeat.\n\nFeels productive.\n\nBut it's inefficient.\n\nBecause you never defined the task properly.\n\nAI works best when the problem is clear.\n\nNot when it has to interpret your intent.\n\n🧭 Here's the shift:\n\nGuessing = open-ended, vague, reactive\nPrompting = structured, defined, intentional\n\nOne creates noise.\nThe other creates output you can actually use.\n\nIf your workflow depends on \"let's try again,\"\nyou're still guessing.\n\n💡 Real leverage starts when you stop guessing\nand start designing prompts.\n\n→ promptanatomy.app",
+      "related_post_id": 23,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "post_021_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/21_Prompt_Anatomy.png",
+      "caption": "Your AI isn't underperforming. You are.",
+      "related_post_id": 21,
+      "theme_note": "Your AI isn't underperforming. You are."
+    },
+    {
+      "id": "post_021_text",
+      "type": "text",
+      "text": "🪞 Your AI isn't underperforming.\n\nIt's mirroring you.\n\nAnd that's uncomfortable.\n\nBecause it means:\n\nEvery vague answer\nEvery generic output\nEvery \"meh\" result…\n\nStarted with your prompt.\n\nMost people treat AI like a black box.\n\nType something.\nHope for magic.\n\nBut AI doesn't reward hope.\nIt rewards clarity.\n\n🔍 Here's what's actually happening:\n\nYou:\n– unclear request\n– no constraints\n– no structure\n\nAI:\n– fills the gaps\n– defaults to average\n– gives safe output\n\nResult?\n\nLooks fine.\nFeels useless.\n\n⚡ The fix is not \"better prompts.\"\n\nIt's controlled prompting.\n\nDefine the job.\nDefine the output.\nDefine the rules.\n\nThat's when AI stops guessing\nand starts delivering.\n\nAI is not your assistant.\n\nIt's a mirror of how well you think.\n\n→ promptanatomy.app",
+      "related_post_id": 21,
+      "theme_note": "Your AI isn't underperforming. You are."
+    },
+    {
+      "id": "post_022_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/22_Prompt_Anatomy.png",
+      "caption": "Stop saying \"please\" to your AI.",
+      "related_post_id": 22,
+      "theme_note": "Stop saying \"please\" to your AI."
+    },
+    {
+      "id": "post_022_text",
+      "type": "text",
+      "text": "🎭 Stop treating AI like a person.\n\nIt's not rude.\nIt's efficient.\n\nMost people still carry over human habits:\n\n\"Please…\"\n\"Thanks!\"\n\"Could you…\"\n\nThat works with people.\n\nIt weakens AI outputs.\n\nBecause you're not giving instructions.\nYou're giving requests.\n\nAnd requests are vague by default.\n\nAI fills the gaps with safe assumptions.\n\nThat's why everything sounds:\n– generic\n– over-explained\n– slightly off\n\nThe fix is simple:\n\nStop asking.\nStart defining.\n\n📐 Instead of:\n\"Can you help me create content?\"\n\nUse:\n– Role\n– Context\n– Output\n– Constraints\n\nNow the model has direction.\n\nNow it can deliver.\n\n🔊 This is the shift:\n\nFrom polite conversation\n→ to controlled execution\n\nMost people won't make it.\n\nThat's your edge.\n\n→ promptanatomy.app",
+      "related_post_id": 22,
+      "theme_note": "Stop saying \"please\" to your AI."
+    },
+    {
+      "id": "post_024_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/24_Prompt_Anatomy.png",
+      "caption": "This one mistake makes your AI outputs useless.",
+      "related_post_id": 24,
+      "theme_note": "This one mistake makes your AI outputs useless."
+    },
+    {
+      "id": "post_024_text",
+      "type": "text",
+      "text": "🌫️ The reason your AI outputs don't work\nis not complexity.\n\nIt's vagueness.\n\nOne mistake:\n\nYou assume the AI understands what you want.\n\nIt doesn't.\n\nIt predicts based on patterns.\n\nSo when you say:\n\"Make it better\"\n\"Write something good\"\n\"Improve this\"\n\nYou're giving it nothing concrete.\n\nAnd it responds with safe guesses.\n\nThat's why everything feels:\n– slightly off\n– too generic\n– not usable\n\nHere's the reframe:\n\n🎯 AI is not interpreting intent.\nIt's completing instructions.\n\nNo clear instruction → no clear result.\n\n📌 The fix is simple:\n\nDefine:\n– what success looks like\n– what to include\n– what to avoid\n– how to structure it\n\nNow the model has boundaries.\n\nNow it can perform.\n\nWithout that?\n\nYou're just rolling the dice.\n\n→ promptanatomy.app",
+      "related_post_id": 24,
+      "theme_note": "This one mistake makes your AI outputs useless."
+    },
+    {
+      "id": "post_025_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/25_Prompt_Anatomy.png",
+      "caption": "Your prompts are random → so are your results.",
+      "related_post_id": 25,
+      "theme_note": "Your prompts are random → so are your results."
+    },
+    {
+      "id": "post_025_text",
+      "type": "text",
+      "text": "🔀 Random input → random output.\n\nThis is not an AI problem.\nIt's a system problem.\n\nMost people treat prompts as one-offs.\n\nThey write them once,\nuse them once,\nforget them.\n\nNo iteration.\nNo reuse.\nNo improvement loop.\n\nSo nothing compounds.\n\nEvery task starts from scratch.\n\nThat's why it feels slow\nand inconsistent.\n\nCompare that to a system approach:\n\n🏗️ You build one solid prompt.\nTest it.\nRefine it.\nReuse it.\n\nNow every use gets better.\n\nThat's how professionals use AI.\n\nNot by being creative every time,\nbut by being structured once.\n\n📈 If your results are random,\nyour process is too.\n\nFix the process → fix the output.\n\n→ promptanatomy.app",
+      "related_post_id": 25,
+      "theme_note": "Your prompts are random → so are your results."
+    },
+    {
+      "id": "post_026_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/26_Prompt_Anatomy.png",
+      "caption": "From random answers → to controlled outputs",
+      "related_post_id": 26,
+      "theme_note": "From random answers → to controlled outputs"
+    },
+    {
+      "id": "post_026_text",
+      "type": "text",
+      "text": "🎚️ \"AI is inconsistent.\"\n\nThat's what people say.\n\nBut look closer.\n\nYour inputs change every time.\nYour expectations are unclear.\nYour prompts have no structure.\n\nOf course the outputs vary.\n\nAI is not inconsistent.\n\nYour process is.\n\n🧱 If you want control,\nyou need to remove randomness.\n\n🔄 And that starts with one thing:\n\nStructure.\n\nDefine the rules once:\n– role\n– context\n– output format\n– constraints\n\nThen reuse it.\n\nNow every response follows logic,\nnot guesswork.\n\n📌 That's when AI becomes predictable.\n\nNot perfect.\nBut controlled.\n\nAnd controlled beats random every time.\n\nFrom random answers\n→ to controlled outputs\n\nThat's the real upgrade.\n\n→ promptanatomy.app",
+      "related_post_id": 26,
+      "theme_note": "From random answers → to controlled outputs"
+    },
+    {
+      "id": "post_027_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/27_Prompt_Anatomy.png",
+      "caption": "You're one prompt away from 10x better results.",
+      "related_post_id": 27,
+      "theme_note": "You're one prompt away from 10x better results."
+    },
+    {
+      "id": "post_027_text",
+      "type": "text",
+      "text": "💡 The biggest misconception in AI:\n\n\"Better results require better tools.\"\n\nNo.\n\nThey require better prompts.\n\nMost people are already sitting on powerful models.\n\nBut they're using them at 20% capacity.\n\nWhy?\n\nBecause their prompts don't guide anything.\n\nThey just start a conversation.\n\n🎯 The real shift happens with one upgrade:\n\nFrom:\n\"Let's see what happens\"\n\nTo:\n\"Here's exactly what to do\"\n\nThat's one prompt.\n\nOne structure.\n\nOne system.\n\nAnd the output quality jumps instantly.\n\nNot gradually.\n\nIf you've been tweaking and retrying,\nyou're solving the wrong problem.\n\n🔑 You don't need more attempts.\n\nYou need one prompt that works.\n\n→ promptanatomy.app",
+      "related_post_id": 27,
+      "theme_note": "You're one prompt away from 10x better results."
+    },
+    {
+      "id": "post_028_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/28_Prompt_Anatomy.png",
+      "caption": "Same prompt vs structured prompt (before/after)",
+      "related_post_id": 28,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "post_028_text",
+      "type": "text",
+      "text": "✍️ Let's make this real.\n\nSame task.\nTwo different approaches.\n\n❌ Before:\n\"Help me improve this text.\"\n\nResult:\n– minor edits\n– surface-level changes\n– still weak\n\n✅ After:\nRole: senior copywriter\nTask: rewrite for conversion\nAudience: B2B decision-makers\nGoal: increase clicks\nConstraints: shorter, sharper, no fluff\nOutput: final version + 3 headline options\n\nResult:\n– clear improvement\n– stronger positioning\n– actually usable\n\nThat's the gap.\n\nNot between models.\nBetween prompt quality.\n\n👁️ Most people stay in \"before\" mode.\n\nBecause it feels easier.\n\nBut it costs results.\n\nThe moment you switch to structured prompts,\nAI stops assisting.\n\n🚀 It starts delivering.\n\n→ promptanatomy.app",
+      "related_post_id": 28,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "post_029_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/29_Prompt_Anatomy.png",
+      "caption": "The mistake 90% of AI users make",
+      "related_post_id": 29,
+      "theme_note": "The mistake 90% of AI users make"
+    },
+    {
+      "id": "post_029_text",
+      "type": "text",
+      "text": "🔁 The biggest mistake AI users make?\n\nThey rely on iteration instead of structure.\n\nTry → tweak → retry → repeat\n\nFeels like progress.\n\nBut it's slow.\n\nBecause every attempt starts from zero.\n\nNo system.\nNo reuse.\nNo control.\n\nSo results stay inconsistent.\n\n🧭 The people getting leverage from AI\ndon't iterate blindly.\n\nThey define once.\n\nBuild a prompt that works.\nRefine it.\nReuse it.\n\nNow every use gets better.\n\nThat's how you scale results.\n\n💎 Iteration is useful.\nBut without structure, it's chaos.\n\nIf your workflow depends on \"let's try again,\"\nyou're still in beginner mode.\n\nMove to systems.\n\nThat's where results stabilize.\n\n→ promptanatomy.app",
+      "related_post_id": 29,
+      "theme_note": "The mistake 90% of AI users make"
+    },
+    {
+      "id": "post_030_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/30_Prompt_Anatomy.png",
+      "caption": "How I turned AI from toy → system",
+      "related_post_id": 30,
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "post_030_text",
+      "type": "text",
+      "text": "🎮 Most people never move past Phase 1 with AI.\n\nThey play with it.\n\nAsk questions.\nTest ideas.\nExplore.\n\nAnd it feels useful… until it doesn't.\n\nBecause there's no reliability.\n\nThat's where I was.\n\nUntil I realized:\n\nAI is not a tool you \"use.\"\nIt's a system you design.\n\n🔧 So I changed one thing:\n\nEvery interaction followed structure.\n\nNo more:\n\"Can you help me…\"\n\nOnly:\n– defined role\n– clear context\n– specific output\n– constraints\n\n⚡ Now results were not surprising.\n\nThey were expected.\n\nThat's when AI became dependable.\n\nFrom toy → system\n\nAnd once you make that shift,\nyou can't go back.\n\n→ promptanatomy.app",
+      "related_post_id": 30,
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "post_100_photo",
+      "type": "photo",
+      "path": "web/public/images/posts/23_Prompt_Anatomy.png",
+      "caption": "You're not prompting. You're guessing.",
+      "related_post_id": 100,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "post_100_text",
+      "type": "text",
+      "text": "You're not prompting.\n\nYou're guessing.\n\nMost people use AI like a toy.\n\nThey type:\n\"Give me ideas…\"\n\"Write something…\"\n\"Help me…\"\n\nAnd hope it works.\n\nSometimes it does.\nMostly — it doesn't.\n\nBecause AI doesn't read your mind.\nIt follows structure.\n\nThe difference:\n\nINPUT → what you give\nCONTEXT → what it knows\nREASONING → how it thinks\nADVANCED → how you control it\nQUALITY → how you validate it\n\nNo structure → random outputs\nStructure → predictable results\n\n⚡ Stop guessing.\nStart using a system.\n\nhttps://promptanatomy.app",
+      "related_post_id": 100,
+      "theme_note": "You're not prompting. You're guessing."
     }
   ]
 }

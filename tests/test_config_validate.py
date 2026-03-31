@@ -66,6 +66,8 @@ def test_validate_config_success_sets_admin_id(monkeypatch: pytest.MonkeyPatch) 
 def test_validate_config_scheduled_posting_sets_timezone_and_target(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    # Empty target must win over .env so default falls back to ADMIN_CHAT_ID.
+    monkeypatch.setenv("SCHEDULE_TARGET_CHAT_ID", "")
     monkeypatch.setenv("BOT_TOKEN", "x")
     monkeypatch.setenv("ADMIN_CHAT_ID", "111")
     monkeypatch.setenv("ENABLE_SCHEDULED_POSTING", "true")
