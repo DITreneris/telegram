@@ -10,6 +10,7 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ### Changed
 
+- [bot/main.py](bot/main.py): set **`httpx`**, **`httpcore`**, and **`apscheduler`** loggers to **WARNING**; re-apply levels immediately before `run_polling` (some stacks still emitted poll noise otherwise). **`INFO`** `Queue bot polling started (scheduled_posting=…)` before polling. On **`telegram.error.Conflict`** (duplicate `getUpdates`), one operator-facing **ERROR** line pointing at [docs/RUNBOOK.md](docs/RUNBOOK.md) (single replica, no second process with the same token). Tests: [tests/test_main_error_handler.py](tests/test_main_error_handler.py).
 - [bot/bot_copy.py](bot/bot_copy.py): BotFather **About** (`BOTFATHER_ABOUT`) shortened to ≤120 characters, clearer admin/content-queue wording; single-line assignment; module note that BotFather paste is plain text only (not Python syntax).
 
 ### Added

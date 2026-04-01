@@ -6,6 +6,7 @@ import datetime as dt
 import logging
 
 from telegram import BotCommandScopeChat, BotCommandScopeDefault
+from telegram.error import Conflict
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 
 from bot.bot_copy import bot_menu_commands
@@ -22,9 +23,25 @@ from orchestrator import Orchestrator
 
 logger = logging.getLogger(__name__)
 
+_NOISY_LOGGERS = ("httpx", "httpcore", "apscheduler")
+
+
+def _quiet_third_party_loggers() -> None:
+    """Host logs stay readable: polling + JobQueue spam INFO otherwise."""
+    for name in _NOISY_LOGGERS:
+        logging.getLogger(name).setLevel(logging.WARNING)
+
 
 async def error_handler(_update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
-    logger.error("Exception while handling an update", exc_info=context.error)
+    err = context.error
+    if isinstance(err, Conflict):
+        logger.error(
+            "Telegram Conflict: another process is already calling getUpdates for this "
+            "BOT_TOKEN. Run exactly one poller: Railway single replica, no second service, "
+            "stop local python run.py if hosting is active. See docs/RUNBOOK.md."
+        )
+        return
+    logger.error("Exception while handling an update", exc_info=err)
 
 
 async def post_init(application: Application) -> None:
@@ -42,10 +59,7 @@ def run_bot() -> None:
         level=resolve_log_level(),
         format="%(levelname)s %(name)s %(message)s",
     )
-    # Long polling issues a successful getUpdates HTTP call every few seconds; at INFO
-    # that drowns out bot.main / scheduled_delivery lines in host log UIs.
-    for _noisy in ("httpx", "httpcore"):
-        logging.getLogger(_noisy).setLevel(logging.WARNING)
+    _quiet_third_party_loggers()
     validate_config()
     # Values are set inside validate_config(); avoid stale import-time defaults.
     from config import (
@@ -120,4 +134,6 @@ def run_bot() -> None:
         "Queue bot polling started (scheduled_posting=%s)",
         ENABLE_SCHEDULED_POSTING,
     )
+    # Libraries may attach loggers after import; re-apply before the poll loop.
+    _quiet_third_party_loggers()
     application.run_polling(drop_pending_updates=True)
