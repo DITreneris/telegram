@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime as dt
 import logging
+from typing import cast
 
 from telegram import BotCommandScopeChat, BotCommandScopeDefault
 from telegram.error import Conflict
@@ -23,7 +24,36 @@ from orchestrator import Orchestrator
 
 logger = logging.getLogger(__name__)
 
-_NOISY_LOGGERS = ("httpx", "httpcore", "apscheduler")
+# apscheduler logs as "apscheduler.scheduler"; parent "apscheduler" alone is not enough.
+_NOISY_LOGGERS = (
+    "httpx",
+    "httpcore",
+    "apscheduler",
+    "apscheduler.scheduler",
+)
+
+
+def _is_getupdates_conflict(err: BaseException | None, *, _depth: int = 0) -> bool:
+    """True for telegram.error.Conflict even when wrapped (PTB/asyncio/TaskGroup)."""
+    if err is None or _depth > 10:
+        return False
+    if isinstance(err, Conflict):
+        return True
+    if isinstance(err, BaseExceptionGroup):
+        return any(
+            _is_getupdates_conflict(cast(BaseException, e), _depth=_depth + 1)
+            for e in err.exceptions
+        )
+    cause = err.__cause__
+    if cause is not None and _is_getupdates_conflict(cause, _depth=_depth + 1):
+        return True
+    ctx = err.__context__
+    if ctx is not None and ctx is not cause and _is_getupdates_conflict(
+        ctx, _depth=_depth + 1
+    ):
+        return True
+    text = str(err).lower()
+    return "conflict" in text and "getupdates" in text.replace("_", "")
 
 
 def _quiet_third_party_loggers() -> None:
@@ -34,7 +64,7 @@ def _quiet_third_party_loggers() -> None:
 
 async def error_handler(_update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
     err = context.error
-    if isinstance(err, Conflict):
+    if _is_getupdates_conflict(err if isinstance(err, BaseException) else None):
         logger.error(
             "Telegram Conflict: another process is already calling getUpdates for this "
             "BOT_TOKEN. Run exactly one poller: Railway single replica, no second service, "
