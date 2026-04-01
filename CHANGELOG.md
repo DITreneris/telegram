@@ -8,9 +8,14 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ## [Unreleased]
 
+### Fixed
+
+- **Scheduled queue ticks skipped silently:** APScheduler’s default **`misfire_grace_time` is 1 second**. If the asyncio loop starts the daily job more than 1s after the scheduled instant (common under **getUpdates** polling load), the run is **dropped** (`EVENT_JOB_MISSED`) and **`run_scheduled_delivery` never runs** — no `scheduled_delivery: sending` log. [`bot/main.py`](bot/main.py) now passes **`job_kwargs={"misfire_grace_time": 600}`** (10 minutes) to all four `JobQueue.run_daily` registrations. Docs: [`docs/RUNBOOK.md`](docs/RUNBOOK.md) troubleshooting table.
+
 ### Changed
 
 - [bot/main.py](bot/main.py): set **`httpx`**, **`httpcore`**, **`apscheduler`**, and **`apscheduler.scheduler`** loggers to **WARNING**; re-apply before **`JobQueue.run_daily`** (registration spam) and again immediately before `run_polling`. **`INFO`** `Queue bot polling started (scheduled_posting=…, railway_git_sha=…)` before polling — on Railway, `railway_git_sha` is **`RAILWAY_GIT_COMMIT_SHA`** when set so deploy logs prove which Git revision is running (`n/a` locally). Detect duplicate **`getUpdates`** via **`_is_getupdates_conflict`** (raw `Conflict`, `ExceptionGroup` / `__cause__` wrappers, or API message text) so deploy logs show one operator **ERROR** line instead of a long traceback. Tests: [tests/test_main_error_handler.py](tests/test_main_error_handler.py). See [docs/RUNBOOK.md](docs/RUNBOOK.md) (single replica, no second process with the same token).
+- [docs/RUNBOOK.md](docs/RUNBOOK.md): **Railway** — use startup **`railway_git_sha=`** in logs to confirm the container matches GitHub `main`; set **`BOT_TOKEN`**, **`ADMIN_CHAT_ID`**, and optional schedule keys as **service Variables** (`.env` is gitignored and not baked into deploy). **Redeploy** on a fixed deployment often rebuilds the **same Git commit** — if **Active** lags behind `main`, trigger a **new deploy from branch tip** (or **Railway CLI** / fresh service) rather than only **Redeploy** on the stale deployment card.
 - [bot/bot_copy.py](bot/bot_copy.py): BotFather **About** (`BOTFATHER_ABOUT`) shortened to ≤120 characters, clearer admin/content-queue wording; single-line assignment; module note that BotFather paste is plain text only (not Python syntax).
 
 ### Added

@@ -25,6 +25,11 @@ from orchestrator import Orchestrator
 
 logger = logging.getLogger(__name__)
 
+# APScheduler's default misfire_grace_time is 1 second. Under polling + handlers the asyncio
+# loop can start a daily job a few seconds late; APS then skips the run (EVENT_JOB_MISSED) and
+# run_scheduled_delivery never runs — no bot.handlers "scheduled_delivery" log line.
+_SCHEDULE_JOB_KWARGS: dict[str, int] = {"misfire_grace_time": 600}
+
 # apscheduler logs as "apscheduler.scheduler"; parent "apscheduler" alone is not enough.
 _NOISY_LOGGERS = (
     "httpx",
@@ -138,16 +143,28 @@ def run_bot() -> None:
         # run_daily touches APScheduler before run_polling; re-apply levels here too.
         _quiet_third_party_loggers()
         jq.run_daily(
-            run_scheduled_delivery, time=t_morning_1, name="scheduled_morning_1"
+            run_scheduled_delivery,
+            time=t_morning_1,
+            name="scheduled_morning_1",
+            job_kwargs=_SCHEDULE_JOB_KWARGS,
         )
         jq.run_daily(
-            run_scheduled_delivery, time=t_morning_2, name="scheduled_morning_2"
+            run_scheduled_delivery,
+            time=t_morning_2,
+            name="scheduled_morning_2",
+            job_kwargs=_SCHEDULE_JOB_KWARGS,
         )
         jq.run_daily(
-            run_scheduled_delivery, time=t_evening_1, name="scheduled_evening_1"
+            run_scheduled_delivery,
+            time=t_evening_1,
+            name="scheduled_evening_1",
+            job_kwargs=_SCHEDULE_JOB_KWARGS,
         )
         jq.run_daily(
-            run_scheduled_delivery, time=t_evening_2, name="scheduled_evening_2"
+            run_scheduled_delivery,
+            time=t_evening_2,
+            name="scheduled_evening_2",
+            job_kwargs=_SCHEDULE_JOB_KWARGS,
         )
         logger.info(
             "Scheduled posting enabled: 08:00, 08:30, 19:00, 19:30 %s → chat_id=%s",
