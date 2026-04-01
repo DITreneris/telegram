@@ -8,6 +8,10 @@ Section order within each release: **Added**, **Changed**, **Deprecated**, **Rem
 
 ## [Unreleased]
 
+### Changed
+
+- [bot/bot_copy.py](bot/bot_copy.py): BotFather **About** (`BOTFATHER_ABOUT`) shortened to ≤120 characters, clearer admin/content-queue wording; single-line assignment; module note that BotFather paste is plain text only (not Python syntax).
+
 ### Added
 
 - **Bot UX:** canonical English strings in [bot/bot_copy.py](bot/bot_copy.py) for `/start`, BotFather **Description** / **About** (paste manually), and `set_my_commands` labels. [bot/main.py](bot/main.py) `post_init`: empty default command scope; `/start`, `/next`, `/status` registered for `BotCommandScopeChat(ADMIN_CHAT_ID)` (admin private DM menu). [bot/handlers.py](bot/handlers.py): `/start` sends inline **Next** / **Status** (`callback_nav`) delegating to the same logic as slash commands. Tests: [tests/test_handlers_start_nav.py](tests/test_handlers_start_nav.py). Docs: [docs/RUNBOOK.md](docs/RUNBOOK.md), [AGENTS.md](AGENTS.md).

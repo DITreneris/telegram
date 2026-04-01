@@ -1,6 +1,7 @@
 """Canonical English copy for /start, BotFather, and Telegram command menu.
 
-Paste BotFather fields manually from these constants when they change.
+For BotFather: copy only the **plain string value** (what you see between the quotes),
+not parentheses or multiple quoted fragments — that is Python source, not BotFather input.
 """
 
 from __future__ import annotations
@@ -13,14 +14,8 @@ BOTFATHER_SHORT_DESCRIPTION = (
     "to this chat."
 )
 
-# BotFather /setabouttext — profile “About”.
-BOTFATHER_ABOUT = (
-    "Private admin tool for this project’s Telegram curriculum queue. "
-    "Only the configured admin can run commands. "
-    "Use /next to deliver the next manifest item to the current chat, "
-    "/status for queue summary, /start for the intro and shortcut buttons. "
-    "Content order comes from data/content.json (regenerated from posts + polls)."
-)
+# BotFather /setabouttext — profile “About” (≤ 120 chars). Copy only the characters inside the quotes.
+BOTFATHER_ABOUT = "Private admin bot for managing a Telegram content queue. Use /next to post the next item and /status to check progress."
 
 # /start reply body (must stay English for user-facing bot text).
 START_MESSAGE = (
