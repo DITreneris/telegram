@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime as dt
 import logging
+import os
 from typing import cast
 
 from telegram import BotCommandScopeChat, BotCommandScopeDefault
@@ -160,9 +161,11 @@ def run_bot() -> None:
     )
     application.add_error_handler(error_handler)
 
+    _rail_sha = os.environ.get("RAILWAY_GIT_COMMIT_SHA", "").strip()
     logger.info(
-        "Queue bot polling started (scheduled_posting=%s)",
+        "Queue bot polling started (scheduled_posting=%s, railway_git_sha=%s)",
         ENABLE_SCHEDULED_POSTING,
+        _rail_sha or "n/a",
     )
     # Libraries may attach loggers after import; re-apply before the poll loop.
     _quiet_third_party_loggers()

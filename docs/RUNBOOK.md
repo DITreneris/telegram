@@ -20,6 +20,7 @@
 - **Smoke check:** open a **private** chat with the bot (or the group where you use it), send `/start` or `/status` from the account whose **user id** matches `ADMIN_CHAT_ID`. You should get English replies; `/start` includes inline **Next** / **Status** buttons; `/status` prints item count, last delivered id, next id/type, and state `updated_at`. On startup the bot registers **Telegram command menu** entries (`/start`, `/next`, `/status`) for the **admin private chat** only (default scope is empty so strangers do not see those commands in the menu bar).
 - **BotFather copy:** canonical **Description** and **About** strings for [@BotFather](https://t.me/BotFather) live in [bot/bot_copy.py](../bot/bot_copy.py) (`BOTFATHER_SHORT_DESCRIPTION`, `BOTFATHER_ABOUT`). The API cannot set them—paste manually when you change the wording.
 - **Scheduled mode:** if `ENABLE_SCHEDULED_POSTING` is on, startup logs include `Scheduled posting enabled: 08:00, 08:30, 19:00, 19:30` with the IANA timezone key and target `chat_id`.
+- **Railway:** startup also logs `railway_git_sha=<full SHA>` when the platform sets **`RAILWAY_GIT_COMMIT_SHA`** — use it to confirm the running container matches the commit you expect on GitHub `main`.
 - **Do not run two processes** with the same `BOT_TOKEN` (second instance typically gets Telegram `Conflict` / “terminated by other getUpdates”).
 
 ## Hosting the queue bot (Railway)
