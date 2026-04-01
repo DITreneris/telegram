@@ -10,7 +10,7 @@
         "Clarify role, constraints, and desired output format."
       ],
       "correct_option_id": 1,
-      "theme_note": "AI mirrors your inputs—upgrade structure before you blame the model."
+      "theme_note": "Your AI isn't underperforming. You are."
     },
     {
       "id": "poll_post_002_hot_or_not",
@@ -21,7 +21,7 @@
         "Task: 1 line (max 12 words). Product: AI course for consultants. Tone: direct."
       ],
       "correct_option_id": 1,
-      "theme_note": "Stop saying please to your AI"
+      "theme_note": "Stop saying \"please\" to your AI."
     },
     {
       "id": "poll_post_003_hot_or_not",
@@ -43,7 +43,7 @@
         "Format: short. Audience: consultants. Goal: clicks. Tone: direct."
       ],
       "correct_option_id": 1,
-      "theme_note": "Define the output—format, audience, goal—not just the topic."
+      "theme_note": "This one mistake makes your AI outputs useless."
     },
     {
       "id": "poll_post_005_hot_or_not",
@@ -54,7 +54,7 @@
         "Reuse one structured template; swap only the inputs."
       ],
       "correct_option_id": 1,
-      "theme_note": "Random one-off prompts → random results. Templates stabilize quality."
+      "theme_note": "Your prompts are random → so are your results."
     },
     {
       "id": "poll_post_006_hot_or_not",
@@ -65,7 +65,7 @@
         "Role + task + output shape + constraints (length and tone)."
       ],
       "correct_option_id": 1,
-      "theme_note": "Move from conversation mode to configuration: role, context, output, limits."
+      "theme_note": "From random answers → to controlled outputs"
     },
     {
       "id": "poll_post_007_hot_or_not",
@@ -76,7 +76,7 @@
         "One structured prompt: role, context, output, and constraints."
       ],
       "correct_option_id": 1,
-      "theme_note": "Same model, better instruction—structure beats model-hopping."
+      "theme_note": "You're one prompt away from 10x better results."
     },
     {
       "id": "poll_post_008_hot_or_not",
@@ -98,7 +98,7 @@
         "Designing instructions: audience, success criteria, structure."
       ],
       "correct_option_id": 1,
-      "theme_note": "Prompting is design, not casual typing."
+      "theme_note": "The mistake 90% of AI users make"
     },
     {
       "id": "poll_post_010_hot_or_not",
@@ -109,7 +109,711 @@
         "Task: rewrite. Role: editor. Goal: clarity. Constraints: shorter, no fluff."
       ],
       "correct_option_id": 1,
-      "theme_note": "From toy to system: specify task, role, goal, and constraints."
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "poll_post_011_structure",
+      "related_post_id": 11,
+      "question": "Outputs feel generic. What should you define so the model stops improvising blindly?",
+      "options": [
+        "Switch to a different frontier model.",
+        "What the AI is, what it sees, what it must produce, and how good it must be."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your AI isn't underperforming. You are."
+    },
+    {
+      "id": "poll_post_012_structure",
+      "related_post_id": 12,
+      "question": "Why does chatty, polite wording often weaken operational results?",
+      "options": [
+        "Models are trained to ignore short prompts.",
+        "Extra words that do not add structure add noise; constraints beat politeness."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Stop saying \"please\" to your AI."
+    },
+    {
+      "id": "poll_post_013_structure",
+      "related_post_id": 13,
+      "question": "Your answers feel inconsistent. What is the most likely root cause?",
+      "options": [
+        "The provider keeps changing weights overnight.",
+        "Your inputs are inconsistent: task, constraints, and output were never defined clearly."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "poll_post_014_structure",
+      "related_post_id": 14,
+      "question": "Outputs are long, safe, and hard to use. What fix matches strong prompting?",
+      "options": [
+        "Ask it to try harder and be more creative.",
+        "Add constraints: length, structure, tone, and goal (e.g. 150 words, one actionable tip)."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "This one mistake makes your AI outputs useless."
+    },
+    {
+      "id": "poll_post_015_structure",
+      "related_post_id": 15,
+      "question": "You want stable quality across many tasks. What scales better?",
+      "options": [
+        "Reinvent wording from scratch every single time.",
+        "Reuse templates: same structure and expectations, swap only the inputs."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your prompts are random → so are your results."
+    },
+    {
+      "id": "poll_post_016_structure",
+      "related_post_id": 16,
+      "question": "Slot-machine style use produces random answers. What creates real control?",
+      "options": [
+        "Write longer, friendlier paragraphs.",
+        "Defined role, context, specific output, measurable constraints—then reuse that pattern."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "From random answers → to controlled outputs"
+    },
+    {
+      "id": "poll_post_017_structure",
+      "related_post_id": 17,
+      "question": "Results plateau. Where does the biggest jump usually come from?",
+      "options": [
+        "Trying another chatbot brand.",
+        "One structured instruction—role, objective, constrained format—then reuse it."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "You're one prompt away from 10x better results."
+    },
+    {
+      "id": "poll_post_018_structure",
+      "related_post_id": 18,
+      "question": "Version 1: broad ideas. Version 2: sharp, usable ideas. What actually changed?",
+      "options": [
+        "More creative adjectives.",
+        "Structure: role, audience, goal, output shape (e.g. five hooks with angle), tone."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "poll_post_019_structure",
+      "related_post_id": 19,
+      "question": "Users chase better answers but little improves. What fixes the core issue?",
+      "options": [
+        "More retries with the same vague ask.",
+        "Standardize logic: role, context, output, constraints—so results become predictable."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "The mistake 90% of AI users make"
+    },
+    {
+      "id": "poll_post_020_structure",
+      "related_post_id": 20,
+      "question": "Exploratory prompts are fun but do not scale. What shifts AI from toy to system?",
+      "options": [
+        "Ask more open-ended what-if questions.",
+        "Execution mode: role, task, expected result, and quality bar—each time."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "poll_post_021_structure",
+      "related_post_id": 21,
+      "question": "Weak answers feel like the model failed. What is the post arguing?",
+      "options": [
+        "You need fine-tuning or a custom GPT.",
+        "AI mirrors your prompt: vague request tends to produce safe, average completions."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your AI isn't underperforming. You are."
+    },
+    {
+      "id": "poll_post_022_structure",
+      "related_post_id": 22,
+      "question": "Replace polite human-style requests with what?",
+      "options": [
+        "Longer explanations of context and feelings.",
+        "Role, context, output, and constraints so the model has direction."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Stop saying \"please\" to your AI."
+    },
+    {
+      "id": "poll_post_023_structure",
+      "related_post_id": 23,
+      "question": "Trial-and-error without a system is closest to:",
+      "options": [
+        "Structured professional prompting.",
+        "Guessing in front of a very capable autocomplete."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "poll_post_024_structure",
+      "related_post_id": 24,
+      "question": "Commands like “make it better” fail because:",
+      "options": [
+        "The model is lazy by design.",
+        "The model completes instructions; with no concrete success criteria you get safe guesses."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "This one mistake makes your AI outputs useless."
+    },
+    {
+      "id": "poll_post_025_structure",
+      "related_post_id": 25,
+      "question": "If every task starts from a blank prompt, what happens to leverage?",
+      "options": [
+        "You maximize creative surprise.",
+        "Nothing compounds: work stays slow and results stay inconsistent."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your prompts are random → so are your results."
+    },
+    {
+      "id": "poll_post_026_structure",
+      "related_post_id": 26,
+      "question": "You blame the model for inconsistency. Often the real issue is:",
+      "options": [
+        "Silent model updates.",
+        "Your process: inputs and expectations change every time."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "From random answers → to controlled outputs"
+    },
+    {
+      "id": "poll_post_027_structure",
+      "related_post_id": 27,
+      "question": "Powerful models used at low capacity usually means:",
+      "options": [
+        "You are on the wrong subscription tier.",
+        "You only start a conversation instead of specifying exactly what to do."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "You're one prompt away from 10x better results."
+    },
+    {
+      "id": "poll_post_028_structure",
+      "related_post_id": 28,
+      "question": "Before: “Help me improve this text.” After: role, goal, audience, constraints. The gap is:",
+      "options": [
+        "Friendlier tone.",
+        "Structure and explicit acceptance criteria—not casual wording tweaks."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Same prompt vs structured prompt (before/after)"
+    },
+    {
+      "id": "poll_post_029_structure",
+      "related_post_id": 29,
+      "question": "Iteration without a stable structure tends to:",
+      "options": [
+        "Converge quickly every time.",
+        "Stay chaotic: each attempt still starts from zero."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "The mistake 90% of AI users make"
+    },
+    {
+      "id": "poll_post_030_structure",
+      "related_post_id": 30,
+      "question": "Phase 1 is play and explore. For dependable work you need:",
+      "options": [
+        "More playful prompts.",
+        "Defined role, context, specific output, constraints—execution, not chat."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How I turned AI from toy → system"
+    },
+    {
+      "id": "poll_post_031_structure",
+      "related_post_id": 31,
+      "question": "You need readable text inside a campaign image. What matches the job-to-tool idea in the post?",
+      "options": [
+        "Pick whichever image model is trending—typography is the same everywhere.",
+        "Match tool to job: Ideogram for type-in-image, Midjourney for mood, FLUX for control."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Most people are using the wrong AI image tool."
+    },
+    {
+      "id": "poll_post_032_structure",
+      "related_post_id": 32,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a Designer uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_033_structure",
+      "related_post_id": 33,
+      "question": "You're guessing when the model has to invent which missing layers?",
+      "options": [
+        "You give instruction, context, query, rules, and how you'll judge output.",
+        "You drop one vague sentence and hope it reads your mind."
+      ],
+      "correct_option_id": 0,
+      "theme_note": "You're not prompting. You're guessing."
+    },
+    {
+      "id": "poll_post_034_structure",
+      "related_post_id": 34,
+      "question": "The post reframes AI as a system. What does that imply?",
+      "options": [
+        "Chat casually; the model will infer the full workflow.",
+        "Design layers: input, context, reasoning, quality, output—like a pipeline."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI is not a tool. It's a system."
+    },
+    {
+      "id": "poll_post_036_structure",
+      "related_post_id": 36,
+      "question": "If AI keeps agreeing with you, what did you probably fail to add?",
+      "options": [
+        "More compliments in the prompt.",
+        "Pressure: criteria, pushback, and standards so it can't only validate."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your AI agrees with you. That's the problem."
+    },
+    {
+      "id": "poll_post_037_structure",
+      "related_post_id": 37,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a Content Creator uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_038_structure",
+      "related_post_id": 38,
+      "question": "You don't want better AI; you want less thinking. What's the risk?",
+      "options": [
+        "You front-load clear constraints so outputs work first time.",
+        "You copy-paste outputs without structure—and skip real thinking."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "You don't want better AI. You want less thinking."
+    },
+    {
+      "id": "poll_post_039_structure",
+      "related_post_id": 39,
+      "question": "Most users stay unstructured. What breaks that cycle?",
+      "options": [
+        "Random one-off prompts every time.",
+        "Role, task, context, constraints, format, and evaluation as a system."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Most AI users are stuck here."
+    },
+    {
+      "id": "poll_post_041_structure",
+      "related_post_id": 41,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a CEO uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_042_structure",
+      "related_post_id": 42,
+      "question": "AI didn't replace your brain. You stopped using it. Best fix?",
+      "options": [
+        "Let AI think so you don't have to.",
+        "Use AI to think harder: verify, structure, and challenge outputs."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI didn't replace your brain. You stopped using it."
+    },
+    {
+      "id": "poll_post_043_structure",
+      "related_post_id": 43,
+      "question": "\"You're feeding it\" means what in practice?",
+      "options": [
+        "You give vague asks so it adapts down to average.",
+        "You starve the model of data on purpose."
+      ],
+      "correct_option_id": 0,
+      "theme_note": "You think you're using AI. You're feeding it."
+    },
+    {
+      "id": "poll_post_044_structure",
+      "related_post_id": 44,
+      "question": "Prompts fail for one simple reason in the post. Which?",
+      "options": [
+        "The model is outdated.",
+        "They skip structured layers (input, context, reasoning, quality, output)."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your prompts fail for one simple reason."
+    },
+    {
+      "id": "poll_post_046_structure",
+      "related_post_id": 46,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a Product Manager uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_047_structure",
+      "related_post_id": 47,
+      "question": "AI respects pressure, not politeness. What should you add?",
+      "options": [
+        "More 'please' and 'maybe' so it stays gentle.",
+        "Explicit quality bar, criteria, and pushback—not soft asks only."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI respects pressure. Not politeness."
+    },
+    {
+      "id": "poll_post_048_structure",
+      "related_post_id": 48,
+      "question": "AI revealed your level. What creates the gap between users?",
+      "options": [
+        "Which logo is on the homepage.",
+        "How you structure, set standards, and control the ask."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI didn't replace you. It revealed your level."
+    },
+    {
+      "id": "poll_post_049_structure",
+      "related_post_id": 49,
+      "question": "AI doesn't think; it follows you. So weak outputs usually mean:",
+      "options": [
+        "The weights are wrong.",
+        "Your direction, standards, and prompts are weak or vague."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI doesn't think. It follows you."
+    },
+    {
+      "id": "poll_post_051_structure",
+      "related_post_id": 51,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How Customer Support uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_052_structure",
+      "related_post_id": 52,
+      "question": "Polite prompts get polite answers—not better ones. Better pattern?",
+      "options": [
+        "Soften every instruction so the model feels safe.",
+        "Be precise and demanding: criteria, limits, and expected shape."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Polite prompts get polite answers. Not better ones."
+    },
+    {
+      "id": "poll_post_053_structure",
+      "related_post_id": 53,
+      "question": "AI doesn't know you—it knows your patterns. Leverage that how?",
+      "options": [
+        "Keep vague habits so it mirrors them.",
+        "Upgrade inputs and standards so the mirror improves."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI doesn't know you. It knows your patterns."
+    },
+    {
+      "id": "poll_post_054_structure",
+      "related_post_id": 54,
+      "question": "Good prompts are built, not written. What does 'built' mean?",
+      "options": [
+        "One-sentence vibes in the chat box.",
+        "Assembled layers: input, context, reasoning, quality, output."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Good prompts are built. Not written."
+    },
+    {
+      "id": "poll_post_056_structure",
+      "related_post_id": 56,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a Social Media Manager uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_058_structure",
+      "related_post_id": 58,
+      "question": "AI doesn't turn chaos into clarity. Who does?",
+      "options": [
+        "The latest flagship model.",
+        "You—by filtering, sequencing, scoping, and validating the problem."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI doesn't turn chaos into clarity. You do."
+    },
+    {
+      "id": "poll_post_059_structure",
+      "related_post_id": 59,
+      "question": "It's not the model. It's the operator. What should you upgrade first?",
+      "options": [
+        "Switch brands every week.",
+        "Your prompt system: structure, constraints, and reuse."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "It's not the model. It's the operator."
+    },
+    {
+      "id": "poll_post_060_structure",
+      "related_post_id": 60,
+      "question": "AI for school & research (2026). What non-negotiable habit?",
+      "options": [
+        "Trust fluent prose as citations.",
+        "Verify sources; match tool to task (tutor vs search vs papers)."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI for students, teachers, and scholars (2026)"
+    },
+    {
+      "id": "poll_post_062_structure",
+      "related_post_id": 62,
+      "question": "CRM, warehouse, dashboards—but slow decisions. What does the post say is often missing?",
+      "options": [
+        "One more dashboard tab.",
+        "The analyze step: turning structured data into decisions (AI can sit in that layer)."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Most companies don't lack data. They lack a system to use it."
+    },
+    {
+      "id": "poll_post_064_structure",
+      "related_post_id": 64,
+      "question": "Your output is a recipe and you're missing ingredients. Those ingredients are:",
+      "options": [
+        "More adjectives in the prompt.",
+        "Layers: input, context, reasoning, quality, advanced control, output."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your AI output is a recipe. And you're missing ingredients."
+    },
+    {
+      "id": "poll_post_065_structure",
+      "related_post_id": 65,
+      "question": "Data stack post: main idea?",
+      "options": [
+        "One vendor owns the whole path from question to chart.",
+        "Different tools for ask, store, model, visualize—wire the right stage."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Data analysis stack: research → insights (2026)"
+    },
+    {
+      "id": "poll_post_070_structure",
+      "related_post_id": 70,
+      "question": "Deck AI tools: what should you optimize for?",
+      "options": [
+        "Picking the single 'best' app forever.",
+        "Matching the job: speed vs Slides vs brand vs enterprise story."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI tools for presentations (2026)"
+    },
+    {
+      "id": "poll_post_071_structure",
+      "related_post_id": 71,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a CMO uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_074_structure",
+      "related_post_id": 74,
+      "question": "Your AI output is layered—you just don't see it. Practical takeaway?",
+      "options": [
+        "Treat it as one blob in, one blob out.",
+        "Name and strengthen each layer so weak ones don't collapse the result."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your AI output is layered. You just don't see it."
+    },
+    {
+      "id": "poll_post_075_structure",
+      "related_post_id": 75,
+      "question": "Automate in layers—not one Zap to rule them all. Why?",
+      "options": [
+        "Every workflow should be one mega-workflow.",
+        "Simple glue vs logic-heavy flows vs AI steps need different tools."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Automation & AI agents (2026)"
+    },
+    {
+      "id": "poll_post_076_structure",
+      "related_post_id": 76,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How Operations uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_081_structure",
+      "related_post_id": 81,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a Software Engineer uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_084_structure",
+      "related_post_id": 84,
+      "question": "AI doesn't fail—your control system does. What helps?",
+      "options": [
+        "Skip validation; ship the first answer.",
+        "Define intent, context, reasoning path, quality gate, then output."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "AI doesn't fail. Your control system does."
+    },
+    {
+      "id": "poll_post_086_structure",
+      "related_post_id": 86,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a CTO uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_089_structure",
+      "related_post_id": 89,
+      "question": "Results feel random. The post blames your what?",
+      "options": [
+        "API latency.",
+        "Process: skipping structured steps between input and output."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Your AI results aren't random. Your process is."
+    },
+    {
+      "id": "poll_post_093_structure",
+      "related_post_id": 93,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How Sales uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_094_structure",
+      "related_post_id": 94,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How HR uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_095_structure",
+      "related_post_id": 95,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How Finance uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_096_structure",
+      "related_post_id": 96,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How an Executive Assistant uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_097_structure",
+      "related_post_id": 97,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How an AI / ML Engineer uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_098_structure",
+      "related_post_id": 98,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How E-commerce uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_099_structure",
+      "related_post_id": 99,
+      "question": "The post says pros should prioritize what over collecting more AI apps?",
+      "options": [
+        "A longer menu of tools and browser tabs.",
+        "Clear decisions and a repeatable layered workflow."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "How a Founder uses AI: decisions & stack"
+    },
+    {
+      "id": "poll_post_100_structure",
+      "related_post_id": 100,
+      "question": "If your AI always agrees with you, what’s usually missing from your ask?",
+      "options": [
+        "More praise so the model feels safe to be honest.",
+        "Pressure: constraints, reasoning steps, and a defined output shape."
+      ],
+      "correct_option_id": 1,
+      "theme_note": "Most people don't have an AI problem. They have a thinking problem."
     }
   ]
 }

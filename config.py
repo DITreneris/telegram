@@ -24,6 +24,7 @@ ADMIN_CHAT_ID: int | None = None
 ENABLE_SCHEDULED_POSTING = False
 SCHEDULE_TIMEZONE: ZoneInfo | None = None
 SCHEDULE_TARGET_CHAT_ID: int | None = None
+SCHEDULE_NOTIFY_ON_FAILURE = True
 
 
 def resolve_log_level() -> int:
@@ -47,8 +48,8 @@ def _parse_env_bool(raw: str | None, default: bool) -> bool:
 
 
 def validate_config() -> None:
-    global ADMIN_CHAT_ID
-    global ENABLE_SCHEDULED_POSTING, SCHEDULE_TIMEZONE, SCHEDULE_TARGET_CHAT_ID
+    global ADMIN_CHAT_ID, ENABLE_SCHEDULED_POSTING, SCHEDULE_NOTIFY_ON_FAILURE
+    global SCHEDULE_TIMEZONE, SCHEDULE_TARGET_CHAT_ID
     if not BOT_TOKEN:
         raise ValueError("Nustatyk BOT_TOKEN aplinkos kintamąjį arba .env faile.")
     raw = os.getenv("ADMIN_CHAT_ID", "").strip()
@@ -94,3 +95,7 @@ def validate_config() -> None:
             if tid == 0:
                 raise ValueError("SCHEDULE_TARGET_CHAT_ID negali būti 0.")
             SCHEDULE_TARGET_CHAT_ID = tid
+
+    SCHEDULE_NOTIFY_ON_FAILURE = _parse_env_bool(
+        os.getenv("SCHEDULE_NOTIFY_ON_FAILURE"), True
+    )

@@ -78,6 +78,20 @@ def test_validate_config_scheduled_posting_sets_timezone_and_target(
     assert cfg.SCHEDULE_TIMEZONE is not None
     assert cfg.SCHEDULE_TIMEZONE.key == "Europe/Vilnius"
     assert cfg.SCHEDULE_TARGET_CHAT_ID == 111
+    assert cfg.SCHEDULE_NOTIFY_ON_FAILURE is True
+
+
+def test_validate_config_schedule_notify_on_failure_false(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("BOT_TOKEN", "x")
+    monkeypatch.setenv("ADMIN_CHAT_ID", "111")
+    monkeypatch.setenv("ENABLE_SCHEDULED_POSTING", "true")
+    monkeypatch.setenv("SCHEDULE_TZ", "Europe/Vilnius")
+    monkeypatch.setenv("SCHEDULE_NOTIFY_ON_FAILURE", "false")
+    cfg = _reload_config()
+    cfg.validate_config()
+    assert cfg.SCHEDULE_NOTIFY_ON_FAILURE is False
 
 
 def test_validate_config_scheduled_custom_target_chat(

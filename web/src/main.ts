@@ -22,6 +22,8 @@ type PublishFilter = "all" | "published" | "unpublished";
 type SortMode = "order" | "id_asc" | "id_desc" | "theme_asc";
 
 const TWITTER_HINT_LIMIT = 280;
+const SEARCH_DEBOUNCE_MS = 250;
+const TOAST_DURATION_MS = 4500;
 
 const PUBLISH_BEARER_STORAGE_KEY = "tgPublishBearer";
 const CONTENT_EDITS_STORAGE_KEY = "socialPostsContentEdits";
@@ -54,7 +56,7 @@ function getPublishBearer(): string | null {
   const fromStore = sessionStorage.getItem(PUBLISH_BEARER_STORAGE_KEY)?.trim();
   if (fromStore) return fromStore;
   const entered = window.prompt(
-    "Enter the publish key (same as PUBLISH_BEARER_TOKEN on the server):",
+    "Įveskite publikavimo raktą (tas pats kaip PUBLISH_BEARER_TOKEN serveryje):",
   )?.trim();
   if (!entered) return null;
   sessionStorage.setItem(PUBLISH_BEARER_STORAGE_KEY, entered);
@@ -67,7 +69,7 @@ async function publishPostToTelegram(
 ): Promise<{ ok: true; parts: number } | { ok: false; message: string }> {
   const bearer = getPublishBearer();
   if (!bearer) {
-    return { ok: false, message: "Publishing cancelled." };
+    return { ok: false, message: "Publikavimas atšauktas." };
   }
 
   const body: {
@@ -387,7 +389,14 @@ function imageDownloadFilename(post: Post): string {
   return `post-${post.id}.png`;
 }
 
-async function downloadPostImage(post: Post): Promise<void> {
+function postImageAlt(post: Post): string {
+  return `Įrašas #${post.id} — ${post.theme}`;
+}
+
+async function downloadPostImage(
+  post: Post,
+  notify?: (message: string, variant: "success" | "error") => void,
+): Promise<void> {
   if (!post.image) return;
   const abs = new URL(post.image, window.location.origin).href;
   const filename = imageDownloadFilename(post);
@@ -405,8 +414,9 @@ async function downloadPostImage(post: Post): Promise<void> {
     a.remove();
     URL.revokeObjectURL(url);
   } catch {
-    window.alert(
+    notify?.(
       "Nepavyko atsisiųsti failo automatiškai. Atidaromas paveikslėlis naujame skirtuke — išsaugokite jį rankiniu būdu (dešinysis paspaudimas → Save image).",
+      "error",
     );
     window.open(abs, "_blank", "noopener,noreferrer");
   }
@@ -459,7 +469,8 @@ function render(
   posts: Post[],
   themes: string[],
   filterTheme: string,
-  searchQuery: string,
+  searchDraft: string,
+  searchApplied: string,
   publishFilter: PublishFilter,
   sortMode: SortMode,
   pollsByPost: Map<number, PollItem[]>,
@@ -468,16 +479,24 @@ function render(
   publishingId: number | null,
   editingIds: Set<number>,
   getEffectiveContent: (p: Post) => string,
+  toastMessage: string | null,
+  toastVariant: "success" | "error",
 ): void {
   const displayed = filterAndSortPosts(posts, {
     filterTheme,
-    searchQuery,
+    searchQuery: searchApplied,
     publishFilter,
     sortMode,
     published,
   });
 
+  const toastBlock =
+    toastMessage !== null ?
+      `<div class="toast toast--${toastVariant}" role="status" aria-live="polite" aria-atomic="true">${escapeHtml(toastMessage)}</div>`
+    : "";
+
   root.innerHTML = `
+    ${toastBlock}
     <header class="page-header">
       <h1>Socialinių postų kopijavimas</h1>
       <p class="lede">
@@ -507,7 +526,7 @@ function render(
             id="search-posts"
             class="search-input"
             placeholder="Tema, tekstas, topic_key…"
-            value="${escapeAttr(searchQuery)}"
+            value="${escapeAttr(searchDraft)}"
             aria-label="Ieškoti postų"
           />
         </div>
@@ -570,7 +589,7 @@ function render(
             <img
               class="card-img"
               src="${escapeAttr(p.image)}"
-              alt="${escapeAttr(p.theme)}"
+              alt="${escapeAttr(postImageAlt(p))}"
               width="1600"
               height="900"
               loading="lazy"
@@ -645,11 +664,13 @@ async function main(): Promise<void> {
   const app = document.querySelector<HTMLElement>("#app");
   if (!app) return;
 
+  app.innerHTML = `<p class="app-loading" role="status">Kraunama…</p>`;
+
   let posts: Post[];
   try {
     posts = await loadPosts();
   } catch (e) {
-    app.innerHTML = `<p class="error">Nepavyko įkelti duomenų: ${escapeHtml(String(e))}</p>`;
+    app.innerHTML = `<p class="error" role="alert">Nepavyko įkelti duomenų: ${escapeHtml(String(e))}</p>`;
     return;
   }
 
@@ -668,13 +689,35 @@ async function main(): Promise<void> {
 
   const themes = uniqueThemes(posts);
   let filterTheme = "";
-  let searchQuery = "";
+  let searchDraft = "";
+  let searchApplied = "";
+  let searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
   let publishFilter: PublishFilter = "all";
   let sortMode: SortMode = "order";
   let copiedId: number | null = null;
   let publishingId: number | null = null;
   let copyResetTimer: ReturnType<typeof setTimeout> | null = null;
   const editingIds = new Set<number>();
+  let toastMessage: string | null = null;
+  let toastVariant: "success" | "error" = "success";
+  let toastClearTimer: ReturnType<typeof setTimeout> | null = null;
+
+  const flushSearchDebounce = (): void => {
+    if (searchDebounceTimer !== null) {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = null;
+    }
+    searchApplied = searchDraft;
+  };
+
+  const scheduleSearchDebounce = (): void => {
+    if (searchDebounceTimer !== null) clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(() => {
+      searchDebounceTimer = null;
+      searchApplied = searchDraft;
+      paintAndSync();
+    }, SEARCH_DEBOUNCE_MS);
+  };
 
   const paint = (): void => {
     render(
@@ -682,7 +725,8 @@ async function main(): Promise<void> {
       posts,
       themes,
       filterTheme,
-      searchQuery,
+      searchDraft,
+      searchApplied,
       publishFilter,
       sortMode,
       pollsByPost,
@@ -691,80 +735,127 @@ async function main(): Promise<void> {
       publishingId,
       editingIds,
       getEffectiveContent,
+      toastMessage,
+      toastVariant,
     );
-    wireEvents();
   };
 
-  const wireEvents = (): void => {
-    const sel = app.querySelector<HTMLSelectElement>("#theme-filter");
-    sel?.addEventListener("change", () => {
-      filterTheme = sel.value;
-      copiedId = null;
-      editingIds.clear();
-      if (copyResetTimer) clearTimeout(copyResetTimer);
-      paint();
-    });
-
-    const searchEl = app.querySelector<HTMLInputElement>("#search-posts");
-    searchEl?.addEventListener("input", () => {
-      searchQuery = searchEl.value;
-      copiedId = null;
-      editingIds.clear();
-      if (copyResetTimer) clearTimeout(copyResetTimer);
-      paint();
-    });
-
-    const pubEl = app.querySelector<HTMLSelectElement>("#publish-filter");
-    pubEl?.addEventListener("change", () => {
-      publishFilter = parsePublishFilter(pubEl.value);
-      copiedId = null;
-      editingIds.clear();
-      if (copyResetTimer) clearTimeout(copyResetTimer);
-      paint();
-    });
-
-    const sortEl = app.querySelector<HTMLSelectElement>("#sort-posts");
-    sortEl?.addEventListener("change", () => {
-      sortMode = parseSortMode(sortEl.value);
-      copiedId = null;
-      editingIds.clear();
-      if (copyResetTimer) clearTimeout(copyResetTimer);
-      paint();
-    });
-
+  /** After innerHTML replace, restore textarea values for cards in edit mode. */
+  const syncEditTextareas = (): void => {
     app.querySelectorAll<HTMLTextAreaElement>("textarea.card-body-edit").forEach((ta) => {
       const id = Number(ta.dataset.contentId);
       const post = posts.find((p) => p.id === id);
       if (!post) return;
       ta.value = getEffectiveContent(post);
-      ta.addEventListener("input", () => {
-        const t = ta.value;
-        if (t === post.content) contentEdits.delete(id);
-        else contentEdits.set(id, t);
-        saveContentEditsToStorage(contentEdits);
-        const info = ta.closest(".card")?.querySelector<HTMLElement>(
-          `[data-char-for="${id}"]`,
-        );
-        if (info) info.innerHTML = charInfoHtml(t.length);
-      });
     });
+  };
 
-    app.querySelectorAll<HTMLButtonElement>(".btn-download").forEach((btn) => {
-      btn.addEventListener("click", async () => {
+  const paintAndSync = (): void => {
+    paint();
+    syncEditTextareas();
+  };
+
+  const showToast = (message: string, variant: "success" | "error"): void => {
+    if (toastClearTimer !== null) {
+      clearTimeout(toastClearTimer);
+      toastClearTimer = null;
+    }
+    toastMessage = message;
+    toastVariant = variant;
+    paintAndSync();
+    toastClearTimer = setTimeout(() => {
+      toastClearTimer = null;
+      toastMessage = null;
+      paintAndSync();
+    }, TOAST_DURATION_MS);
+  };
+
+  const onAppChange = (e: Event): void => {
+    const t = e.target as HTMLElement;
+    if (t.id === "theme-filter") {
+      filterTheme = (t as HTMLSelectElement).value;
+      copiedId = null;
+      if (copyResetTimer) {
+        clearTimeout(copyResetTimer);
+        copyResetTimer = null;
+      }
+      flushSearchDebounce();
+      paintAndSync();
+      return;
+    }
+    if (t.id === "publish-filter") {
+      publishFilter = parsePublishFilter((t as HTMLSelectElement).value);
+      copiedId = null;
+      if (copyResetTimer) {
+        clearTimeout(copyResetTimer);
+        copyResetTimer = null;
+      }
+      flushSearchDebounce();
+      paintAndSync();
+      return;
+    }
+    if (t.id === "sort-posts") {
+      sortMode = parseSortMode((t as HTMLSelectElement).value);
+      copiedId = null;
+      if (copyResetTimer) {
+        clearTimeout(copyResetTimer);
+        copyResetTimer = null;
+      }
+      flushSearchDebounce();
+      paintAndSync();
+    }
+  };
+
+  const onAppInput = (e: Event): void => {
+    const t = e.target as HTMLElement;
+    if (t.id === "search-posts") {
+      searchDraft = (t as HTMLInputElement).value;
+      copiedId = null;
+      if (copyResetTimer) {
+        clearTimeout(copyResetTimer);
+        copyResetTimer = null;
+      }
+      scheduleSearchDebounce();
+      return;
+    }
+    if (t.matches("textarea.card-body-edit")) {
+      const ta = t as HTMLTextAreaElement;
+      const id = Number(ta.dataset.contentId);
+      const post = posts.find((p) => p.id === id);
+      if (!post) return;
+      const text = ta.value;
+      if (text === post.content) contentEdits.delete(id);
+      else contentEdits.set(id, text);
+      saveContentEditsToStorage(contentEdits);
+      const info = ta.closest(".card")?.querySelector<HTMLElement>(
+        `[data-char-for="${id}"]`,
+      );
+      if (info) info.innerHTML = charInfoHtml(text.length);
+    }
+  };
+
+  const onAppClick = (e: Event): void => {
+    const el = e.target as HTMLElement;
+    const btn = el.closest("button");
+    if (!btn || !app.contains(btn)) return;
+
+    if (btn.classList.contains("btn-download")) {
+      void (async () => {
         const id = Number(btn.dataset.downloadId);
         const post = posts.find((p) => p.id === id);
         if (!post?.image) return;
-        await downloadPostImage(post);
-      });
-    });
+        await downloadPostImage(post, showToast);
+      })();
+      return;
+    }
 
-    app.querySelectorAll<HTMLButtonElement>(".btn-telegram").forEach((btn) => {
-      btn.addEventListener("click", async () => {
+    if (btn.classList.contains("btn-telegram")) {
+      void (async () => {
         const id = Number(btn.dataset.telegramId);
         const post = posts.find((p) => p.id === id);
         if (!post || publishingId !== null) return;
         publishingId = id;
-        paint();
+        paintAndSync();
         const result = await publishPostToTelegram(getEffectiveContent(post), {
           imagePath: post.image ?? null,
           imageFilename: post.image ? imageDownloadFilename(post) : undefined,
@@ -774,75 +865,81 @@ async function main(): Promise<void> {
           published.set(id, new Date().toISOString());
           savePublishedToStorage(published);
         }
-        paint();
+        paintAndSync();
         if (result.ok) {
           const mediaNote = post.image ? " Tekstas ir paveikslėlis." : "";
           const note =
             result.parts > 1
-              ? ` Posted in ${result.parts} parts (Telegram message length limit).`
+              ? ` Išsiųsta ${result.parts} žinutėmis (Telegram ilgio limitas).`
               : "";
-          window.alert(`Įrašas išsiųstas į Telegram.${mediaNote}${note}`);
+          showToast(`Įrašas išsiųstas į Telegram.${mediaNote}${note}`, "success");
         } else {
-          window.alert(`Nepavyko publikuoti: ${result.message}`);
+          showToast(`Nepavyko publikuoti: ${result.message}`, "error");
         }
-      });
-    });
+      })();
+      return;
+    }
 
-    app.querySelectorAll<HTMLButtonElement>(".btn-copy").forEach((btn) => {
-      btn.addEventListener("click", async () => {
+    if (btn.classList.contains("btn-copy")) {
+      void (async () => {
         const id = Number(btn.dataset.copyId);
         const post = posts.find((p) => p.id === id);
         if (!post) return;
         const ok = await copyText(getEffectiveContent(post));
         if (!ok) {
-          window.alert("Nepavyko nukopijuoti. Bandykite pažymėti tekstą rankiniu būdu.");
+          showToast(
+            "Nepavyko nukopijuoti. Bandykite pažymėti tekstą rankiniu būdu.",
+            "error",
+          );
           return;
         }
         copiedId = id;
         if (copyResetTimer) clearTimeout(copyResetTimer);
-        paint();
+        paintAndSync();
         copyResetTimer = setTimeout(() => {
           copiedId = null;
-          paint();
+          paintAndSync();
         }, 2000);
-      });
-    });
+      })();
+      return;
+    }
 
-    app.querySelectorAll<HTMLButtonElement>(".btn-edit").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = Number(btn.dataset.editId);
-        const post = posts.find((p) => p.id === id);
-        if (!post) return;
-        if (editingIds.has(id)) {
-          const ta = app.querySelector<HTMLTextAreaElement>(
-            `textarea.card-body-edit[data-content-id="${id}"]`,
-          );
-          if (ta) {
-            const t = ta.value;
-            if (t === post.content) contentEdits.delete(id);
-            else contentEdits.set(id, t);
-            pruneContentEdits(posts, contentEdits);
-            saveContentEditsToStorage(contentEdits);
-          }
-          editingIds.delete(id);
-        } else {
-          editingIds.add(id);
+    if (btn.classList.contains("btn-edit")) {
+      const id = Number(btn.dataset.editId);
+      const post = posts.find((p) => p.id === id);
+      if (!post) return;
+      if (editingIds.has(id)) {
+        const ta = app.querySelector<HTMLTextAreaElement>(
+          `textarea.card-body-edit[data-content-id="${id}"]`,
+        );
+        if (ta) {
+          const text = ta.value;
+          if (text === post.content) contentEdits.delete(id);
+          else contentEdits.set(id, text);
+          pruneContentEdits(posts, contentEdits);
+          saveContentEditsToStorage(contentEdits);
         }
-        paint();
-      });
-    });
+        editingIds.delete(id);
+      } else {
+        editingIds.add(id);
+      }
+      paintAndSync();
+      return;
+    }
 
-    app.querySelectorAll<HTMLButtonElement>(".btn-restore").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = Number(btn.dataset.restoreId);
-        contentEdits.delete(id);
-        saveContentEditsToStorage(contentEdits);
-        paint();
-      });
-    });
+    if (btn.classList.contains("btn-restore")) {
+      const id = Number(btn.dataset.restoreId);
+      contentEdits.delete(id);
+      saveContentEditsToStorage(contentEdits);
+      paintAndSync();
+    }
   };
 
-  paint();
+  paintAndSync();
+
+  app.addEventListener("change", onAppChange);
+  app.addEventListener("input", onAppInput);
+  app.addEventListener("click", onAppClick);
 }
 
 main();

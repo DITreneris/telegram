@@ -19,7 +19,8 @@ logger = logging.getLogger(__name__)
 _next_lock = asyncio.Lock()
 
 _RECORD_FAILED_MSG = (
-    "Delivered but could not save progress; check disk/logs — may resend on next /next."
+    "Delivered but could not save progress; check disk/logs — "
+    "the same item may be sent again until state saves."
 )
 
 
@@ -117,6 +118,26 @@ async def send_content_item(bot: Bot, chat_id: int, item: ContentItem) -> None:
     raise RuntimeError(f"Unknown content type (internal error): {item.type!r}")
 
 
+async def _notify_admin_schedule_send_failure(
+    bot: Bot,
+    admin_chat_id: int,
+    *,
+    item: ContentItem,
+    exc: BaseException,
+) -> None:
+    """Best-effort DM to admin when a scheduled send fails (does not re-raise)."""
+    try:
+        text = (
+            f"Scheduled delivery failed: id={item.id}, type={item.type}. "
+            f"{type(exc).__name__}: {exc}"
+        )
+        if len(text) > MAX_MESSAGE_CHARS:
+            text = text[: MAX_MESSAGE_CHARS - 3] + "..."
+        await bot.send_message(chat_id=admin_chat_id, text=text)
+    except Exception:
+        logger.exception("scheduled_delivery: could not notify admin")
+
+
 async def run_scheduled_delivery(context: ContextTypes.DEFAULT_TYPE) -> None:
     """JobQueue callback: same sequence as /next (peek → send → record on success)."""
     raw_target = context.bot_data.get("schedule_target_chat_id")
@@ -134,16 +155,34 @@ async def run_scheduled_delivery(context: ContextTypes.DEFAULT_TYPE) -> None:
         except Exception:
             logger.exception("scheduled_delivery: unexpected content preparation error")
             return
+        logger.info(
+            "scheduled_delivery: sending to chat_id=%s item_id=%s type=%s",
+            chat_id,
+            item.id,
+            item.type,
+        )
         try:
             await send_content_item(context.bot, chat_id, item)
-        except TelegramError:
+        except TelegramError as exc:
             logger.exception("scheduled_delivery: telegram send error")
+            if context.bot_data.get("schedule_notify_on_failure", True):
+                await _notify_admin_schedule_send_failure(
+                    context.bot, _admin_id(context), item=item, exc=exc
+                )
             return
-        except OSError:
+        except OSError as exc:
             logger.exception("scheduled_delivery: media read or io error")
+            if context.bot_data.get("schedule_notify_on_failure", True):
+                await _notify_admin_schedule_send_failure(
+                    context.bot, _admin_id(context), item=item, exc=exc
+                )
             return
-        except Exception:
+        except Exception as exc:
             logger.exception("scheduled_delivery: unexpected send error")
+            if context.bot_data.get("schedule_notify_on_failure", True):
+                await _notify_admin_schedule_send_failure(
+                    context.bot, _admin_id(context), item=item, exc=exc
+                )
             return
         try:
             orch.record_delivered(item.id)
@@ -151,10 +190,30 @@ async def run_scheduled_delivery(context: ContextTypes.DEFAULT_TYPE) -> None:
             logger.exception(
                 "scheduled_delivery: could not persist delivery state (may resend on next tick)"
             )
+            if context.bot_data.get("schedule_notify_on_failure", True):
+                try:
+                    await context.bot.send_message(
+                        chat_id=_admin_id(context),
+                        text=_RECORD_FAILED_MSG,
+                    )
+                except Exception:
+                    logger.exception(
+                        "scheduled_delivery: could not notify admin after state save failure"
+                    )
         except Exception:
             logger.exception(
                 "scheduled_delivery: unexpected error saving delivery state (may resend on next tick)"
             )
+            if context.bot_data.get("schedule_notify_on_failure", True):
+                try:
+                    await context.bot.send_message(
+                        chat_id=_admin_id(context),
+                        text=_RECORD_FAILED_MSG,
+                    )
+                except Exception:
+                    logger.exception(
+                        "scheduled_delivery: could not notify admin after state save failure"
+                    )
 
 
 async def cmd_next(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

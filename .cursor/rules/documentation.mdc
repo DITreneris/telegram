@@ -8,13 +8,19 @@ alwaysApply: false
 
 ## Index
 
-- When you add, rename, move, or remove a doc under `docs/`, update [docs/INDEX.md](../docs/INDEX.md) in the same change (path, audience, summary, last reviewed date).
-- Follow [docs/VERSIONING.md](../docs/VERSIONING.md) for changelog entries and **Last reviewed** bumps.
-- If `AGENTS.md`’s “Where to look” or Cursor map should reflect the change, update it too.
+- When you add, rename, move, or remove a doc under `docs/`, update [docs/INDEX.md](../../docs/INDEX.md) in the same change (path, audience, summary, last reviewed date).
+- Follow [docs/VERSIONING.md](../../docs/VERSIONING.md) for changelog entries and **Last reviewed** bumps.
+- If `AGENTS.md`’s “Where to look”, **Content pipeline**, or Cursor map should reflect the change, update it too.
+- Keep the **Related repo files** table at the bottom of [docs/INDEX.md](../../docs/INDEX.md) aligned with [AGENTS.md](../../AGENTS.md) (e.g. `data/polls.json`, `web/public/polls.json`, `queue_manifest_sync.py`, sync scripts).
+
+## Content docs at scale
+
+- Do **not** cite [docs/archive/30_posts.txt](../../docs/archive/30_posts.txt) or legacy “30 posts” as current counts. Canonical: [web/public/posts.json](../../web/public/posts.json), [data/polls.json](../../data/polls.json), and `python scripts/audit_posts_png_quizzes.py`.
+- Distinguish in summaries: **actual coverage** ([POST_IMAGES.md](../../docs/POST_IMAGES.md), [CONTENT_INVENTORY.md](../../docs/CONTENT_INVENTORY.md), `audit_post_images.py` / `audit_posts_png_quizzes.py`) vs **planned 1–100 slots** ([POST_IMAGES_GAP_1_100.md](../../docs/POST_IMAGES_GAP_1_100.md)).
 
 ## Changelog
 
-- For **notable** doc or operational changes, add a bullet under `[Unreleased]` in [CHANGELOG.md](../CHANGELOG.md), or under the version section you are cutting — see [docs/VERSIONING.md](../docs/VERSIONING.md) for what counts and release workflow.
+- For **notable** doc or operational changes, add a bullet under `[Unreleased]` in [CHANGELOG.md](../../CHANGELOG.md), or under the version section you are cutting — see [docs/VERSIONING.md](../../docs/VERSIONING.md) for what counts and release workflow.
 
 ## Style
 

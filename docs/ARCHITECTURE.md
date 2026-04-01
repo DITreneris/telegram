@@ -2,14 +2,14 @@
 
 ## Overview
 
-An admin-only Telegram bot (MVP) built with **python-telegram-bot** (v20-style `Application` and `CommandHandler`). It exposes `/start`, `/next`, and `/status`. Only the configured **admin user** (Telegram user id in `ADMIN_CHAT_ID`) can use commands. Optional **scheduled** delivery (08:00 and 19:00 local time via `SCHEDULE_TZ`) uses the same queue as `/next` when `ENABLE_SCHEDULED_POSTING` is enabled.
+An admin-only Telegram bot (MVP) built with **python-telegram-bot** 21+ (`Application` and `CommandHandler`). It exposes `/start`, `/next`, and `/status`. Only the configured **admin user** (Telegram user id in `ADMIN_CHAT_ID`) can use commands. Optional **scheduled** delivery (08:00, 08:30, 19:00, and 19:30 local time via `SCHEDULE_TZ`) uses the same queue as `/next` when `ENABLE_SCHEDULED_POSTING` is enabled.
 
 ## Runtime flow
 
 1. **Entry**: `run.py` calls `bot.main.run_bot()`.
 2. **Startup**: `validate_config()` ensures `BOT_TOKEN` and `ADMIN_CHAT_ID` are set. `logging.basicConfig` uses `resolve_log_level()` from `config.py` (optional `LOG_LEVEL` env). An `Orchestrator` is constructed with paths from `config.py`, then `load_manifest()` loads `data/content.json`.
 3. **Application**: `Application.builder().token(...).build()` registers handlers. `bot_data` holds `orchestrator`, `admin_chat_id` (the admin’s numeric **user** id; env name unchanged), and when scheduling is on, `schedule_target_chat_id` (where automatic sends go).
-4. **Optional jobs**: If `ENABLE_SCHEDULED_POSTING`, `application.job_queue` registers two `run_daily` jobs (`scheduled_morning`, `scheduled_evening`) calling `run_scheduled_delivery` in `bot/handlers.py` (same peek → send → `record_delivered` contract as `/next`). Requires `python-telegram-bot[job-queue]` and a valid IANA `SCHEDULE_TZ` (default `Europe/Vilnius`); `tzdata` is listed in `requirements.txt` for Windows `ZoneInfo` support.
+4. **Optional jobs**: If `ENABLE_SCHEDULED_POSTING`, `application.job_queue` registers four `run_daily` jobs (`scheduled_morning_1`, `scheduled_morning_2`, `scheduled_evening_1`, `scheduled_evening_2` at 08:00, 08:30, 19:00, 19:30) calling `run_scheduled_delivery` in `bot/handlers.py` (same peek → send → `record_delivered` contract as `/next`). Requires `python-telegram-bot[job-queue]` and a valid IANA `SCHEDULE_TZ` (default `Europe/Vilnius`); `tzdata` is listed in `requirements.txt` for Windows `ZoneInfo` support.
 5. **Polling**: `application.run_polling(drop_pending_updates=True)`.
 
 Run **one** bot process when scheduling is enabled; multiple processes sharing `state.json` can interleave queue advances.
@@ -44,14 +44,14 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 - Does every new manifest field validate only in `parse_manifest`, not again in handlers?
 - Does state stay **one** JSON object with clear keys (`last_delivered_id`, `updated_at`)?
 
-## Marry — long-lived core (contracts)
+## Long-lived core (contracts)
 
 **Principle:** orchestrator + manifest schema + atomic state is the product core—invest tests and features there; the Telegram layer stays a thin adapter.
 
 **Orchestrator / queue (`orchestrator.py`):**
 
 - `peek_next_item` **never** writes disk (reads manifest + state only).
-- `record_delivered` runs **only after** a successful send (see `cmd_next` in `bot/handlers.py`). Failed peek or failed send must not advance `last_delivered_id`. If `record_delivered` fails after a successful send (e.g. disk error), the handler notifies the user and `last_delivered_id` may not advance until state saves successfully.
+- `record_delivered` runs **only after** a successful send (see `cmd_next` and `run_scheduled_delivery` in `bot/handlers.py`). Failed peek or failed send must not advance `last_delivered_id`. If `record_delivered` fails after a successful send (e.g. disk error), `/next` replies in-chat with a short English warning; scheduled jobs send the same text to the admin DM when `SCHEDULE_NOTIFY_ON_FAILURE` is on (default). `last_delivered_id` may not advance until state saves successfully.
 - If `last_delivered_id` is missing from the ordered item list, the next item is the **first** (recovery after content edits).
 - **JobQueue** automation repeats the same sequence: peek → send → `record_delivered` on success (`run_scheduled_delivery`).
 
@@ -67,13 +67,13 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 
 - Reads/writes go through `load` / `save_atomic` / `default_state`—handlers do not edit `state.json` directly.
 - `updated_at` is refreshed on every successful write (UTC ISO).
-- Corrupt or missing file: default state or explicit `ValueError`—no silent bad data.
+- Missing file: default state. Invalid shape: explicit `ValueError`. Malformed JSON raises `json.JSONDecodeError` (subclass of `ValueError`), which handlers treat like other load errors—no silent bad data.
 
 **Startup (`bot/main.py`):**
 
 - `load_manifest()` runs before `run_polling` so invalid `content.json` fails fast, not on first `/next`.
 
-**Tests as contract witnesses:** `tests/test_orchestrator.py`, `tests/test_schemas.py`, `tests/test_state_store.py`, `tests/test_handlers_next.py` (`/next` order with mocks), `tests/test_handlers_scheduled.py` (scheduled callback), and `tests/test_queue_manifest_sync.py` (posts + polls → manifest).
+**Tests as contract witnesses:** `tests/test_orchestrator.py`, `tests/test_schemas.py`, `tests/test_state_store.py`, `tests/test_content_loader.py`, `tests/test_handlers_next.py` (`/next` order with mocks), `tests/test_handlers_scheduled.py` (scheduled callback), `tests/test_queue_manifest_sync.py` (posts + polls → manifest), `tests/test_config_validate.py`, `tests/test_config_log_level.py`.
 
 ## Telegram delivery paths
 
@@ -131,7 +131,7 @@ One logical “drop” therefore requires **two `/next` invocations** in order. 
 
 ## Scheduled posting (configuration)
 
-- **`ENABLE_SCHEDULED_POSTING`**: when true, two daily jobs run at **08:00** and **19:00** in `SCHEDULE_TZ` (IANA; default `Europe/Vilnius`).
+- **`ENABLE_SCHEDULED_POSTING`**: when true, four daily jobs run at **08:00**, **08:30**, **19:00**, and **19:30** in `SCHEDULE_TZ` (IANA; default `Europe/Vilnius`).
 - **`SCHEDULE_TARGET_CHAT_ID`**: optional. If unset, scheduled sends use **`ADMIN_CHAT_ID`** (typical private chat with the bot). If you use `/next` in a **group**, the group’s chat id differs from your user id—set `SCHEDULE_TARGET_CHAT_ID` to that group id so scheduled posts land in the same place.
 
 `schedule_next_delivery()` in `orchestrator.py` remains a no-op stub; timing is owned by `JobQueue` in `bot/main.py`.

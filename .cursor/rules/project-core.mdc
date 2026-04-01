@@ -24,6 +24,12 @@ alwaysApply: true
 - Bot wiring: `bot/main.py`, handlers in `bot/handlers.py`.
 - Queue and state: `orchestrator.py`, `state_store.py`, `data/content.json`, `data/state.json`.
 
+## Social content and manifest (scale)
+
+- **Authoring:** [web/public/posts.json](../../web/public/posts.json) and [data/polls.json](../../data/polls.json). PNGs: [web/public/images/posts/](../../web/public/images/posts/) (UI) and [data/images/](../../data/images/) (mirror). Counts are **not** the old “~30 posts” archive—use `python scripts/audit_posts_png_quizzes.py` for ground truth.
+- **Regenerate the bot queue:** `python scripts/sync_queue_from_posts.py --in-place` writes [data/content.json](../../data/content.json). Default (no flag) writes gitignored `data/content.generated.json`. Logic: [queue_manifest_sync.py](../../queue_manifest_sync.py).
+- **Docs:** [docs/QUEUE_SYNC.md](../../docs/QUEUE_SYNC.md), [docs/CONTENT_INVENTORY.md](../../docs/CONTENT_INVENTORY.md), [AGENTS.md](../../AGENTS.md) “Content pipeline”.
+
 ## Quality assurance
 
-- After meaningful Python changes, run `pytest` from the repo root with dev deps installed ([docs/RUNBOOK.md](../docs/RUNBOOK.md#running-tests)). See **Quality assurance** in [AGENTS.md](../AGENTS.md).
+- After meaningful Python changes, run `pytest` from the repo root with dev deps installed ([docs/RUNBOOK.md](../../docs/RUNBOOK.md#running-tests)). See **Quality assurance** in [AGENTS.md](../../AGENTS.md).

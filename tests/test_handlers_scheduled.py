@@ -6,18 +6,22 @@ import asyncio
 from unittest.mock import AsyncMock, MagicMock, call
 
 from telegram.constants import PollType
+from telegram.error import TelegramError
 
-from bot.handlers import run_scheduled_delivery
+from bot.handlers import _RECORD_FAILED_MSG, run_scheduled_delivery
 from schemas import ContentItem
 
 _TARGET_CHAT = 999888777
+_ADMIN_CHAT_ID = 111222333
 
 
-def _context(orch: MagicMock) -> MagicMock:
+def _context(orch: MagicMock, *, notify_on_failure: bool = True) -> MagicMock:
     ctx = MagicMock()
     ctx.bot_data = {
         "orchestrator": orch,
         "schedule_target_chat_id": _TARGET_CHAT,
+        "admin_chat_id": _ADMIN_CHAT_ID,
+        "schedule_notify_on_failure": notify_on_failure,
     }
     ctx.bot = MagicMock()
     ctx.bot.send_message = AsyncMock()
@@ -118,6 +122,85 @@ def test_run_scheduled_delivery_send_error_does_not_record() -> None:
 
     orch.peek_next_item.assert_called_once()
     orch.record_delivered.assert_not_called()
+
+
+def test_run_scheduled_delivery_telegram_error_notifies_admin() -> None:
+    item = ContentItem(id="s3", type="text", text="body")
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    context = _context(orch)
+    context.bot.send_message = AsyncMock(
+        side_effect=[TelegramError("blocked"), None],
+    )
+
+    async def run() -> None:
+        await run_scheduled_delivery(context)
+
+    asyncio.run(run())
+
+    orch.record_delivered.assert_not_called()
+    assert context.bot.send_message.await_count == 2
+    calls = context.bot.send_message.await_args_list
+    assert calls[0].kwargs["chat_id"] == _TARGET_CHAT
+    assert calls[1].kwargs["chat_id"] == _ADMIN_CHAT_ID
+    assert "Scheduled delivery failed" in calls[1].kwargs["text"]
+    assert "s3" in calls[1].kwargs["text"]
+    assert "text" in calls[1].kwargs["text"]
+
+
+def test_run_scheduled_delivery_telegram_error_skips_notify_when_disabled() -> None:
+    item = ContentItem(id="s4", type="text", text="body")
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    context = _context(orch, notify_on_failure=False)
+    context.bot.send_message = AsyncMock(side_effect=TelegramError("blocked"))
+
+    async def run() -> None:
+        await run_scheduled_delivery(context)
+
+    asyncio.run(run())
+
+    orch.record_delivered.assert_not_called()
+    context.bot.send_message.assert_awaited_once_with(
+        chat_id=_TARGET_CHAT, text="body"
+    )
+
+
+def test_run_scheduled_delivery_record_failure_notifies_admin() -> None:
+    item = ContentItem(id="s5", type="text", text="body")
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    orch.record_delivered.side_effect = OSError("disk full")
+    context = _context(orch)
+
+    async def run() -> None:
+        await run_scheduled_delivery(context)
+
+    asyncio.run(run())
+
+    assert context.bot.send_message.await_count == 2
+    calls = context.bot.send_message.await_args_list
+    assert calls[0].kwargs["chat_id"] == _TARGET_CHAT
+    assert calls[0].kwargs["text"] == "body"
+    assert calls[1].kwargs["chat_id"] == _ADMIN_CHAT_ID
+    assert calls[1].kwargs["text"] == _RECORD_FAILED_MSG
+
+
+def test_run_scheduled_delivery_record_failure_skips_notify_when_disabled() -> None:
+    item = ContentItem(id="s6", type="text", text="body")
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    orch.record_delivered.side_effect = OSError("disk full")
+    context = _context(orch, notify_on_failure=False)
+
+    async def run() -> None:
+        await run_scheduled_delivery(context)
+
+    asyncio.run(run())
+
+    context.bot.send_message.assert_awaited_once_with(
+        chat_id=_TARGET_CHAT, text="body"
+    )
 
 
 def test_run_scheduled_delivery_missing_target_skips() -> None:

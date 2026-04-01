@@ -12,9 +12,10 @@ description: >-
 ## Instructions
 
 1. **Start from the index**: Read [docs/INDEX.md](../../../docs/INDEX.md) to see canonical docs and paths.
-2. **Versioning and history**: Use [docs/VERSIONING.md](../../../docs/VERSIONING.md) for doc-management rules; use [CHANGELOG.md](../../../CHANGELOG.md) for what changed when.
-3. **Answer from sources**: Prefer [docs/ARCHITECTURE.md](../../../docs/ARCHITECTURE.md), [docs/RUNBOOK.md](../../../docs/RUNBOOK.md), and [AGENTS.md](../../../AGENTS.md). Read code only when the docs are silent or you must verify behavior.
-4. **Cite paths**: In answers, reference concrete files (e.g. `bot/handlers.py`, `docs/RUNBOOK.md`) so humans can navigate quickly.
+2. **Content at scale**: Do not use [archive/30_posts.txt](../../../docs/archive/30_posts.txt) as current scope. For post/quiz/PNG counts use [web/public/posts.json](../../../web/public/posts.json), [data/polls.json](../../../data/polls.json), and `python scripts/audit_posts_png_quizzes.py`. **POST_IMAGES** + **CONTENT_INVENTORY** = actual coverage; **POST_IMAGES_GAP_1_100** = planned 1–100 slots only.
+3. **Versioning and history**: Use [docs/VERSIONING.md](../../../docs/VERSIONING.md) for doc-management rules; use [CHANGELOG.md](../../../CHANGELOG.md) for what changed when.
+4. **Answer from sources**: Prefer [docs/ARCHITECTURE.md](../../../docs/ARCHITECTURE.md), [docs/RUNBOOK.md](../../../docs/RUNBOOK.md), and [AGENTS.md](../../../AGENTS.md). Read code only when the docs are silent or you must verify behavior.
+5. **Cite paths**: In answers, reference concrete files (e.g. `bot/handlers.py`, `docs/RUNBOOK.md`) so humans can navigate quickly.
 
 ## Q&A pattern
 
@@ -27,7 +28,7 @@ description: >-
 - Add a row to [docs/INDEX.md](../../../docs/INDEX.md) (path, audience, summary, last reviewed date). Bump **Last reviewed** on edited rows per [VERSIONING.md](../../../docs/VERSIONING.md).
 - Use **relative links** between files under `docs/`.
 - Keep content factual and aligned with the code; avoid describing unimplemented features (see ARCHITECTURE “Future” section for stubs).
-- If the new doc affects the entry map, update [AGENTS.md](../../../AGENTS.md) “Where to look” or “Cursor assets” tables.
+- If the new doc affects the entry map, update [AGENTS.md](../../../AGENTS.md) “Where to look”, **Content pipeline**, or “Cursor assets” tables, and the **Related repo files** section in [docs/INDEX.md](../../../docs/INDEX.md).
 
 ## Workflow checklist
 

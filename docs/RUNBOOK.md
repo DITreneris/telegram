@@ -21,6 +21,17 @@
 
 Tests live under `tests/`; `pytest.ini` sets `pythonpath` so imports resolve from the repo root.
 
+### API typecheck
+
+Vercel serverless code under `api/` (e.g. `api/publish.ts`) is checked with TypeScript (no emit). From the **repository root** (Node **22.x**, same as [`.nvmrc`](../.nvmrc)):
+
+1. `npm ci`
+2. `npm run check:api` (alias: `npm run verify`)
+
+**Full pre-push (mirrors CI):** `python -m pytest`, `python scripts/audit_posts_png_quizzes.py`, then `npm run check:api`, then `node scripts/sync_polls_to_web.mjs`, `cd web && npm ci && npm run build`.
+
+**CI (GitHub):** On push/PR to `main`, [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs `python -m pytest` then `python scripts/audit_posts_png_quizzes.py` (**python** job), root `npm ci` + `npm run check:api` (**api_ts** job), and builds the web app (**web** job: `node scripts/sync_polls_to_web.mjs`, then `cd web && npm ci && npm run build`).
+
 **Windows / multiple Python installs:** If `pytest` fails with `No module named pytest` or `python run.py` and tests use different versions, create and **activate** `.venv` (see **Setup** above), then `pip install -r requirements-dev.txt` and `python -m pytest` from the repo root inside that environment.
 
 ## Environment variables
@@ -30,9 +41,10 @@ Tests live under `tests/`; `pytest.ini` sets `pythonpath` so imports resolve fro
 | `BOT_TOKEN` | Yes | Telegram bot token from BotFather |
 | `ADMIN_CHAT_ID` | Yes | Your Telegram **user** id (same as [`.env.example`](../.env.example)); the bot compares it to `update.effective_user.id` for **authorization**. Messages are still sent to `update.effective_chat.id` (private chat or group where you run the command). |
 | `LOG_LEVEL` | No | Logging level: `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL` (default `INFO`; unknown values fall back to `INFO` with a warning) |
-| `ENABLE_SCHEDULED_POSTING` | No | When `true` / `1` / `yes`, registers two daily queue sends at **08:00** and **19:00** (see [ARCHITECTURE.md](ARCHITECTURE.md)). Default off. |
+| `ENABLE_SCHEDULED_POSTING` | No | When `true` / `1` / `yes`, registers four daily queue sends at **08:00**, **08:30**, **19:00**, and **19:30** (see [ARCHITECTURE.md](ARCHITECTURE.md)). Default off. |
 | `SCHEDULE_TZ` | No | IANA timezone for those times (default `Europe/Vilnius`). Invalid values fail at startup. |
 | `SCHEDULE_TARGET_CHAT_ID` | No | Chat id for scheduled sends. If unset, uses `ADMIN_CHAT_ID` (fine for private DM with the bot). Use the **group** chat id if `/next` runs in a group and scheduled posts should go there too. |
+| `SCHEDULE_NOTIFY_ON_FAILURE` | No | When `true` (default), a failed scheduled send **or** a successful send whose `state.json` write fails triggers a short **English** DM to the admin at `ADMIN_CHAT_ID`. Set `false` / `0` / `no` to disable and rely on logs only. |
 
 If either required variable is missing or invalid at startup, `validate_config()` in `config.py` raises a clear error. When `ENABLE_SCHEDULED_POSTING` is on, `SCHEDULE_TZ` must be valid and `SCHEDULE_TARGET_CHAT_ID` (if set) must be a non-zero integer.
 
@@ -53,6 +65,15 @@ Running **`python run.py`** starts the **queue bot**: it reads `data/content.jso
 
 The **social copy UI** can publish post text (and, when the post has `image`, an optional same-origin photo URL) via **`POST /api/publish`** (see [`web/README.md`](../web/README.md)). That path uses the same bot token style on the server but is **separate** from the queue: it does not update `last_delivered_id`. For a full comparison, see [ARCHITECTURE.md](ARCHITECTURE.md) (section **Telegram delivery paths**).
 
+### Quick operator rules
+
+No new databases or services—just the existing bot, web UI, and files under `data/` / `web/public/`.
+
+- **Curriculum delivery in order** → use the **bot** (`/next` or scheduled jobs). Expect `data/state.json` to move only on successful bot sends.
+- **One-off post to the channel from the browser** → use **Publikuoti į Telegram** in the web UI. That does **not** advance the queue; plan `/next` separately if you also need manifest progress.
+- **After editing** `web/public/posts.json`, **`data/polls.json`**, or files under `web/public/images/posts/` / `data/images/`: run `python scripts/audit_posts_png_quizzes.py` locally (CI runs it on every push/PR). If you use inventory docs, re-run with `--write-inventory docs/CONTENT_INVENTORY.md`.
+- **Before relying on web publish in production:** Vercel **Production** env must include publish + bot vars (see [`web/README.md`](../web/README.md)); if **Deployment Protection** is on, configure bypass or rely on the UI’s small-image **base64** path.
+
 ## Troubleshooting
 
 | Symptom | Check |
@@ -66,9 +87,12 @@ The **social copy UI** can publish post text (and, when the post has `image`, an
 | `Could not read status or content. Check logs.` | Same sources as below: bad `state.json` shape, manifest/load errors on `/status`. |
 | `Could not prepare content. Check logs.` / manifest errors | JSON syntax and schema: `version`, required fields per item type in `schemas.py` |
 | `Send failed. Check logs.` | Media paths are resolved to **absolute** paths under `BASE_DIR` when the manifest loads (`schemas.parse_manifest`), not from process cwd. Also check Telegram API/network, rate limits, bad or oversized files, and logs for the real exception. |
-| `Delivered but could not save progress...` | Telegram send succeeded but writing `data/state.json` failed (disk, permissions, etc.). Check logs; the next `/next` may deliver the same item again until state saves. |
+| `Delivered but could not save progress...` | Telegram send succeeded but writing `data/state.json` failed (disk, permissions, etc.). Check logs; the same queue item may be sent again on the next `/next`, scheduled tick, or both until state saves. For scheduled sends, this message is DM’d to the admin when `SCHEDULE_NOTIFY_ON_FAILURE` is on (default). |
 | Published from the web UI but `/next` did not advance the queue | **Expected.** The Vercel/serverless publish endpoint does not call `Orchestrator` or write `state.json`. Use `/next` in the bot for manifest queue progress. See [ARCHITECTURE.md](ARCHITECTURE.md) (**Telegram delivery paths**). |
 | Publish photo: `Could not fetch image (HTTP 401)` | **Vercel Deployment Protection** blocks serverless `fetch` to your static files. The web UI sends small images (≤~3MB) as **base64** automatically; for larger files set env **`VERCEL_AUTOMATION_BYPASS_SECRET`** (Protection Bypass for Automation) or shrink the asset. See [`web/README.md`](../web/README.md). |
+| Nothing scheduled appears in the **group** where I run `/next`, but manual `/next` works | **`/next` sends to `effective_chat`** (the group). **Scheduled** sends go to `SCHEDULE_TARGET_CHAT_ID`, or to **`ADMIN_CHAT_ID` (private DM)** if that variable is unset. Set `SCHEDULE_TARGET_CHAT_ID` to the same numeric chat id as the group/channel where you want automatic posts. |
+| DM: `Scheduled delivery failed: id=…, type=…` | Telegram rejected that queued item (permissions, limits, or chat restrictions). Check full traceback in logs (`scheduled_delivery: telegram send error` or similar). Confirm the bot can post polls/messages in the **scheduled** target chat. |
+| Want failures only in logs, not Telegram | Set `SCHEDULE_NOTIFY_ON_FAILURE=false`. |
 
 ## State file
 

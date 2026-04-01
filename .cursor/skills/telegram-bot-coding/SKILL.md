@@ -38,4 +38,6 @@ description: >-
 | New / changed command | `bot/handlers.py`, `bot/main.py` |
 | Queue or state logic | `orchestrator.py`, `state_store.py` |
 | content.json shape | `schemas.py`, `content_loader.py`, sample `data/content.json` |
+| Posts + polls → manifest | `queue_manifest_sync.py`, `scripts/sync_queue_from_posts.py` — [QUEUE_SYNC.md](../../../docs/QUEUE_SYNC.md), [AGENTS.md](../../../AGENTS.md) **Content pipeline** |
+| Audit posts / PNG / quizzes | `scripts/audit_posts_png_quizzes.py`, [CONTENT_INVENTORY.md](../../../docs/CONTENT_INVENTORY.md) |
 | Secrets / paths | `config.py`, `.env.example`, [RUNBOOK.md](../../../docs/RUNBOOK.md) |

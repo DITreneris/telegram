@@ -22,10 +22,14 @@ alwaysApply: false
 - **Orchestrator** (`orchestrator.py`): ordering, `peek_next_item` / `record_delivered`, `status_text`, manifest reload via `load_content`.
 - **Parsing / validation**: `schemas.py`, `content_loader.py` — do not duplicate manifest rules in handlers.
 
+## Manifest item types
+
+- Queue items include **`poll`** (Telegram quiz), not only text/photo/document. Poll items may carry **`theme_note`** (English follow-up message after the quiz). Extend `schemas.py` / handlers together when changing manifest shape.
+
 ## Optional hooks
 
 - `schedule_next_delivery` in `orchestrator.py` is a no-op stub; daily timing uses `JobQueue` in `bot/main.py` when `ENABLE_SCHEDULED_POSTING` is set.
 
 ## Quality assurance
 
-- After substantive changes to handlers, orchestrator, schemas, `content_loader`, `state_store`, or `config.py`, run `pytest` from the repo root (install [requirements-dev.txt](../requirements-dev.txt) first). Add or extend tests in `tests/` when behavior changes.
+- After substantive changes to handlers, orchestrator, schemas, `content_loader`, `state_store`, or `config.py`, run `pytest` from the repo root (install [requirements-dev.txt](../../requirements-dev.txt) first). Add or extend tests in `tests/` when behavior changes.

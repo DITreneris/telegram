@@ -35,6 +35,7 @@ def run_bot() -> None:
     from config import (
         ADMIN_CHAT_ID,
         ENABLE_SCHEDULED_POSTING,
+        SCHEDULE_NOTIFY_ON_FAILURE,
         SCHEDULE_TARGET_CHAT_ID,
         SCHEDULE_TIMEZONE,
     )
@@ -58,6 +59,7 @@ def run_bot() -> None:
     application.bot_data["schedule_target_chat_id"] = (
         SCHEDULE_TARGET_CHAT_ID if ENABLE_SCHEDULED_POSTING else None
     )
+    application.bot_data["schedule_notify_on_failure"] = SCHEDULE_NOTIFY_ON_FAILURE
 
     if ENABLE_SCHEDULED_POSTING:
         assert SCHEDULE_TIMEZONE is not None and SCHEDULE_TARGET_CHAT_ID is not None
@@ -67,12 +69,24 @@ def run_bot() -> None:
                 "ENABLE_SCHEDULED_POSTING is set but JobQueue is unavailable. "
                 "Install dependencies with: pip install -r requirements.txt"
             )
-        t_morning = dt.time(8, 0, tzinfo=SCHEDULE_TIMEZONE)
-        t_evening = dt.time(19, 0, tzinfo=SCHEDULE_TIMEZONE)
-        jq.run_daily(run_scheduled_delivery, time=t_morning, name="scheduled_morning")
-        jq.run_daily(run_scheduled_delivery, time=t_evening, name="scheduled_evening")
+        t_morning_1 = dt.time(8, 0, tzinfo=SCHEDULE_TIMEZONE)
+        t_morning_2 = dt.time(8, 30, tzinfo=SCHEDULE_TIMEZONE)
+        t_evening_1 = dt.time(19, 0, tzinfo=SCHEDULE_TIMEZONE)
+        t_evening_2 = dt.time(19, 30, tzinfo=SCHEDULE_TIMEZONE)
+        jq.run_daily(
+            run_scheduled_delivery, time=t_morning_1, name="scheduled_morning_1"
+        )
+        jq.run_daily(
+            run_scheduled_delivery, time=t_morning_2, name="scheduled_morning_2"
+        )
+        jq.run_daily(
+            run_scheduled_delivery, time=t_evening_1, name="scheduled_evening_1"
+        )
+        jq.run_daily(
+            run_scheduled_delivery, time=t_evening_2, name="scheduled_evening_2"
+        )
         logger.info(
-            "Scheduled posting enabled: 08:00 and 19:00 %s → chat_id=%s",
+            "Scheduled posting enabled: 08:00, 08:30, 19:00, 19:30 %s → chat_id=%s",
             SCHEDULE_TIMEZONE.key,
             SCHEDULE_TARGET_CHAT_ID,
         )

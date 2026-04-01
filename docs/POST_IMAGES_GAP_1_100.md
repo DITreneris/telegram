@@ -2,15 +2,15 @@
 
 Konvencija: failo vardas `NN_Prompt_Anatomy.png`, kur `NN` = `f"{n:02d}"` (1→`01` … 9→`09`, 100→`100`).
 
-**Šaltinis:** [`web/public/posts.json`](../web/public/posts.json) (dabar **31** eilučių — ne visi slotai 1–100 turi `theme` JSON'e).
+**Šaltinis:** [`web/public/posts.json`](../web/public/posts.json) (dabar **74** eilučių — ne visi slotai 1–100 turi `theme` JSON'e).
 
 ## Santrauka
 
 | Rodiklis | Reikšmė |
 |----------|---------|
 | Slotų iš viso (1–100) | 100 |
-| PNG yra `web/public/images/posts/` | **72** |
-| PNG **trūksta** | **28** |
+| PNG yra `web/public/images/posts/` | **74** |
+| PNG **trūksta** | **26** |
 
 ## Trūkstami failai ir temos
 
@@ -18,7 +18,6 @@ Tema: pirmiausia `posts.json` pagal posto `id` = slotui; jei nėra eilutės — 
 
 | Slot | Failas | Tema | Pastaba |
 |------|--------|------|---------|
-| 31 | `31_Prompt_Anatomy.png` | Most people are using the wrong AI image tool. | planas (`scripts/gen_post_images_gap_report.py`) |
 | 35 | `35_Prompt_Anatomy.png` | Top AI text-to-video tools (2026) | planas (`scripts/gen_post_images_gap_report.py`) |
 | 40 | `40_Prompt_Anatomy.png` | Which AI app for real work? (2026 tiers) | planas (`scripts/gen_post_images_gap_report.py`) |
 | 45 | `45_Prompt_Anatomy.png` | Multimodal AI: images, PDFs, screenshots (2026) | planas (`scripts/gen_post_images_gap_report.py`) |
@@ -45,7 +44,6 @@ Tema: pirmiausia `posts.json` pagal posto `id` = slotui; jei nėra eilutės — 
 | 90 | `90_Prompt_Anatomy.png` | The stack that actually ships products (2026); shared template for several role posts in JSON | planas (`scripts/gen_post_images_gap_report.py`) |
 | 91 | `91_Prompt_Anatomy.png` | — | įrašykite `id` + `theme` į `posts.json` arba papildykite `PLANNED_THEME_BY_SLOT` |
 | 92 | `92_Prompt_Anatomy.png` | — | įrašykite `id` + `theme` į `posts.json` arba papildykite `PLANNED_THEME_BY_SLOT` |
-| 100 | `100_Prompt_Anatomy.png` | You're not prompting. You're guessing. | `posts.json` |
 
 ## Atnaujinimas
 

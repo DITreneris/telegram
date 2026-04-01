@@ -5,7 +5,8 @@
     "node": "22.x"
   },
   "scripts": {
-    "check:api": "tsc --project tsconfig.api.json"
+    "check:api": "tsc --project tsconfig.api.json",
+    "verify": "npm run check:api"
   },
   "dependencies": {
     "@vercel/node": "^5.5.16"

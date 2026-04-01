@@ -13,9 +13,12 @@ from queue_manifest_sync import (
     effective_topic_key,
     hook_caption,
     image_to_relative_path,
+    journey_order_path,
     load_poll_bank,
     load_posts_rows,
     order_posts_for_journey,
+    resolve_post_order,
+    validate_journey_order_ids,
     validate_poll_post_ids,
 )
 from schemas import MAX_CAPTION_CHARS
@@ -126,6 +129,53 @@ def test_order_posts_for_journey_no_adjacent_same_topic_when_spacer_exists() -> 
     keys = [effective_topic_key(p) for p in out]
     assert keys[0] != keys[1]
     assert keys[1] != keys[2]
+
+
+def test_resolve_post_order_uses_journey_file(tmp_path: Path) -> None:
+    img_dir = tmp_path / "web" / "public" / "images" / "posts"
+    img_dir.mkdir(parents=True)
+    (img_dir / "a.png").write_bytes(b"\x89PNG\r\n\x1a\n")
+    posts_path = tmp_path / "web" / "public" / "posts.json"
+    posts_path.write_text(
+        json.dumps(
+            [
+                {"id": 2, "theme": "B", "content": "b", "image": "/images/posts/missing.png"},
+                {"id": 1, "theme": "A", "content": "a", "image": "/images/posts/a.png"},
+                {"id": 3, "theme": "C", "content": "c"},
+            ],
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    polls_path = tmp_path / "data" / "polls.json"
+    polls_path.parent.mkdir(parents=True, exist_ok=True)
+    polls_path.write_text(
+        json.dumps({"version": 1, "items": []}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    jpath = journey_order_path(tmp_path)
+    jpath.parent.mkdir(parents=True, exist_ok=True)
+    jpath.write_text(
+        json.dumps({"version": 1, "post_ids": [3, 1, 2]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    posts = load_posts_rows(posts_path)
+    polls = load_poll_bank(polls_path)
+    raw = build_manifest_dict(base_dir=tmp_path, posts=posts, polls=polls)
+    text_ids = [
+        it["related_post_id"] for it in raw["items"] if it["type"] == "text"
+    ]
+    assert text_ids == [3, 1, 2]
+
+
+def test_validate_journey_order_ids_rejects_duplicate() -> None:
+    with pytest.raises(ValueError, match="duplicate"):
+        validate_journey_order_ids(post_ids=[1, 1, 2], valid_ids={1, 2, 3})
+
+
+def test_validate_journey_order_ids_rejects_wrong_size() -> None:
+    with pytest.raises(ValueError, match="expected 2"):
+        validate_journey_order_ids(post_ids=[1], valid_ids={1, 2})
 
 
 def test_build_and_validate_manifest_roundtrip(tmp_path: Path) -> None:

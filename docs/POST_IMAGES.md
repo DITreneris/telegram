@@ -13,9 +13,13 @@ Two places in this repo can hold the same **basename** (e.g. `36_Prompt_Anatomy.
 
 ```bash
 python scripts/audit_post_images.py
+python scripts/audit_posts_png_quizzes.py
+python scripts/audit_posts_png_quizzes.py --write-inventory docs/CONTENT_INVENTORY.md
 ```
 
-The script prints a **canonical inventory** (labels A–I, same definitions every run) plus detail: PNG counts, JSON coverage, image reuse across post ids, extra files on disk, and missing refs.
+The first script prints a **canonical inventory** (labels A–I, same definitions every run) plus detail: PNG counts, JSON coverage, image reuse across post ids, extra files on disk, and missing refs.
+
+**Align rows to PNGs (1:1 `id` = slot from filename):** after adding or removing files under `web/public/images/posts/`, run `python scripts/merge_posts_json_from_png.py --dry-run` then `--write` to rebuild [`web/public/posts.json`](../web/public/posts.json) (preserves existing fields per `id`, adds stubs for new slots, drops rows with no matching PNG). Then run `python scripts/fill_stub_posts_and_expand_polls.py` to replace TODO bodies and sync one quiz per post in [`data/polls.json`](../data/polls.json). See [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md).
 
 ## Canonical metrics (kodėl skaičiai *turi* skirtis)
 
@@ -43,6 +47,7 @@ Use the post **`theme`** as the on-image headline; one Prompt Anatomy visual sys
 
 ## Related
 
+- [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md) — posts vs PNG vs `data/polls.json` quiz coverage.
 - Trūkstamų failų temos (lentelė): [MISSING_POST_IMAGES.md](MISSING_POST_IMAGES.md)
 - Slotai 1–100 (kiek iki šimto, likusios temos): [POST_IMAGES_GAP_1_100.md](POST_IMAGES_GAP_1_100.md)
 - [EDUCATIONAL_POSTS.md](EDUCATIONAL_POSTS.md)

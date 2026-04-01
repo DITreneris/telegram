@@ -33,6 +33,7 @@ PLANNED_THEME_BY_SLOT: dict[int, str] = {
     85: "AI app builders: MVP → real app (2026)",
     87: "How a CTO uses AI: decisions & stack",
     90: "The stack that actually ships products (2026); shared template for several role posts in JSON",
+    100: "You're not prompting. You're guessing. (short stack edition)",
 }
 
 

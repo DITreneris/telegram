@@ -19,6 +19,9 @@ from schemas import (
 # Photo path in repo for web asset convention `/images/posts/...` in posts.json.
 WEB_PUBLIC_PREFIX = "web/public"
 
+# Optional explicit queue order (same post ids, curated sequence). See docs/QUEUE_SYNC.md.
+POST_JOURNEY_ORDER_REL = Path("data") / "post_journey_order.json"
+
 
 def hook_caption(theme: str) -> str:
     """Telegram photo caption hook (matches MAX_CAPTION_CHARS)."""
@@ -106,6 +109,63 @@ def order_posts_for_journey(posts: list[dict[str, Any]]) -> list[dict[str, Any]]
     return result
 
 
+def journey_order_path(base_dir: Path) -> Path:
+    return base_dir.resolve() / POST_JOURNEY_ORDER_REL
+
+
+def load_post_journey_order(base_dir: Path) -> list[int] | None:
+    """Load curated post id sequence from data/post_journey_order.json, or None if absent/unused."""
+    path = journey_order_path(base_dir)
+    if not path.is_file():
+        return None
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict) or raw.get("version") != 1:
+        return None
+    ids = raw.get("post_ids")
+    if not isinstance(ids, list) or not ids:
+        return None
+    out: list[int] = []
+    for i, x in enumerate(ids):
+        if isinstance(x, bool) or not isinstance(x, int):
+            raise ValueError(f"post_journey_order.json post_ids[{i}] must be an integer.")
+        out.append(x)
+    return out
+
+
+def validate_journey_order_ids(*, post_ids: list[int], valid_ids: set[int]) -> None:
+    """Require exact permutation of all posts.json ids (strict)."""
+    n = len(valid_ids)
+    if len(post_ids) != n:
+        raise ValueError(
+            f"post_journey_order.json: expected {n} post_ids, got {len(post_ids)}."
+        )
+    if len(set(post_ids)) != len(post_ids):
+        raise ValueError("post_journey_order.json: duplicate post_ids.")
+    missing = valid_ids - set(post_ids)
+    extra = set(post_ids) - valid_ids
+    if missing or extra:
+        raise ValueError(
+            f"post_journey_order.json: id set mismatch (missing={sorted(missing)}, extra={sorted(extra)})."
+        )
+
+
+def apply_explicit_post_order(
+    posts: list[dict[str, Any]], ordered_ids: list[int]
+) -> list[dict[str, Any]]:
+    by_id = {int(r["id"]): r for r in posts}
+    return [by_id[pid] for pid in ordered_ids]
+
+
+def resolve_post_order(posts: list[dict[str, Any]], base_dir: Path) -> list[dict[str, Any]]:
+    """Use data/post_journey_order.json when valid; otherwise order_posts_for_journey."""
+    ordered = load_post_journey_order(base_dir)
+    if ordered is None:
+        return order_posts_for_journey(posts)
+    valid_ids = {int(p["id"]) for p in posts}
+    validate_journey_order_ids(post_ids=ordered, valid_ids=valid_ids)
+    return apply_explicit_post_order(posts, ordered)
+
+
 def load_poll_bank(path: Path) -> list[dict[str, Any]]:
     if not path.is_file():
         raise FileNotFoundError(f"polls bank not found: {path}")
@@ -190,7 +250,8 @@ def poll_row_to_manifest_item(row: dict[str, Any]) -> dict[str, Any]:
 
 def build_manifest_dict(*, base_dir: Path, posts: list[dict[str, Any]], polls: list[dict[str, Any]]) -> dict[str, Any]:
     """Assemble ordered items: per-post photo (if file exists) + text + linked quizzes."""
-    posts_sorted = order_posts_for_journey(posts)
+    root = base_dir.resolve()
+    posts_sorted = resolve_post_order(posts, root)
     post_ids = {int(p["id"]) for p in posts_sorted}
     validate_poll_post_ids(polls, post_ids)
 
@@ -201,7 +262,6 @@ def build_manifest_dict(*, base_dir: Path, posts: list[dict[str, Any]], polls: l
         polls_by_post[pid].sort(key=lambda x: str(x["id"]))
 
     items_out: list[dict[str, Any]] = []
-    root = base_dir.resolve()
 
     for row in posts_sorted:
         pid = int(row["id"])
