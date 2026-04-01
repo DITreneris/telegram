@@ -42,6 +42,10 @@ def run_bot() -> None:
         level=resolve_log_level(),
         format="%(levelname)s %(name)s %(message)s",
     )
+    # Long polling issues a successful getUpdates HTTP call every few seconds; at INFO
+    # that drowns out bot.main / scheduled_delivery lines in host log UIs.
+    for _noisy in ("httpx", "httpcore"):
+        logging.getLogger(_noisy).setLevel(logging.WARNING)
     validate_config()
     # Values are set inside validate_config(); avoid stale import-time defaults.
     from config import (
@@ -112,4 +116,8 @@ def run_bot() -> None:
     )
     application.add_error_handler(error_handler)
 
+    logger.info(
+        "Queue bot polling started (scheduled_posting=%s)",
+        ENABLE_SCHEDULED_POSTING,
+    )
     application.run_polling(drop_pending_updates=True)
