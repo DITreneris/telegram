@@ -11,7 +11,7 @@ alwaysApply: false
 - When you add, rename, move, or remove a doc under `docs/`, update [docs/INDEX.md](../../docs/INDEX.md) in the same change (path, audience, summary, last reviewed date).
 - Follow [docs/VERSIONING.md](../../docs/VERSIONING.md) for changelog entries and **Last reviewed** bumps.
 - If `AGENTS.md`’s “Where to look”, **Content pipeline**, or Cursor map should reflect the change, update it too.
-- Keep the **Related repo files** table at the bottom of [docs/INDEX.md](../../docs/INDEX.md) aligned with [AGENTS.md](../../AGENTS.md) (e.g. `data/polls.json`, `web/public/polls.json`, `queue_manifest_sync.py`, sync scripts).
+- Keep the **Related repo files** table at the bottom of [docs/INDEX.md](../../docs/INDEX.md) aligned with [AGENTS.md](../../AGENTS.md) (e.g. `data/polls.json`, `web/public/polls.json`, `queue_manifest_sync.py`, sync scripts). When CI jobs or deploy commands change, update [docs/golden_standard.md](../../docs/golden_standard.md) §1 in the same change.
 
 ## Content docs at scale
 

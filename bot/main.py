@@ -5,9 +5,11 @@ from __future__ import annotations
 import datetime as dt
 import logging
 
-from telegram.ext import Application, CommandHandler, ContextTypes
+from telegram import BotCommandScopeChat, BotCommandScopeDefault
+from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 
-from bot.handlers import cmd_next, cmd_start, cmd_status, run_scheduled_delivery
+from bot.bot_copy import bot_menu_commands
+from bot.handlers import callback_nav, cmd_next, cmd_start, cmd_status, run_scheduled_delivery
 from config import (
     BASE_DIR,
     BOT_TOKEN,
@@ -23,6 +25,16 @@ logger = logging.getLogger(__name__)
 
 async def error_handler(_update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
     logger.error("Exception while handling an update", exc_info=context.error)
+
+
+async def post_init(application: Application) -> None:
+    """Hide command menu for strangers; show start/next/status in admin private chat."""
+    admin_id = int(application.bot_data["admin_chat_id"])
+    await application.bot.set_my_commands([], scope=BotCommandScopeDefault())
+    await application.bot.set_my_commands(
+        bot_menu_commands(),
+        scope=BotCommandScopeChat(chat_id=admin_id),
+    )
 
 
 def run_bot() -> None:
@@ -51,6 +63,7 @@ def run_bot() -> None:
     application = (
         Application.builder()
         .token(BOT_TOKEN)
+        .post_init(post_init)
         .build()
     )
     application.bot_data["orchestrator"] = orch
@@ -94,6 +107,9 @@ def run_bot() -> None:
     application.add_handler(CommandHandler("start", cmd_start))
     application.add_handler(CommandHandler("next", cmd_next))
     application.add_handler(CommandHandler("status", cmd_status))
+    application.add_handler(
+        CallbackQueryHandler(callback_nav, pattern=r"^nav_(next|status)$")
+    )
     application.add_error_handler(error_handler)
 
     application.run_polling(drop_pending_updates=True)

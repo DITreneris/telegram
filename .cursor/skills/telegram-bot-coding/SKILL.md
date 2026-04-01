@@ -13,12 +13,13 @@ description: >-
 
 1. Read [AGENTS.md](../../../AGENTS.md) for the module map and run command.
 2. For behavior and data flow, skim [docs/ARCHITECTURE.md](../../../docs/ARCHITECTURE.md).
-3. For env and runtime issues, use [docs/RUNBOOK.md](../../../docs/RUNBOOK.md).
+3. For env, Railway deploy, and runtime issues, use [docs/RUNBOOK.md](../../../docs/RUNBOOK.md).
+4. For CI parity and non-regression contracts, use [docs/golden_standard.md](../../../docs/golden_standard.md).
 
 ## Conventions
 
 - **Handlers** live in `bot/handlers.py`; register new commands in `bot/main.py`.
-- Use `context.bot_data["orchestrator"]` and `context.bot_data["admin_chat_id"]`. Keep the admin gate for privileged actions.
+- Use `context.bot_data["orchestrator"]` and `context.bot_data["admin_chat_id"]`. Handlers may read `schedule_notify_on_failure`; when scheduling is on, also `schedule_target_chat_id`. Keep the admin gate for privileged actions; serialize `/next` and scheduled sends with the shared `_next_lock` in `bot/handlers.py`.
 - **Orchestration** (next item, state, status text) stays in `orchestrator.py`; **validation** in `schemas.py` / `content_loader.py`.
 - **User-visible strings** (Telegram messages) stay **English** unless the user explicitly requests another language.
 - Prefer small, focused diffs; match existing typing and `from __future__ import annotations`.
@@ -28,7 +29,7 @@ description: >-
 - [ ] Async handler in `bot/handlers.py` with admin check if restricted
 - [ ] `CommandHandler` added in `bot/main.py`
 - [ ] No duplicated manifest rules — extend `schemas.py` if the manifest shape changes
-- [ ] Run `pytest` from repo root after substantive Python edits (`requirements-dev.txt`)
+- [ ] Run `python -m pytest` from repo root after substantive Python edits (`requirements-dev.txt`); for full CI parity also run `python scripts/audit_posts_png_quizzes.py` (see [golden_standard.md](../../../docs/golden_standard.md))
 - [ ] If behavior is user-facing or operational, update `docs/` and [docs/INDEX.md](../../../docs/INDEX.md); for notable changes add [CHANGELOG.md](../../../CHANGELOG.md) per [VERSIONING.md](../../../docs/VERSIONING.md) (`[Unreleased]` or the version section you ship)
 
 ## Quick reference
@@ -41,3 +42,4 @@ description: >-
 | Posts + polls → manifest | `queue_manifest_sync.py`, `scripts/sync_queue_from_posts.py` — [QUEUE_SYNC.md](../../../docs/QUEUE_SYNC.md), [AGENTS.md](../../../AGENTS.md) **Content pipeline** |
 | Audit posts / PNG / quizzes | `scripts/audit_posts_png_quizzes.py`, [CONTENT_INVENTORY.md](../../../docs/CONTENT_INVENTORY.md) |
 | Secrets / paths | `config.py`, `.env.example`, [RUNBOOK.md](../../../docs/RUNBOOK.md) |
+| Deploy queue bot | [railway.toml](../../../railway.toml) (**RAILPACK**, `python run.py`), [RUNBOOK.md](../../../docs/RUNBOOK.md#hosting-the-queue-bot-railway) |

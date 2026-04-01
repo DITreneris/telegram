@@ -14,6 +14,14 @@
 4. Copy `.env.example` to `.env` and set variables (see below).
 5. From the **repository root**: `python run.py`
 
+## When the bot is running (local)
+
+- **Expected:** the process **blocks** on long polling until you stop it (Ctrl+C). The console shows log lines at the configured `LOG_LEVEL` (default `INFO`).
+- **Smoke check:** open a **private** chat with the bot (or the group where you use it), send `/start` or `/status` from the account whose **user id** matches `ADMIN_CHAT_ID`. You should get English replies; `/start` includes inline **Next** / **Status** buttons; `/status` prints item count, last delivered id, next id/type, and state `updated_at`. On startup the bot registers **Telegram command menu** entries (`/start`, `/next`, `/status`) for the **admin private chat** only (default scope is empty so strangers do not see those commands in the menu bar).
+- **BotFather copy:** canonical **Description** and **About** strings for [@BotFather](https://t.me/BotFather) live in [bot/bot_copy.py](../bot/bot_copy.py) (`BOTFATHER_SHORT_DESCRIPTION`, `BOTFATHER_ABOUT`). The API cannot set them—paste manually when you change the wording.
+- **Scheduled mode:** if `ENABLE_SCHEDULED_POSTING` is on, startup logs include `Scheduled posting enabled: 08:00, 08:30, 19:00, 19:30` with the IANA timezone key and target `chat_id`.
+- **Do not run two processes** with the same `BOT_TOKEN` (second instance typically gets Telegram `Conflict` / “terminated by other getUpdates”).
+
 ## Hosting the queue bot (Railway)
 
 **Decision:** the **Telegram queue bot** (`python run.py`, polling + optional `JobQueue`) is hosted on **[Railway](https://railway.com/)** as a single long-running worker. **Vercel** remains for the **static web app** + **`/api/publish`** only — it does not run this Python process.
@@ -114,7 +122,7 @@ No new databases or services—just the existing bot, web UI, and files under `d
 | `Delivered but could not save progress...` | Telegram send succeeded but writing `data/state.json` failed (disk, permissions, etc.). Check logs; the same queue item may be sent again on the next `/next`, scheduled tick, or both until state saves. For scheduled sends, this message is DM’d to the admin when `SCHEDULE_NOTIFY_ON_FAILURE` is on (default). |
 | Published from the web UI but `/next` did not advance the queue | **Expected.** The Vercel/serverless publish endpoint does not call `Orchestrator` or write `state.json`. Use `/next` in the bot for manifest queue progress. See [ARCHITECTURE.md](ARCHITECTURE.md) (**Telegram delivery paths**). |
 | Publish photo: `Could not fetch image (HTTP 401)` | **Vercel Deployment Protection** blocks serverless `fetch` to your static files. The web UI sends small images (≤~3MB) as **base64** automatically; for larger files set env **`VERCEL_AUTOMATION_BYPASS_SECRET`** (Protection Bypass for Automation) or shrink the asset. See [`web/README.md`](../web/README.md). |
-| Nothing scheduled appears in the **group** where I run `/next`, but manual `/next` works | **`/next` sends to `effective_chat`** (the group). **Scheduled** sends go to `SCHEDULE_TARGET_CHAT_ID`, or to **`ADMIN_CHAT_ID` (private DM)** if that variable is unset. Set `SCHEDULE_TARGET_CHAT_ID` to the same numeric chat id as the group/channel where you want automatic posts. |
+| Nothing scheduled appears in the **group** where I run `/next`, but manual `/next` works | **`/next` sends to `effective_chat`** (the group). **Scheduled** sends go to `SCHEDULE_TARGET_CHAT_ID` if set; if the variable is **unset**, `validate_config()` sets the in-memory target to **`ADMIN_CHAT_ID`** (private DM with the bot — same as manual `/next` in DMs, but **not** the group). Set `SCHEDULE_TARGET_CHAT_ID` to the group’s numeric chat id so scheduled posts match `/next` in that group. |
 | DM: `Scheduled delivery failed: id=…, type=…` | Telegram rejected that queued item (permissions, limits, or chat restrictions). Check full traceback in logs (`scheduled_delivery: telegram send error` or similar). Confirm the bot can post polls/messages in the **scheduled** target chat. |
 | Want failures only in logs, not Telegram | Set `SCHEDULE_NOTIFY_ON_FAILURE=false`. |
 

@@ -1,16 +1,18 @@
-"""Komandos: admin tikrinimas, /start, /next, /status."""
+"""Komandos: admin tikrinimas, /start, /next, /status, inline navigacija."""
 
 from __future__ import annotations
 
 import asyncio
 import logging
+from collections.abc import Awaitable, Callable
 from pathlib import Path
 
-from telegram import Bot, InputFile, Update
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, InputFile, Update
 from telegram.constants import PollType
 from telegram.error import TelegramError
 from telegram.ext import ContextTypes
 
+from bot.bot_copy import START_MESSAGE
 from orchestrator import Orchestrator
 from schemas import MAX_MESSAGE_CHARS, ContentItem
 
@@ -22,6 +24,18 @@ _RECORD_FAILED_MSG = (
     "Delivered but could not save progress; check disk/logs — "
     "the same item may be sent again until state saves."
 )
+
+
+def start_nav_markup() -> InlineKeyboardMarkup:
+    """One row: same actions as /next and /status (admin-only; enforced in handler)."""
+    return InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Next", callback_data="nav_next"),
+                InlineKeyboardButton("Status", callback_data="nav_status"),
+            ]
+        ]
+    )
 
 
 def split_telegram_text_chunks(text: str) -> list[str]:
@@ -49,30 +63,32 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _deny_if_not_admin(update, context):
         return
     assert update.message
-    await update.message.reply_text(
-        "Lean orchestrator (MVP).\n"
-        "Commands:\n"
-        "/next — next queued item: text, photo, document, or poll (cycles)\n"
-        "/status — queue summary and next item (id and type)"
-    )
+    await update.message.reply_text(START_MESSAGE, reply_markup=start_nav_markup())
+
+
+async def _run_status(
+    context: ContextTypes.DEFAULT_TYPE,
+    reply_text: Callable[[str], Awaitable[object]],
+) -> None:
+    orch: Orchestrator = context.bot_data["orchestrator"]
+    try:
+        text = orch.status_text()
+    except (ValueError, FileNotFoundError, OSError):
+        logger.exception("cmd_status: status or content error")
+        await reply_text("Could not read status or content. Check logs.")
+        return
+    except Exception:
+        logger.exception("cmd_status: unexpected error")
+        await reply_text("Could not read status or content. Check logs.")
+        return
+    await reply_text(text)
 
 
 async def cmd_status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _deny_if_not_admin(update, context):
         return
     assert update.message
-    orch: Orchestrator = context.bot_data["orchestrator"]
-    try:
-        text = orch.status_text()
-    except (ValueError, FileNotFoundError, OSError):
-        logger.exception("cmd_status: status or content error")
-        await update.message.reply_text("Could not read status or content. Check logs.")
-        return
-    except Exception:
-        logger.exception("cmd_status: unexpected error")
-        await update.message.reply_text("Could not read status or content. Check logs.")
-        return
-    await update.message.reply_text(text)
+    await _run_status(context, update.message.reply_text)
 
 
 async def send_content_item(bot: Bot, chat_id: int, item: ContentItem) -> None:
@@ -216,42 +232,69 @@ async def run_scheduled_delivery(context: ContextTypes.DEFAULT_TYPE) -> None:
                     )
 
 
-async def cmd_next(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    if await _deny_if_not_admin(update, context):
-        return
-    assert update.message
+async def _run_next(
+    context: ContextTypes.DEFAULT_TYPE,
+    chat_id: int,
+    reply_text: Callable[[str], Awaitable[object]],
+) -> None:
     orch: Orchestrator = context.bot_data["orchestrator"]
     async with _next_lock:
         try:
             item = orch.peek_next_item()
         except (ValueError, FileNotFoundError, OSError):
             logger.exception("cmd_next: content preparation error")
-            await update.message.reply_text("Could not prepare content. Check logs.")
+            await reply_text("Could not prepare content. Check logs.")
             return
         except Exception:
             logger.exception("cmd_next: unexpected content preparation error")
-            await update.message.reply_text("Could not prepare content. Check logs.")
+            await reply_text("Could not prepare content. Check logs.")
             return
-        assert update.effective_chat
         try:
-            await send_content_item(context.bot, update.effective_chat.id, item)
+            await send_content_item(context.bot, chat_id, item)
         except TelegramError:
             logger.exception("cmd_next: telegram send error")
-            await update.message.reply_text("Send failed. Check logs.")
+            await reply_text("Send failed. Check logs.")
             return
         except OSError:
             logger.exception("cmd_next: media read or io error")
-            await update.message.reply_text("Send failed. Check logs.")
+            await reply_text("Send failed. Check logs.")
             return
         except Exception:
             logger.exception("cmd_next: unexpected send error")
-            await update.message.reply_text("Send failed. Check logs.")
+            await reply_text("Send failed. Check logs.")
             return
         try:
             orch.record_delivered(item.id)
         except (OSError, ValueError):
             logger.exception("cmd_next: could not persist delivery state")
-            await update.message.reply_text(_RECORD_FAILED_MSG)
+            await reply_text(_RECORD_FAILED_MSG)
         except Exception:
             logger.exception("cmd_next: unexpected error saving delivery state")
-            await update.message.reply_text(_RECORD_FAILED_MSG)
+            await reply_text(_RECORD_FAILED_MSG)
+
+
+async def cmd_next(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if await _deny_if_not_admin(update, context):
+        return
+    assert update.message and update.effective_chat
+    await _run_next(context, update.effective_chat.id, update.message.reply_text)
+
+
+async def callback_nav(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Inline Next / Status — same behavior as commands (admin-only)."""
+    query = update.callback_query
+    if query is None:
+        return
+    user = update.effective_user
+    user_id = user.id if user else None
+    if user_id != _admin_id(context):
+        await query.answer("Access denied. Admin only.", show_alert=True)
+        return
+    await query.answer()
+    if query.message is None:
+        return
+    chat_id = query.message.chat_id
+    if query.data == "nav_next":
+        await _run_next(context, chat_id, query.message.reply_text)
+    elif query.data == "nav_status":
+        await _run_status(context, query.message.reply_text)

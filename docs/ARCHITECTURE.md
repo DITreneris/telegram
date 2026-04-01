@@ -2,13 +2,13 @@
 
 ## Overview
 
-An admin-only Telegram bot (MVP) built with **python-telegram-bot** 21+ (`Application` and `CommandHandler`). It exposes `/start`, `/next`, and `/status`. Only the configured **admin user** (Telegram user id in `ADMIN_CHAT_ID`) can use commands. Optional **scheduled** delivery (08:00, 08:30, 19:00, and 19:30 local time via `SCHEDULE_TZ`) uses the same queue as `/next` when `ENABLE_SCHEDULED_POSTING` is enabled.
+An admin-only Telegram bot (MVP) built with **python-telegram-bot** 21+ (`Application`, `CommandHandler`, `CallbackQueryHandler`). It exposes `/start` (intro + inline **Next** / **Status**), `/next`, and `/status`. **Command menu** (`set_my_commands`): empty default scope; `/start`, `/next`, `/status` registered for the admin’s private chat (`BotCommandScopeChat(ADMIN_CHAT_ID)`). Canonical user-facing English strings and BotFather paste text live in `bot/bot_copy.py`. Only the configured **admin user** (Telegram user id in `ADMIN_CHAT_ID`) can use commands or callbacks. Optional **scheduled** delivery (08:00, 08:30, 19:00, and 19:30 local time via `SCHEDULE_TZ`) uses the same queue as `/next` when `ENABLE_SCHEDULED_POSTING` is enabled.
 
 ## Runtime flow
 
 1. **Entry**: `run.py` calls `bot.main.run_bot()`.
 2. **Startup**: `validate_config()` ensures `BOT_TOKEN` and `ADMIN_CHAT_ID` are set. `logging.basicConfig` uses `resolve_log_level()` from `config.py` (optional `LOG_LEVEL` env). An `Orchestrator` is constructed with paths from `config.py`, then `load_manifest()` loads `data/content.json`.
-3. **Application**: `Application.builder().token(...).build()` registers handlers. `bot_data` holds `orchestrator`, `admin_chat_id` (the admin’s numeric **user** id; env name unchanged), and when scheduling is on, `schedule_target_chat_id` (where automatic sends go).
+3. **Application**: `Application.builder().token(...).post_init(...).build()` runs **`post_init`** to register bot commands (scoped menu for admin DM only), registers command + callback handlers, and a **global `error_handler`** that logs uncaught exceptions from update handlers (it does not send user-facing Telegram text). `bot_data` holds `orchestrator`, `admin_chat_id` (the admin’s numeric **user** id; env name unchanged), and when scheduling is on, `schedule_target_chat_id` (resolved at startup: explicit `SCHEDULE_TARGET_CHAT_ID` or, if unset, **`ADMIN_CHAT_ID`** — see `validate_config()` in `config.py`).
 4. **Optional jobs**: If `ENABLE_SCHEDULED_POSTING`, `application.job_queue` registers four `run_daily` jobs (`scheduled_morning_1`, `scheduled_morning_2`, `scheduled_evening_1`, `scheduled_evening_2` at 08:00, 08:30, 19:00, 19:30) calling `run_scheduled_delivery` in `bot/handlers.py` (same peek → send → `record_delivered` contract as `/next`). Requires `python-telegram-bot[job-queue]` and a valid IANA `SCHEDULE_TZ` (default `Europe/Vilnius`); `tzdata` is listed in `requirements.txt` for Windows `ZoneInfo` support.
 5. **Polling**: `application.run_polling(drop_pending_updates=True)`.
 
@@ -19,8 +19,9 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 | Module | Responsibility |
 |--------|------------------|
 | `config.py` | `BASE_DIR`, `CONTENT_PATH`, `STATE_PATH`, env vars, `validate_config()` (incl. optional schedule flags), `resolve_log_level()` |
-| `bot/main.py` | Build app, wire `bot_data`, optional `JobQueue` daily jobs, register handlers, start polling |
-| `bot/handlers.py` | Admin check, `/start`, `/next`, `/status`; `send_content_item`, `run_scheduled_delivery`; send text, photo, document, or **poll** (Telegram quiz) per `ContentItem` |
+| `bot/main.py` | Build app, wire `bot_data`, **`post_init`** (`set_my_commands`), optional `JobQueue` daily jobs, register handlers, start polling |
+| `bot/handlers.py` | Admin check, `/start`, `/next`, `/status`, inline **`callback_nav`** (`nav_next` / `nav_status`); shared **`_run_next`** / **`_run_status`**; `send_content_item`, `run_scheduled_delivery`; send text, photo, document, or **poll** (Telegram quiz) per `ContentItem`; **`split_telegram_text_chunks`** splits **`text`** bodies and poll **`theme_note`** into ≤ **`MAX_MESSAGE_CHARS`** (4096) segments; shared **`asyncio.Lock`** (`_next_lock`) serializes `/next`, callbacks, and scheduled delivery |
+| `bot/bot_copy.py` | Canonical EN copy: `/start` body, BotFather Description/About (manual paste), `bot_menu_commands()` for `set_my_commands` |
 | `orchestrator.py` | Load manifest, `peek_next_item` / `record_delivered`, `status_text()` (includes next item `id` and `type`, same rule as `peek_next_item`) |
 | `content_loader.py` | Read JSON from disk, `parse_manifest()` |
 | `schemas.py` | `ContentItem`, `ContentManifest`, manifest validation (`version` must be `1`; optional media `caption` max `MAX_CAPTION_CHARS`) |
@@ -35,7 +36,7 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 1. **One send path** — `bot/handlers.py` uses `send_content_item` by `ContentItem.type` for both `/next` and scheduled jobs; no duplicate send logic.
 2. **One in-process serializer for queue delivery** — `asyncio.Lock` (`_next_lock`) around peek → send → `record_delivered` for `/next` and `run_scheduled_delivery`; skip distributed locking until multiple writers target the same `state.json`.
 3. **Flat startup** — `run.py` + `bot/main.py` without a DI container; env via `config.py` and `.env`.
-4. **English copy in Telegram only** — all strings the bot **sends** to users are **English** (see `project-core.mdc`). No i18n framework for the MVP. (Other layers, e.g. `validate_config()` console errors, may stay non-English.)
+4. **English copy in Telegram only** — all strings the bot **sends** to users are **English** (see `project-core.mdc`). No i18n framework for the MVP. Other layers may use non-English messages (e.g. Lithuanian strings in `validate_config()`, `content_loader` / `schemas` validation text); those are for operators and logs, not Telegram replies.
 5. **Single admin gate** — reuse `_deny_if_not_admin` for every privileged command; it compares `update.effective_user.id` to the configured admin user id.
 
 **Checklist before adding code:**
@@ -73,7 +74,7 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 
 - `load_manifest()` runs before `run_polling` so invalid `content.json` fails fast, not on first `/next`.
 
-**Tests as contract witnesses:** `tests/test_orchestrator.py`, `tests/test_schemas.py`, `tests/test_state_store.py`, `tests/test_content_loader.py`, `tests/test_handlers_next.py` (`/next` order with mocks), `tests/test_handlers_scheduled.py` (scheduled callback), `tests/test_queue_manifest_sync.py` (posts + polls → manifest), `tests/test_config_validate.py`, `tests/test_config_log_level.py`.
+**Tests as contract witnesses:** `tests/test_orchestrator.py`, `tests/test_schemas.py`, `tests/test_state_store.py`, `tests/test_content_loader.py`, `tests/test_handlers_next.py` (`/next` order with mocks), `tests/test_handlers_start_nav.py` (`/start` + inline callbacks), `tests/test_handlers_scheduled.py` (scheduled callback), `tests/test_queue_manifest_sync.py` (posts + polls → manifest), `tests/test_config_validate.py`, `tests/test_config_log_level.py`.
 
 ## Telegram delivery paths
 
@@ -132,7 +133,7 @@ One logical “drop” therefore requires **two `/next` invocations** in order. 
 ## Scheduled posting (configuration)
 
 - **`ENABLE_SCHEDULED_POSTING`**: when true, four daily jobs run at **08:00**, **08:30**, **19:00**, and **19:30** in `SCHEDULE_TZ` (IANA; default `Europe/Vilnius`).
-- **`SCHEDULE_TARGET_CHAT_ID`**: optional. If unset, scheduled sends use **`ADMIN_CHAT_ID`** (typical private chat with the bot). If you use `/next` in a **group**, the group’s chat id differs from your user id—set `SCHEDULE_TARGET_CHAT_ID` to that group id so scheduled posts land in the same place.
+- **`SCHEDULE_TARGET_CHAT_ID`**: optional in `.env`. If unset, **`validate_config()`** sets the runtime target to **`ADMIN_CHAT_ID`** (private DM with the bot). If you use `/next` in a **group**, the group’s chat id differs from your user id—set `SCHEDULE_TARGET_CHAT_ID` to that group id so scheduled posts land in the same place as manual `/next` there.
 
 `schedule_next_delivery()` in `orchestrator.py` remains a no-op stub; timing is owned by `JobQueue` in `bot/main.py`.
 

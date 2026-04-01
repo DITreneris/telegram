@@ -8,13 +8,15 @@ alwaysApply: false
 
 ## Application shape
 
-- Build `Application` in `bot/main.py`. Put shared objects on `application.bot_data` (e.g. `orchestrator`, `admin_chat_id`).
+- Build `Application` in `bot/main.py`. Put shared objects on `application.bot_data`: `orchestrator`, `admin_chat_id` (numeric **user** id), `schedule_notify_on_failure` (bool; scheduled path / state-save failures can DM admin in English — see `config.py` / RUNBOOK), and when scheduling is enabled `schedule_target_chat_id` (chat for `run_daily` sends).
 - Register handlers with `CommandHandler`. New commands: add handler in `main.py`, implement async handler in `bot/handlers.py`.
+- Global `error_handler` in `main.py` logs uncaught handler exceptions (no user-facing Telegram text from it).
 
 ## Handlers
 
 - Handlers are `async`. Use `context.bot_data` for `Orchestrator` and admin id — not globals.
 - **Admin-only**: reuse `_deny_if_not_admin` / `_admin_id` pattern from `bot/handlers.py` for any privileged command (gate compares `update.effective_user.id` to `bot_data["admin_chat_id"]`, i.e. the configured admin **user** id).
+- **`_next_lock`**: `/next` and `run_scheduled_delivery` share an `asyncio.Lock` so peek → send → `record_delivered` does not interleave across concurrent triggers.
 
 ## Separation of concerns
 
@@ -28,8 +30,12 @@ alwaysApply: false
 
 ## Optional hooks
 
-- `schedule_next_delivery` in `orchestrator.py` is a no-op stub; daily timing uses `JobQueue` in `bot/main.py` when `ENABLE_SCHEDULED_POSTING` is set.
+- `schedule_next_delivery` in `orchestrator.py` is a no-op stub; daily timing uses **`JobQueue`** in `bot/main.py` when `ENABLE_SCHEDULED_POSTING` is set (four `run_daily` jobs; requires `python-telegram-bot[job-queue]`).
+
+## Deploy (queue bot)
+
+- Production worker: **[Railway](https://railway.com/)** — repo root service, [`railway.toml`](../../railway.toml): **`RAILPACK`** builder, `startCommand = python run.py`, **one replica**. Not Vercel for this process — see [docs/RUNBOOK.md](../../docs/RUNBOOK.md#hosting-the-queue-bot-railway).
 
 ## Quality assurance
 
-- After substantive changes to handlers, orchestrator, schemas, `content_loader`, `state_store`, or `config.py`, run `pytest` from the repo root (install [requirements-dev.txt](../../requirements-dev.txt) first). Add or extend tests in `tests/` when behavior changes.
+- After substantive changes to handlers, orchestrator, schemas, `content_loader`, `state_store`, or `config.py`, run **`python -m pytest`** from the repo root (install [requirements-dev.txt](../../requirements-dev.txt) first). Add or extend tests in `tests/` when behavior changes.
