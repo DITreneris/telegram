@@ -136,13 +136,18 @@ One logical “drop” therefore requires **two `/next` invocations** in order. 
 
 `schedule_next_delivery()` in `orchestrator.py` remains a no-op stub; timing is owned by `JobQueue` in `bot/main.py`.
 
+## Production shape (hosting)
+
+- **Queue bot** (`run.py`, polling, optional `JobQueue`): deployed as one long-running worker on **[Railway](https://railway.com/)** — see [RUNBOOK.md](RUNBOOK.md#hosting-the-queue-bot-railway) and repo [`railway.toml`](../railway.toml).
+- **Social web + HTTP publish** (`/api/publish`): **Vercel** (or static host) — separate from the bot process; does not advance `state.json`.
+
 ## Future expansion (not implemented)
 
 These items are design hooks and documentation only unless stated otherwise.
 
 ### Separate-process automation
 
-An alternative to in-process `JobQueue` is OS **cron** or a small worker that runs the same orchestration path against the same `content.json` and `state.json` (no Flask requirement). The in-repo implementation uses `JobQueue` instead.
+An alternative to in-process `JobQueue` is OS **cron** or a small worker that runs the same orchestration path against the same `content.json` and `state.json` (no Flask requirement). The in-repo implementation uses `JobQueue` instead; **Railway** is the chosen host for that worker in production.
 
 ### Target chat vs admin
 

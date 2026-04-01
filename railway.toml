@@ -1,0 +1,11 @@
+# Railway config-as-code: queue bot worker (long-running `python run.py`).
+# https://docs.railway.com/reference/config-as-code
+#
+# Builder must be RAILPACK or DOCKERFILE (NIXPACKS is not valid on current Railway).
+# Create a service from repo root, set env vars like `.env.example`, one replica — RUNBOOK.
+
+[build]
+builder = "RAILPACK"
+
+[deploy]
+startCommand = "python run.py"

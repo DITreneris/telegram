@@ -14,6 +14,30 @@
 4. Copy `.env.example` to `.env` and set variables (see below).
 5. From the **repository root**: `python run.py`
 
+## Hosting the queue bot (Railway)
+
+**Decision:** the **Telegram queue bot** (`python run.py`, polling + optional `JobQueue`) is hosted on **[Railway](https://railway.com/)** as a single long-running worker. **Vercel** remains for the **static web app** + **`/api/publish`** only — it does not run this Python process.
+
+**Why not Vercel for the bot:** serverless functions are not a substitute for a 24/7 polling process and in-repo scheduling.
+
+### Railway setup (summary)
+
+1. Connect the **GitHub** repo; create a **new service** from the repo (use **repository root** as the project root — same layout as local dev).
+2. Treat the service as a **worker** (no public HTTP required for the bot). Start command is fixed in [`railway.toml`](../railway.toml): `python run.py`.
+3. Set **Variables** to match production needs (at minimum `BOT_TOKEN`, `ADMIN_CHAT_ID`; optional schedule keys from the env table below — same names as `.env.example`).
+4. Optional: set **`RAILPACK_PYTHON_VERSION=3.11`** on the service (or add a [`.python-version`](https://railpack.com/languages/python/) / `runtime.txt` file) so the runtime matches CI ([`.github/workflows/ci.yml`](../.github/workflows/ci.yml)).
+5. In the Railway service settings, keep **one replica** only (do not scale this service horizontally). Multiple instances share no distributed lock; two bots polling the same token cause Telegram `Conflict` errors.
+
+### `data/state.json` on Railway
+
+Railway’s container filesystem is **ephemeral**: redeploys and platform restarts can **reset or wipe** files under `data/` that are not in the image. **`data/state.json`** (queue cursor) may be **lost** after a deploy — the next delivery may not match what you expect until state is recreated. Mitigations when this becomes painful: add a **Railway volume** mounted at `data/` (if you use volumes), or move cursor storage to an external store (future work — not required for MVP if you accept occasional reset after deploy).
+
+**Committed** `data/content.json` (and media paths under `data/images/` in the repo) are part of the deploy artifact and behave like a fresh clone each build.
+
+### Cost / ops
+
+Railway bills on **usage**; monitor the project dashboard. For lean operation, one small always-on worker is the target shape.
+
 ## Running tests
 
 1. Install dev dependencies: `pip install -r requirements-dev.txt` (includes `pytest` and app requirements).

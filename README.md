@@ -5,7 +5,7 @@ Admin-only Telegram botas (MVP): eilė iš `data/content.json`, būsena `data/st
 ## Kur skaityti toliau
 
 - **[AGENTS.md](AGENTS.md)** — modulių žemėlapis, Cursor taisyklės ir skills, kaip paleisti botą.
-- **[docs/RUNBOOK.md](docs/RUNBOOK.md)** — aplinka, trikčių šalinimas, manifestas.
+- **[docs/RUNBOOK.md](docs/RUNBOOK.md)** — aplinka, trikčių šalinimas, manifestas, **Railway** (produkcinis queue bot).
 
 Detalės čia nekartojamos, kad nesidubliuotų su RUNBOOK.
 

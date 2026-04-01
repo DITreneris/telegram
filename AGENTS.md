@@ -43,7 +43,7 @@ Admin-only Telegram bot (MVP) that delivers queued items from `data/content.json
 | Merge **posts + polls** → manifest dict | [queue_manifest_sync.py](queue_manifest_sync.py), CLI [scripts/sync_queue_from_posts.py](scripts/sync_queue_from_posts.py) |
 | State file (load/save atomic) | [state_store.py](state_store.py) |
 | Config / paths / optional `LOG_LEVEL` | [config.py](config.py) |
-| Process entry | [run.py](run.py) |
+| Process entry | [run.py](run.py); Railway worker config [railway.toml](railway.toml) |
 | Automated tests (pytest) | [tests/](tests/) — žr. [docs/RUNBOOK.md](docs/RUNBOOK.md#running-tests) |
 | Social posts (Vite) + publish | [web/README.md](web/README.md), [web/public/posts.json](web/public/posts.json) |
 | Quiz bank (source) | [data/polls.json](data/polls.json) |
@@ -51,6 +51,10 @@ Admin-only Telegram bot (MVP) that delivers queued items from `data/content.json
 | Inventory audit (posts / PNG / polls) | [scripts/audit_posts_png_quizzes.py](scripts/audit_posts_png_quizzes.py), [docs/CONTENT_INVENTORY.md](docs/CONTENT_INVENTORY.md) |
 
 ## How to run
+
+**Production queue bot (hosting):** [Railway](https://railway.com/) — single worker, `python run.py`, env vars like `.env.example`; see [docs/RUNBOOK.md](docs/RUNBOOK.md#hosting-the-queue-bot-railway). Web UI + publish stay on **Vercel** ([web/README.md](web/README.md)).
+
+**Local:**
 
 1. `python -m venv .venv` then activate (Windows: `.venv\Scripts\activate`).
 2. `pip install -r requirements.txt`
