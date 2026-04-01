@@ -135,6 +135,8 @@ def run_bot() -> None:
         t_morning_2 = dt.time(8, 30, tzinfo=SCHEDULE_TIMEZONE)
         t_evening_1 = dt.time(19, 0, tzinfo=SCHEDULE_TIMEZONE)
         t_evening_2 = dt.time(19, 30, tzinfo=SCHEDULE_TIMEZONE)
+        # run_daily touches APScheduler before run_polling; re-apply levels here too.
+        _quiet_third_party_loggers()
         jq.run_daily(
             run_scheduled_delivery, time=t_morning_1, name="scheduled_morning_1"
         )
