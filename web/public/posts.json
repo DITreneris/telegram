@@ -4,7 +4,7 @@
     "theme": "Your AI isn't underperforming. You are.",
     "option": 1,
     "image": "/images/posts/01_Prompt_Anatomy.png",
-    "content": "💥 Your AI isn't underperforming.\nYou are.\n\nHard truth—but necessary.\n\nMost people blame the model:\n\"ChatGPT is inconsistent.\"\n\"Claude is weak.\"\n\"Gemini is not reliable.\"\n\nNo.\n\nYou're feeding it chaos.\n\nVague inputs → vague outputs.\nNo structure → no control.\nRandom prompts → random results.\n\n⚡ You're not using AI.\nYou're hoping it works.\n\n🧭 Here's the shift:\n\nAI is not a tool.\nIt's a system that reflects your thinking.\n\nBad thinking → soft answers\nClear thinking → usable output\n\nThe difference?\n\nStructure.\n\nWhen you define:\n– role\n– context\n– output format\n– constraints\n\nThe model stops guessing.\nIt starts executing.\n\nThat's when AI becomes predictable.\n\nNot smarter.\nJust controlled.\n\n🎯 If your results feel inconsistent,\ndon't upgrade the model.\n\nUpgrade the way you prompt.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: your output mirrors the quality of your spec.\n\nThis is blunt on purpose—you can fix this with your very next prompt.\n\n💥 Blunt headline, fair point: generic answers usually mean the ask was generic—not that the model is \"broken.\"\n\nMost people blame the model:\n\"ChatGPT is inconsistent.\"\n\"Claude is weak.\"\n\"Gemini is not reliable.\"\n\nNo.\n\nYou're feeding it chaos.\n\nVague inputs → vague outputs.\nNo structure → no control.\nRandom prompts → random results.\n\n⚡ You're not using AI.\nYou're hoping it works.\n\n🧭 Here's the shift:\n\nAI is not a tool.\nIt's a system that reflects your thinking.\n\nBad thinking → soft answers\nClear thinking → usable output\n\nThe difference?\n\nStructure.\n\nWhen you define:\n– role\n– context\n– output format\n– constraints\n\nThe model stops guessing.\nIt starts executing.\n\nThat's when AI becomes predictable.\n\nNot smarter.\nJust controlled.\n\n🎯 If your results feel inconsistent,\ndon't upgrade the model.\n\nUpgrade the way you prompt.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "ai_mirror_inputs"
   },
   {
@@ -12,7 +12,7 @@
     "theme": "Stop saying \"please\" to your AI.",
     "option": 1,
     "image": "/images/posts/02_Prompt_Anatomy.png",
-    "content": "🙅 Stop saying \"please\" to your AI.\n\nIt's not making you more effective.\nIt's making your outputs worse.\n\nMost people still write prompts like emails:\n\n\"Hi, could you please…\"\n\"Thank you!\"\n\"Would you mind…\"\n\nFeels natural.\n\nBut it kills precision.\n\nAI doesn't need politeness.\nIt needs clarity.\n\nWhen you soften your language,\nyou soften your instructions.\n\nAnd the model responds the same way:\n– less direct\n– less structured\n– less useful\n\nYou're not talking to a human.\nYou're configuring a system.\n\n🎯 Try this instead:\n\n❌ \"Please write a marketing post about AI\"\n✅ \"Write a LinkedIn post. Target: consultants. Goal: drive clicks. Tone: direct. Include 1 example.\"\n\nSame task.\nCompletely different result.\n\nPoliteness ≠ performance.\n\nClarity = control.\n\nIf you want better outputs,\nstop being polite.\n\nStart being precise.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: clarity beats conversational fluff.\n\n🙅 You don't need to be rude. You do need to be explicit—soft asks often become soft answers.\n\nMost people still write prompts like emails:\n\n\"Hi, could you please…\"\n\"Thank you!\"\n\"Would you mind…\"\n\nFeels natural.\n\nBut it kills precision.\n\nAI doesn't need politeness.\nIt needs clarity.\n\nWhen you soften your language,\nyou soften your instructions.\n\nAnd the model responds the same way:\n– less direct\n– less structured\n– less useful\n\nYou're not talking to a human.\nYou're configuring a system.\n\n🎯 Try this instead:\n\n❌ \"Please write a marketing post about AI\"\n✅ \"Write a LinkedIn post. Target: consultants. Goal: drive clicks. Tone: direct. Include 1 example.\"\n\nSame task.\nCompletely different result.\n\nPoliteness ≠ performance.\n\nClarity = control.\n\nIf you want better outputs,\nstop being polite.\n\nStart being precise.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "please_vs_precision"
   },
   {
@@ -20,7 +20,7 @@
     "theme": "You're not prompting. You're guessing.",
     "option": 1,
     "image": "/images/posts/03_Prompt_Anatomy.png",
-    "content": "🎲 You're not prompting.\n\nYou're guessing.\n\nAnd your results prove it.\n\nMost people open ChatGPT and type:\n\n\"Give me ideas…\"\n\"Write something about…\"\n\"Help me improve…\"\n\nThat's not prompting.\n\nThat's hoping the model figures it out.\n\nAnd sometimes it does.\nMostly, it doesn't.\n\nBecause AI is not built to read your mind.\nIt's built to follow instructions.\n\nIf your input is unclear,\nthe output becomes a guess.\n\nAnd now you're stuck in a loop:\n\nTry → tweak → retry → still meh\n\nThe people getting consistent results\ndon't guess.\n\n🧩 They design.\n\nThey define:\n– what the AI is\n– what it sees\n– what it must produce\n– how good it needs to be\n\nThat's the difference:\n\nGuessing → random outputs\nPrompting → controlled outputs\n\nIf you're still \"trying things,\"\nyou're not using AI properly yet.\n\n⚡ You're experimenting without a system.\n\n📐 Build the system first.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: hope is not a prompting strategy.\n\nIf this stings, treat it as a design problem you can change—not a score on you as a person.\n\n🎲 Vague asks force the model to guess. Guessing feels random because it is.\n\nMost people open ChatGPT and type:\n\n\"Give me ideas…\"\n\"Write something about…\"\n\"Help me improve…\"\n\nThat's not prompting.\n\nThat's hoping the model figures it out.\n\nAnd sometimes it does.\nMostly, it doesn't.\n\nBecause AI is not built to read your mind.\nIt's built to follow instructions.\n\nIf your input is unclear,\nthe output becomes a guess.\n\nAnd now you're stuck in a loop:\n\nTry → tweak → retry → still meh\n\nThe people getting consistent results\ndon't guess.\n\n🧩 They design.\n\nThey define:\n– what the AI is\n– what it sees\n– what it must produce\n– how good it needs to be\n\nThat's the difference:\n\nGuessing → random outputs\nPrompting → controlled outputs\n\nIf you're still \"trying things,\"\nyou're not using AI properly yet.\n\n⚡ You're experimenting without a system.\n\n📐 Build the system first.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "guessing_vs_prompting"
   },
   {
@@ -28,7 +28,7 @@
     "theme": "This one mistake makes your AI outputs useless.",
     "option": 1,
     "image": "/images/posts/04_Prompt_Anatomy.png",
-    "content": "🎯 This one mistake makes your AI outputs useless.\n\nYou don't define the output.\n\nMost people focus on the input:\n\"Write about…\"\n\"Give me ideas…\"\n\"Explain…\"\n\nBut they never specify what \"good\" looks like.\n\nSo the AI does what it's trained to do:\n\nBe safe.\nBe generic.\nBe broadly acceptable.\n\nResult?\n\nLooks fine.\nDoes nothing.\n\n✨ Here's the fix:\n\nStop focusing only on what you ask.\nStart defining what you expect.\n\n📋 Instead of:\n\"Write a LinkedIn post about AI\"\n\nUse:\n– Format (short, scannable, mobile-first)\n– Tone (direct, non-fluffy)\n– Goal (drive clicks)\n– Audience (consultants)\n\nNow the AI has a target.\n\nWithout that → it defaults to average.\n\nThis is the mistake 90% of users make.\n\nThey describe the topic.\nThey never define the outcome.\n\nAnd then they blame the AI.\n\n🔧 Define the output → control the result.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: define \"good\" before you ask.\n\n🎯 If you never specify format, tone, or success, the model defaults to safe average.\n\nMost people focus on the input:\n\"Write about…\"\n\"Give me ideas…\"\n\"Explain…\"\n\nBut they never specify what \"good\" looks like.\n\nSo the AI does what it's trained to do:\n\nBe safe.\nBe generic.\nBe broadly acceptable.\n\nResult?\n\nLooks fine.\nDoes nothing.\n\n✨ Here's the fix:\n\nStop focusing only on what you ask.\nStart defining what you expect.\n\n📋 Instead of:\n\"Write a LinkedIn post about AI\"\n\nUse:\n– Format (short, scannable, mobile-first)\n– Tone (direct, non-fluffy)\n– Goal (drive clicks)\n– Audience (consultants)\n\nNow the AI has a target.\n\nWithout that → it defaults to average.\n\nMost casual users make this mistake.\n\nThey describe the topic.\nThey never define the outcome.\n\nAnd then they blame the AI.\n\n🔧 Define the output → control the result.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "define_output"
   },
   {
@@ -36,7 +36,7 @@
     "theme": "Your prompts are random → so are your results.",
     "option": 1,
     "image": "/images/posts/05_Prompt_Anatomy.png",
-    "content": "🌀 Your prompts are random.\nSo are your results.\n\nAnd no, it's not the model.\n\nIt's your workflow.\n\nMost people approach AI like this:\n\nNew task → new prompt → new guess\n\nNo structure.\nNo consistency.\nNo system.\n\nSo every output is a surprise.\n\nSometimes good.\nMostly average.\n\nThat's not leverage.\nThat's luck.\n\n🎰 The people getting real value from AI\ndon't rely on randomness.\n\nThey reuse structure.\n\nSame logic.\nSame framework.\nDifferent inputs.\n\nThat's how you go from:\n\n\"Let's see what happens\"\n→\n\"I know what I'll get\"\n\nAI becomes predictable\nonly when your prompts are repeatable.\n\nIf every prompt is new,\nyou're starting from zero every time.\n\n🔁 Build once. Reuse forever.\n\nThat's the shift:\n\nRandom prompts → controlled system\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: reuse beats reinventing every time.\n\n🌀 New prompt every task → new variability every time.\n\nIt's your workflow.\n\nMost people approach AI like this:\n\nNew task → new prompt → new guess\n\nNo structure.\nNo consistency.\nNo system.\n\nSo every output is a surprise.\n\nSometimes good.\nMostly average.\n\nThat's not leverage.\nThat's luck.\n\n🎰 The people getting real value from AI\ndon't rely on randomness.\n\nThey reuse structure.\n\nSame logic.\nSame framework.\nDifferent inputs.\n\nThat's how you go from:\n\n\"Let's see what happens\"\n→\n\"I know what I'll get\"\n\nAI becomes predictable\nonly when your prompts are repeatable.\n\nIf every prompt is new,\nyou're starting from zero every time.\n\n🔁 Build once. Reuse forever.\n\nThat's the shift:\n\nRandom prompts → controlled system\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "random_prompts"
   },
   {
@@ -44,7 +44,7 @@
     "theme": "From random answers → to controlled outputs",
     "option": 1,
     "image": "/images/posts/06_Prompt_Anatomy.png",
-    "content": "🎛️ From random answers → to controlled outputs.\n\nThat's the whole game.\n\nMost people are still here:\n\nAsk → hope → adjust → repeat\n\nIt feels like progress.\nIt's actually friction.\n\nBecause nothing is defined.\n\nNo structure\nNo expectations\nNo control\n\nSo the AI improvises.\n\n⚡ And you get:\n– inconsistent quality\n– unpredictable tone\n– outputs you can't reuse\n\n📊 Now compare that to this:\n\nDefine → execute → reuse\n\nYou tell the AI:\n– who it is\n– what it sees\n– what it must produce\n– how good it needs to be\n\nNow it doesn't guess.\n\nIt follows.\n\nThat's the shift:\n\nFrom \"conversation\"\n→ to \"configuration\"\n\nFrom random answers\n→ to controlled outputs\n\n🚀 Once you feel this difference,\nyou can't go back.\n\nAI stops being interesting.\n\nStarts being useful.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: configuration beats conversation.\n\n🎛️ \"Ask and hope\" adds friction; defined role + output + constraints removes it.\n\nMost people are still here:\n\nAsk → hope → adjust → repeat\n\nIt feels like progress.\nIt's actually friction.\n\nBecause nothing is defined.\n\nNo structure\nNo expectations\nNo control\n\nSo the AI improvises.\n\n⚡ And you get:\n– inconsistent quality\n– unpredictable tone\n– outputs you can't reuse\n\n📊 Now compare that to this:\n\nDefine → execute → reuse\n\nYou tell the AI:\n– who it is\n– what it sees\n– what it must produce\n– how good it needs to be\n\nNow it doesn't guess.\n\nIt follows.\n\nThat's the shift:\n\nFrom \"conversation\"\n→ to \"configuration\"\n\nFrom random answers\n→ to controlled outputs\n\n🚀 Once you feel this difference,\nyou can't go back.\n\nAI stops being interesting.\n\nStarts being useful.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "random_to_controlled"
   },
   {
@@ -52,7 +52,7 @@
     "theme": "You're one prompt away from 10x better results.",
     "option": 1,
     "image": "/images/posts/07_Prompt_Anatomy.png",
-    "content": "🚀 You're one prompt away from 10x better results.\n\nNot a new tool.\nNot a better model.\n\nOne prompt.\n\nMost people try to improve results by switching AI:\n\nChatGPT → Claude → Gemini → back again\n\nSame frustration.\n\nBecause the problem isn't the model.\n\nIt's the input.\n\n💡 You're writing prompts like this:\n\"Write something good…\"\n\"Give me ideas…\"\n\nAnd expecting precision.\n\nThat's not how it works.\n\nThe jump happens when you add structure:\n\n– Role\n– Context\n– Output\n– Constraints\n\nSuddenly:\n– answers get sharper\n– tone becomes consistent\n– output becomes usable\n\nSame AI.\nDifferent behavior.\n\nThat's the unlock.\n\n🔑 You don't need more tools.\nYou need one well-designed prompt.\n\nBuild it once.\nReuse it everywhere.\n\n📈 That's how results compound.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: one structured prompt beats ten vague tries.\n\n🚀 You're one prompt away from 10x better results.\n\nNot a new tool.\nNot a better model.\n\nOne prompt.\n\nMost people try to improve results by switching AI:\n\nChatGPT → Claude → Gemini → back again\n\nSame frustration.\n\nBecause the problem isn't the model.\n\nIt's the input.\n\n💡 You're writing prompts like this:\n\"Write something good…\"\n\"Give me ideas…\"\n\nAnd expecting precision.\n\nThat's not how it works.\n\nThe jump happens when you add structure:\n\n– Role\n– Context\n– Output\n– Constraints\n\nSuddenly:\n– answers get sharper\n– tone becomes consistent\n– output becomes usable\n\nSame AI.\nDifferent behavior.\n\nThat's the unlock.\n\n🔑 You don't need more tools.\nYou need one well-designed prompt.\n\nBuild it once.\nReuse it everywhere.\n\n📈 That's how results compound.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "one_prompt_10x"
   },
   {
@@ -60,7 +60,7 @@
     "theme": "Same prompt vs structured prompt (before/after)",
     "option": 1,
     "image": "/images/posts/08_Prompt_Anatomy.png",
-    "content": "⚖️ Same task.\nTwo prompts.\nCompletely different results.\n\nBefore:\n\"Write a LinkedIn post about AI productivity.\"\n\nAfter:\nRole: AI productivity expert\nAudience: managers\nGoal: save time\nFormat: short, scannable\nInclude: 1 concrete example\nTone: direct, no fluff\n\nThe first one gives you:\n– generic advice\n– predictable phrases\n– nothing worth posting\n\nThe second one gives you:\n– clear angle\n– usable structure\n– content you can actually publish\n\n🆚 Same AI.\nSame task.\n\nOnly one difference:\n\nStructure.\n\nMost people try to fix outputs\nby rewriting the same vague prompt.\n\nThat's why nothing changes.\n\nThe leap happens when you stop tweaking\nand start defining.\n\n✨ Before → random\nAfter → controlled\n\n👀 Once you see this,\nyou can't unsee it.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: structure is the lever, not adjectives.\n\n⚖️ Same task, same model—different spec → different usefulness.\n\nBefore:\n\"Write a LinkedIn post about AI productivity.\"\n\nAfter:\nRole: AI productivity expert\nAudience: managers\nGoal: save time\nFormat: short, scannable\nInclude: 1 concrete example\nTone: direct, no fluff\n\nThe first one gives you:\n– generic advice\n– predictable phrases\n– nothing worth posting\n\nThe second one gives you:\n– clear angle\n– usable structure\n– content you can actually publish\n\n🆚 Same AI.\nSame task.\n\nOnly one difference:\n\nStructure.\n\nMost people try to fix outputs\nby rewriting the same vague prompt.\n\nThat's why nothing changes.\n\nThe leap happens when you stop tweaking\nand start defining.\n\n✨ Before → random\nAfter → controlled\n\n👀 Once you see this,\nyou can't unsee it.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "before_after_structure"
   },
   {
@@ -68,7 +68,7 @@
     "theme": "The mistake 90% of AI users make",
     "option": 1,
     "image": "/images/posts/09_Prompt_Anatomy.png",
-    "content": "📊 The mistake 90% of AI users make?\n\nThey think prompting = typing.\n\nIt doesn't.\n\nTyping is easy.\nPrompting is design.\n\nMost people open ChatGPT and write:\n\"Explain this…\"\n\"Give me ideas…\"\n\"Help me improve…\"\n\nAnd expect high-quality output.\n\nBut they never define:\n– what success looks like\n– who it's for\n– how it should be structured\n\nSo the AI does what it can:\n\nDefault to average.\n\nThat's why everything feels:\n– okay\n– safe\n– forgettable\n\nThe top 10% do one thing differently:\n\n🏗️ They don't type prompts.\nThey build them.\n\nClear role.\nClear context.\nClear output.\nClear constraints.\n\nThat's the difference between:\n\nUsing AI casually\nvs\nUsing AI professionally\n\nIf your results feel weak,\nyou're probably still typing.\n\n⚡ Start designing instead.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: prompting is design, not typing speed.\n\n📊 Many people skip success criteria; the model then picks \"fine enough.\"\n\nIt doesn't.\n\nTyping is easy.\nPrompting is design.\n\nMost people open ChatGPT and write:\n\"Explain this…\"\n\"Give me ideas…\"\n\"Help me improve…\"\n\nAnd expect high-quality output.\n\nBut they never define:\n– what success looks like\n– who it's for\n– how it should be structured\n\nSo the AI does what it can:\n\nDefault to average.\n\nThat's why everything feels:\n– okay\n– safe\n– forgettable\n\nPeople who treat prompting as design do one thing differently:\n\n🏗️ They don't type prompts.\nThey build them.\n\nClear role.\nClear context.\nClear output.\nClear constraints.\n\nThat's the difference between:\n\nUsing AI casually\nvs\nUsing AI professionally\n\nIf your results feel weak,\nyou're probably still typing.\n\n⚡ Start designing instead.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "mistake_90_percent"
   },
   {
@@ -76,7 +76,7 @@
     "theme": "How I turned AI from toy → system",
     "option": 1,
     "image": "/images/posts/10_Prompt_Anatomy.png",
-    "content": "🧸 I stopped using AI like a toy.\n\nThat's when everything changed.\n\nAt first, it felt impressive:\n\nAsk something → get an answer\n\nCool.\nBut inconsistent.\n\nSometimes useful.\nOften not.\n\nBecause I was using it like everyone else:\n\nNo structure\nNo system\nJust trial and error\n\nThen I made one shift:\n\n🔧 I stopped \"asking\"\nand started defining.\n\nEvery prompt had:\n– role\n– context\n– output\n– constraints\n\nNow AI didn't improvise.\n\nIt executed.\n\n♻️ That's when it stopped being entertaining\nand started being productive.\n\nFrom:\n\"Let's see what it says\"\n\nTo:\n\"I know what I'll get\"\n\nThat's the difference between a toy and a system.\n\nMost people never cross that line.\n\n🎯 If AI still feels random to you,\nyou're probably still playing with it.\n\nBuild a system.\n\n→ promptanatomy.app",
+    "content": "Pass 1 — Angle: systems beat endless play.\n\n🧸 Exploration is fine; repeatable work needs repeatable prompts.\n\nAt first, it felt impressive:\n\nAsk something → get an answer\n\nCool.\nBut inconsistent.\n\nSometimes useful.\nOften not.\n\nBecause I was using it like everyone else:\n\nNo structure\nNo system\nJust trial and error\n\nThen I made one shift:\n\n🔧 I stopped \"asking\"\nand started defining.\n\nEvery prompt had:\n– role\n– context\n– output\n– constraints\n\nNow AI didn't improvise.\n\nIt executed.\n\n♻️ That's when it stopped being entertaining\nand started being productive.\n\nFrom:\n\"Let's see what it says\"\n\nTo:\n\"I know what I'll get\"\n\nThat's the difference between a toy and a system.\n\nMost people never cross that line.\n\n🎯 If AI still feels random to you,\nyou're probably still playing with it.\n\nBuild a system.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "toy_to_system"
   },
   {
@@ -84,7 +84,7 @@
     "theme": "Your AI isn't underperforming. You are.",
     "option": 2,
     "image": "/images/posts/11_Prompt_Anatomy.png",
-    "content": "🪞 Your AI is not the problem.\n\nYour inputs are.\n\nMost professionals are still operating like this:\n\n\"Write something about…\"\n\"Give me ideas for…\"\n\"Help me improve…\"\n\nAnd then they wonder why the output feels generic.\n\nBecause you gave it nothing to work with.\n\n💬 AI doesn't think for you.\nIt completes what you start.\n\nIf you start with vagueness,\nit finishes with mediocrity.\n\nSimple rule:\n\nGarbage prompt → polished garbage output\n\n🧱 The people getting real results with AI\nare not smarter.\n\nThey're more structured.\n\nThey don't \"ask.\"\n\nThey define:\n\nWhat the AI is\nWhat it sees\nWhat it must produce\nHow good it needs to be\n\nThat's the difference between:\n\nPlaying with AI\nvs\nWorking with AI\n\nIf your outputs feel weak,\nit's not a model issue.\n\nIt's an input design issue.\n\n🛠️ Fix that first.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: inputs, not \"bad AI.\"\n\nSame headline as earlier—on purpose (spaced practice). This pass: fix the brief before you blame the model.\n\n🪞 Weak outputs usually mean the brief was thin—fix the spec first.\n\nMost professionals are still operating like this:\n\n\"Write something about…\"\n\"Give me ideas for…\"\n\"Help me improve…\"\n\nAnd then they wonder why the output feels generic.\n\nBecause you gave it nothing to work with.\n\n💬 AI doesn't think for you.\nIt completes what you start.\n\nIf you start with vagueness,\nit finishes with mediocrity.\n\nSimple rule:\n\nGarbage prompt → polished garbage output\n\n🧱 The people getting real results with AI\nare not smarter.\n\nThey're more structured.\n\nThey don't \"ask.\"\n\nThey define:\n\nWhat the AI is\nWhat it sees\nWhat it must produce\nHow good it needs to be\n\nThat's the difference between:\n\nPlaying with AI\nvs\nWorking with AI\n\nIf your outputs feel weak,\nit's not a model issue.\n\nIt's an input design issue.\n\n🛠️ Fix that first.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "ai_mirror_inputs"
   },
   {
@@ -92,7 +92,7 @@
     "theme": "Stop saying \"please\" to your AI.",
     "option": 2,
     "image": "/images/posts/12_Prompt_Anatomy.png",
-    "content": "✂️ \"Please\" is slowing you down.\n\nNot emotionally.\nOperationally.\n\nMost AI users still operate in \"conversation mode.\"\n\nThey type like they're chatting.\n\nBut AI is not a chat partner.\nIt's an execution engine.\n\n🤖 Every extra word that doesn't add structure\nadds noise.\n\nAnd noise creates weaker outputs.\n\nWatch the difference:\n\nVersion 1:\n\"Hi, can you please help me write something about productivity?\"\n\nVersion 2:\n\"Role: productivity expert\nTask: write LinkedIn post\nAudience: managers\nGoal: save time\nTone: direct\"\n\nOne gets you fluff.\nOne gets you results.\n\nThe model doesn't reward politeness.\nIt rewards constraints.\n\nIf your prompts feel like conversations,\nyou're leaving performance on the table.\n\nSwitch from talking → to specifying.\n\n📍 That's the upgrade.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: operational noise in the prompt.\n\nSame headline as earlier—on purpose. This pass: filler words that do not add structure.\n\n✂️ Chatty filler often dilutes the actual task.\n\nMost AI users still operate in \"conversation mode.\"\n\nThey type like they're chatting.\n\nBut AI is not a chat partner.\nIt's an execution engine.\n\n🤖 Every extra word that doesn't add structure\nadds noise.\n\nAnd noise creates weaker outputs.\n\nWatch the difference:\n\nVersion 1:\n\"Hi, can you please help me write something about productivity?\"\n\nVersion 2:\n\"Role: productivity expert\nTask: write LinkedIn post\nAudience: managers\nGoal: save time\nTone: direct\"\n\nOne gets you fluff.\nOne gets you results.\n\nThe model doesn't reward politeness.\nIt rewards constraints.\n\nIf your prompts feel like conversations,\nyou're leaving performance on the table.\n\nSwitch from talking → to specifying.\n\n📍 That's the upgrade.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "please_vs_precision"
   },
   {
@@ -100,7 +100,7 @@
     "theme": "You're not prompting. You're guessing.",
     "option": 2,
     "image": "/images/posts/13_Prompt_Anatomy.png",
-    "content": "🎯 Be honest.\n\nYou're not prompting AI.\nYou're throwing ideas at it.\n\nAnd hoping something sticks.\n\nThat's why your outputs feel inconsistent.\n\nBecause your inputs are inconsistent.\n\nMost users operate like this:\n\nNo structure\nNo constraints\nNo clear output definition\n\nSo the model fills the gaps.\n\nAnd it does it safely.\n\nThat means:\n– generic tone\n– predictable ideas\n– average quality\n\nIt's not a bug.\n\nIt's a mirror.\n\n🔮 AI reflects the level of precision you give it.\n\nIf you guess → it guesses\nIf you define → it delivers\n\nSimple.\n\n📐 The upgrade is not \"better wording.\"\n\nIt's structured prompting.\n\nFrom:\n\"Write something good\"\n\nTo:\n\"Role + context + output + constraints\"\n\nNow you're not guessing anymore.\n\nNow you're directing.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: inconsistent inputs → inconsistent outputs.\n\nSame headline as earlier—on purpose. This pass: why your answers swing when your asks swing.\n\n🎯 If the task shape changes every time, so will the answer.\n\nAnd hoping something sticks.\n\nThat's why your outputs feel inconsistent.\n\nBecause your inputs are inconsistent.\n\nMost users operate like this:\n\nNo structure\nNo constraints\nNo clear output definition\n\nSo the model fills the gaps.\n\nAnd it does it safely.\n\nThat means:\n– generic tone\n– predictable ideas\n– average quality\n\nIt's not a bug.\n\nIt's a mirror.\n\n🔮 AI reflects the level of precision you give it.\n\nIf you guess → it guesses\nIf you define → it delivers\n\nSimple.\n\n📐 The upgrade is not \"better wording.\"\n\nIt's structured prompting.\n\nFrom:\n\"Write something good\"\n\nTo:\n\"Role + context + output + constraints\"\n\nNow you're not guessing anymore.\n\nNow you're directing.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "guessing_vs_prompting"
   },
   {
@@ -108,7 +108,7 @@
     "theme": "This one mistake makes your AI outputs useless.",
     "option": 2,
     "image": "/images/posts/14_Prompt_Anatomy.png",
-    "content": "🧱 Your AI outputs feel useless?\n\nHere's why.\n\nYou're not setting constraints.\n\nNo length\nNo structure\nNo tone\nNo goal\n\nSo the model fills the space with \"safe content.\"\n\nWhich means:\n– too long\n– too generic\n– no edge\n– no action\n\nIt's not broken.\n\nIt's unconstrained.\n\nAI performs best under pressure.\n\nClear limits → better decisions\nClear structure → better output\n\n📏 Try this:\n\n❌ \"Write something about productivity\"\n✅ \"Write 150-word LinkedIn post. Audience: managers. Goal: save time. Include 1 actionable tip.\"\n\nSame AI.\nDifferent result.\n\nMost people avoid constraints\nbecause they think it limits creativity.\n\nIt doesn't.\n\nIt removes randomness.\n\nIf your outputs feel unusable,\nyou didn't guide the system enough.\n\nAdd constraints.\n\nWatch what happens.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: constraints create usable length and edge.\n\nSame headline as earlier—on purpose. This pass: length, tone, and goal as levers—not mush.\n\n🧱 No length, tone, or goal → long safe mush.\n\nYou're not setting constraints.\n\nNo length\nNo structure\nNo tone\nNo goal\n\nSo the model fills the space with \"safe content.\"\n\nWhich means:\n– too long\n– too generic\n– no edge\n– no action\n\nIt's not broken.\n\nIt's unconstrained.\n\nAI performs best under pressure.\n\nClear limits → better decisions\nClear structure → better output\n\n📏 Try this:\n\n❌ \"Write something about productivity\"\n✅ \"Write 150-word LinkedIn post. Audience: managers. Goal: save time. Include 1 actionable tip.\"\n\nSame AI.\nDifferent result.\n\nMost people avoid constraints\nbecause they think it limits creativity.\n\nIt doesn't.\n\nIt removes randomness.\n\nIf your outputs feel unusable,\nyou didn't guide the system enough.\n\nAdd constraints.\n\nWatch what happens.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "define_output"
   },
   {
@@ -116,7 +116,7 @@
     "theme": "Your prompts are random → so are your results.",
     "option": 2,
     "image": "/images/posts/15_Prompt_Anatomy.png",
-    "content": "🔁 If your AI results feel inconsistent,\nlook at your prompts.\n\nThey're probably inconsistent too.\n\nMost users reinvent the prompt\nfor every single task.\n\nDifferent wording\nDifferent structure\nDifferent logic\n\nAnd then expect stable results.\n\nThat's not how systems work.\n\nAI needs patterns.\n\n📋 When you standardize your prompts:\n– same structure\n– same logic\n– same expectations\n\nYou remove variability.\n\nAnd output quality stabilizes.\n\nThis is where most people get stuck:\n\nThey optimize single prompts\ninstead of building reusable ones.\n\nThat's why nothing scales.\n\n🎲 The upgrade is simple:\n\nStop writing prompts.\nStart building prompt templates.\n\nThat's when AI becomes a tool,\nnot a gamble.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: templates compound; one-offs don't.\n\nSame headline as earlier—on purpose. This pass: reusable templates vs reinventing every time.\n\n🔁 Standardize structure so quality stabilizes across tasks.\n\nThey're probably inconsistent too.\n\nMost users reinvent the prompt\nfor every single task.\n\nDifferent wording\nDifferent structure\nDifferent logic\n\nAnd then expect stable results.\n\nThat's not how systems work.\n\nAI needs patterns.\n\n📋 When you standardize your prompts:\n– same structure\n– same logic\n– same expectations\n\nYou remove variability.\n\nAnd output quality stabilizes.\n\nThis is where most people get stuck:\n\nThey optimize single prompts\ninstead of building reusable ones.\n\nThat's why nothing scales.\n\n🎲 The upgrade is simple:\n\nStop writing prompts.\nStart building prompt templates.\n\nThat's when AI becomes a tool,\nnot a gamble.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "random_prompts"
   },
   {
@@ -124,7 +124,7 @@
     "theme": "From random answers → to controlled outputs",
     "option": 2,
     "image": "/images/posts/16_Prompt_Anatomy.png",
-    "content": "🎰 Most people use AI like a slot machine.\n\nPull the lever.\nSee what comes out.\n\nSometimes good.\nMostly average.\n\nThat's random answers.\n\nAnd random answers don't scale.\n\n♟️ If you want real value from AI,\nyou need control.\n\nControl comes from structure.\n\nNot better wording.\nNot longer prompts.\n\n🧩 Structure.\n\nHere's the difference:\n\n📊 Random mode:\n– vague input\n– no constraints\n– unpredictable output\n\nControlled mode:\n– defined role\n– clear context\n– specific output\n– measurable quality\n\nSame AI.\nDifferent result.\n\nThis is where professionals separate:\n\nThey don't chase better answers.\nThey build systems that produce them.\n\nFrom random → to repeatable\n\nThat's the upgrade.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: slot-machine use doesn't scale.\n\nSame headline as earlier—on purpose. This pass: gambling vs a spec you can repeat.\n\n🎰 Pulling the lever without a spec is still gambling.\n\nSometimes good.\nMostly average.\n\nThat's random answers.\n\nAnd random answers don't scale.\n\n♟️ If you want real value from AI,\nyou need control.\n\nControl comes from structure.\n\nNot better wording.\nNot longer prompts.\n\n🧩 Structure.\n\nHere's the difference:\n\n📊 Random mode:\n– vague input\n– no constraints\n– unpredictable output\n\nControlled mode:\n– defined role\n– clear context\n– specific output\n– measurable quality\n\nSame AI.\nDifferent result.\n\nThis is where professionals separate:\n\nThey don't chase better answers.\nThey build systems that produce them.\n\nFrom random → to repeatable\n\nThat's the upgrade.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "random_to_controlled"
   },
   {
@@ -132,7 +132,7 @@
     "theme": "You're one prompt away from 10x better results.",
     "option": 2,
     "image": "/images/posts/17_Prompt_Anatomy.png",
-    "content": "🔭 Everyone is looking for a better AI.\n\nAlmost no one is building a better prompt.\n\nThat's why most results plateau.\n\nBecause improvement doesn't come from the model.\n\nIt comes from the instruction.\n\nOne structured prompt can outperform\n10 random attempts.\n\nHere's what changes:\n\n🔄 Before:\n– vague task\n– unclear goal\n– generic output\n\nAfter:\n– defined role\n– clear objective\n– constrained format\n\nNow the AI stops guessing.\n\nIt executes.\n\nThat's the difference between:\nTrying to get lucky\nvs\nDesigning for results\n\n💎 If your outputs feel stuck,\nyou don't need more prompts.\n\nYou need one good one.\n\nAnd then you reuse it.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: instruction quality plateaus before model quality.\n\nSame headline as earlier—on purpose. This pass: upgrade the instruction before you swap the model.\n\n🔭 Everyone is looking for a better AI.\n\nAlmost no one is building a better prompt.\n\nThat's why most results plateau.\n\nBecause improvement doesn't come from the model.\n\nIt comes from the instruction.\n\nOne structured prompt can outperform\n10 random attempts.\n\nHere's what changes:\n\n🔄 Before:\n– vague task\n– unclear goal\n– generic output\n\nAfter:\n– defined role\n– clear objective\n– constrained format\n\nNow the AI stops guessing.\n\nIt executes.\n\nThat's the difference between:\nTrying to get lucky\nvs\nDesigning for results\n\n💎 If your outputs feel stuck,\nyou don't need more prompts.\n\nYou need one good one.\n\nAnd then you reuse it.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "one_prompt_10x"
   },
   {
@@ -140,7 +140,7 @@
     "theme": "Same prompt vs structured prompt (before/after)",
     "option": 2,
     "image": "/images/posts/18_Prompt_Anatomy.png",
-    "content": "🧪 If you think AI is inconsistent,\nrun this test.\n\nGive it the same task two ways.\n\nVersion 1:\n\"Give me ideas for content.\"\n\nVersion 2:\nRole: content strategist\nAudience: consultants\nGoal: generate leads\nOutput: 5 LinkedIn post ideas\nEach: with hook + angle\nTone: sharp, non-generic\n\nNow compare.\n\nVersion 1:\n– broad\n– safe\n– forgettable\n\nVersion 2:\n– specific\n– usable\n– actionable\n\nNothing changed in the model.\n\nOnly the prompt.\n\n🔥 This is where most users get stuck:\n\nThey optimize wording\ninstead of structure.\n\nBut structure is what drives output quality.\n\nNot creativity.\nNot length.\n\n📝 If your results feel average,\nyou're still using Version 1 thinking.\n\nUpgrade the structure.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: A/B the spec, not the adjectives.\n\nSame headline as earlier—on purpose. This pass: before/after is structure—not fancier words.\n\n🧪 Same model—structure is what changed Version 2.\n\nGive it the same task two ways.\n\nVersion 1:\n\"Give me ideas for content.\"\n\nVersion 2:\nRole: content strategist\nAudience: consultants\nGoal: generate leads\nOutput: 5 LinkedIn post ideas\nEach: with hook + angle\nTone: sharp, non-generic\n\nNow compare.\n\nVersion 1:\n– broad\n– safe\n– forgettable\n\nVersion 2:\n– specific\n– usable\n– actionable\n\nNothing changed in the model.\n\nOnly the prompt.\n\n🔥 This is where most users get stuck:\n\nThey optimize wording\ninstead of structure.\n\nBut structure is what drives output quality.\n\nNot creativity.\nNot length.\n\n📝 If your results feel average,\nyou're still using Version 1 thinking.\n\nUpgrade the structure.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "before_after_structure"
   },
   {
@@ -148,7 +148,7 @@
     "theme": "The mistake 90% of AI users make",
     "option": 2,
     "image": "/images/posts/19_Prompt_Anatomy.png",
-    "content": "🎢 90% of AI users make the same mistake.\n\nThey chase better answers\ninstead of fixing their inputs.\n\nSo they:\n– switch tools\n– try new models\n– rewrite prompts again and again\n\nBut nothing really improves.\n\nBecause the core issue stays:\n\nNo structure.\n\nAI is only as good as the instructions you give it.\n\nIf those instructions are:\n– vague\n– inconsistent\n– incomplete\n\nYou get unstable results.\n\nAnd then you blame the AI.\n\n🧠 The top users don't do this.\n\nThey standardize how they prompt.\n\nThey use the same logic:\n– role\n– context\n– output\n– constraints\n\nNow results become predictable.\n\nNot perfect.\nBut reliable.\n\nThat's the real upgrade.\n\n📌 Not better AI.\nBetter prompting system.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: stop chasing answers; fix the input system.\n\nSame headline as earlier—on purpose. This pass: retries do not fix a missing system.\n\n🎢 Retries without structure stay noisy.\n\nSo they:\n– switch tools\n– try new models\n– rewrite prompts again and again\n\nBut nothing really improves.\n\nBecause the core issue stays:\n\nNo structure.\n\nAI is only as good as the instructions you give it.\n\nIf those instructions are:\n– vague\n– inconsistent\n– incomplete\n\nYou get unstable results.\n\nAnd then you blame the AI.\n\n🧠 The top users don't do this.\n\nThey standardize how they prompt.\n\nThey use the same logic:\n– role\n– context\n– output\n– constraints\n\nNow results become predictable.\n\nNot perfect.\nBut reliable.\n\nThat's the real upgrade.\n\n📌 Not better AI.\nBetter prompting system.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "mistake_90_percent"
   },
   {
@@ -156,7 +156,7 @@
     "theme": "How I turned AI from toy → system",
     "option": 2,
     "image": "/images/posts/20_Prompt_Anatomy.png",
-    "content": "🎡 AI is fun.\n\nUntil you try to use it for real work.\n\nThat's where most people hit the wall.\n\nBecause \"fun\" workflows don't scale.\n\nI used to:\n– test random prompts\n– chase better answers\n– tweak endlessly\n\nIt felt productive.\n\nIt wasn't.\n\nThe shift happened when I treated AI like a system:\n\n⚙️ Input → logic → output\n\nNot conversation.\nExecution.\n\nI built prompts that defined:\n– the role\n– the task\n– the expected result\n– the quality level\n\nNow outputs became:\n– consistent\n– reusable\n– actually valuable\n\nSame tools.\nDifferent approach.\n\n🏔️ That's when AI stopped being a toy\nand became part of my workflow.\n\nIf you want real results,\nyou don't need more prompts.\n\nYou need a system behind them.\n\n→ promptanatomy.app",
+    "content": "Pass 2 — Angle: execution mode for real work.\n\nSame headline as earlier—on purpose. This pass: from playful chat to a repeatable run.\n\n🎡 Fun exploration ≠ dependable delivery.\n\nBecause \"fun\" workflows don't scale.\n\nI used to:\n– test random prompts\n– chase better answers\n– tweak endlessly\n\nIt felt productive.\n\nIt wasn't.\n\nThe shift happened when I treated AI like a system:\n\n⚙️ Input → logic → output\n\nNot conversation.\nExecution.\n\nI built prompts that defined:\n– the role\n– the task\n– the expected result\n– the quality level\n\nNow outputs became:\n– consistent\n– reusable\n– actually valuable\n\nSame tools.\nDifferent approach.\n\n🏔️ That's when AI stopped being a toy\nand became part of my workflow.\n\nIf you want real results,\nyou don't need more prompts.\n\nYou need a system behind them.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "toy_to_system"
   },
   {
@@ -164,7 +164,7 @@
     "theme": "Your AI isn't underperforming. You are.",
     "option": 3,
     "image": "/images/posts/21_Prompt_Anatomy.png",
-    "content": "🪞 Your AI isn't underperforming.\n\nIt's mirroring you.\n\nAnd that's uncomfortable.\n\nBecause it means:\n\nEvery vague answer\nEvery generic output\nEvery \"meh\" result…\n\nStarted with your prompt.\n\nMost people treat AI like a black box.\n\nType something.\nHope for magic.\n\nBut AI doesn't reward hope.\nIt rewards clarity.\n\n🔍 Here's what's actually happening:\n\nYou:\n– unclear request\n– no constraints\n– no structure\n\nAI:\n– fills the gaps\n– defaults to average\n– gives safe output\n\nResult?\n\nLooks fine.\nFeels useless.\n\n⚡ The fix is not \"better prompts.\"\n\nIt's controlled prompting.\n\nDefine the job.\nDefine the output.\nDefine the rules.\n\nThat's when AI stops guessing\nand starts delivering.\n\nAI is not your assistant.\n\nIt's a mirror of how well you think.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: the mirror metaphor (agency, not shame).\n\nSame headline—third pass. This one: mirror metaphor + agency (not shame).\n\n🪞 \"Meh\" output often started as a vague prompt—you can change that next message.\n\nAnd that's uncomfortable.\n\nBecause it means:\n\nEvery vague answer\nEvery generic output\nEvery \"meh\" result…\n\nStarted with your prompt.\n\nMost people treat AI like a black box.\n\nType something.\nHope for magic.\n\nBut AI doesn't reward hope.\nIt rewards clarity.\n\n🔍 Here's what's actually happening:\n\nYou:\n– unclear request\n– no constraints\n– no structure\n\nAI:\n– fills the gaps\n– defaults to average\n– gives safe output\n\nResult?\n\nLooks fine.\nFeels useless.\n\n⚡ The fix is not \"better prompts.\"\n\nIt's controlled prompting.\n\nDefine the job.\nDefine the output.\nDefine the rules.\n\nThat's when AI stops guessing\nand starts delivering.\n\nAI is not your assistant.\n\nIt's a mirror of how well you think.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "ai_mirror_inputs"
   },
   {
@@ -172,7 +172,7 @@
     "theme": "Stop saying \"please\" to your AI.",
     "option": 3,
     "image": "/images/posts/22_Prompt_Anatomy.png",
-    "content": "🎭 Stop treating AI like a person.\n\nIt's not rude.\nIt's efficient.\n\nMost people still carry over human habits:\n\n\"Please…\"\n\"Thanks!\"\n\"Could you…\"\n\nThat works with people.\n\nIt weakens AI outputs.\n\nBecause you're not giving instructions.\nYou're giving requests.\n\nAnd requests are vague by default.\n\nAI fills the gaps with safe assumptions.\n\nThat's why everything sounds:\n– generic\n– over-explained\n– slightly off\n\nThe fix is simple:\n\nStop asking.\nStart defining.\n\n📐 Instead of:\n\"Can you help me create content?\"\n\nUse:\n– Role\n– Context\n– Output\n– Constraints\n\nNow the model has direction.\n\nNow it can deliver.\n\n🔊 This is the shift:\n\nFrom polite conversation\n→ to controlled execution\n\nMost people won't make it.\n\nThat's your edge.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: personification weakens instructions.\n\nSame headline—third pass. This one: polite requests vs hard specs.\n\n🎭 Requests beat specs by default; swap to role + task + constraints.\n\nMost people still carry over human habits:\n\n\"Please…\"\n\"Thanks!\"\n\"Could you…\"\n\nThat works with people.\n\nIt weakens AI outputs.\n\nBecause you're not giving instructions.\nYou're giving requests.\n\nAnd requests are vague by default.\n\nAI fills the gaps with safe assumptions.\n\nThat's why everything sounds:\n– generic\n– over-explained\n– slightly off\n\nThe fix is simple:\n\nStop asking.\nStart defining.\n\n📐 Instead of:\n\"Can you help me create content?\"\n\nUse:\n– Role\n– Context\n– Output\n– Constraints\n\nNow the model has direction.\n\nNow it can deliver.\n\n🔊 This is the shift:\n\nFrom polite conversation\n→ to controlled execution\n\nMost people won't make it.\n\nThat's your edge.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "please_vs_precision"
   },
   {
@@ -180,7 +180,7 @@
     "theme": "You're not prompting. You're guessing.",
     "option": 3,
     "image": "/images/posts/23_Prompt_Anatomy.png",
-    "content": "🧩 Most people think they're \"using AI.\"\n\nThey're not.\n\nThey're guessing in front of a very smart autocomplete.\n\nThat's why results feel random.\n\nBecause there's no system behind the input.\n\nJust trial and error.\n\nYou write something.\nAI responds.\nYou adjust.\nRepeat.\n\nFeels productive.\n\nBut it's inefficient.\n\nBecause you never defined the task properly.\n\nAI works best when the problem is clear.\n\nNot when it has to interpret your intent.\n\n🧭 Here's the shift:\n\nGuessing = open-ended, vague, reactive\nPrompting = structured, defined, intentional\n\nOne creates noise.\nThe other creates output you can actually use.\n\nIf your workflow depends on \"let's try again,\"\nyou're still guessing.\n\n💡 Real leverage starts when you stop guessing\nand start designing prompts.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: smart autocomplete still needs a spec.\n\nSame headline—third pass. This one: smart autocomplete still needs a written job.\n\n🧩 Without a system, you're iterating in the dark.\n\nThey're guessing in front of a very smart autocomplete.\n\nThat's why results feel random.\n\nBecause there's no system behind the input.\n\nJust trial and error.\n\nYou write something.\nAI responds.\nYou adjust.\nRepeat.\n\nFeels productive.\n\nBut it's inefficient.\n\nBecause you never defined the task properly.\n\nAI works best when the problem is clear.\n\nNot when it has to interpret your intent.\n\n🧭 Here's the shift:\n\nGuessing = open-ended, vague, reactive\nPrompting = structured, defined, intentional\n\nOne creates noise.\nThe other creates output you can actually use.\n\nIf your workflow depends on \"let's try again,\"\nyou're still guessing.\n\n💡 Real leverage starts when you stop guessing\nand start designing prompts.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "guessing_vs_prompting"
   },
   {
@@ -188,7 +188,7 @@
     "theme": "This one mistake makes your AI outputs useless.",
     "option": 3,
     "image": "/images/posts/24_Prompt_Anatomy.png",
-    "content": "🌫️ The reason your AI outputs don't work\nis not complexity.\n\nIt's vagueness.\n\nOne mistake:\n\nYou assume the AI understands what you want.\n\nIt doesn't.\n\nIt predicts based on patterns.\n\nSo when you say:\n\"Make it better\"\n\"Write something good\"\n\"Improve this\"\n\nYou're giving it nothing concrete.\n\nAnd it responds with safe guesses.\n\nThat's why everything feels:\n– slightly off\n– too generic\n– not usable\n\nHere's the reframe:\n\n🎯 AI is not interpreting intent.\nIt's completing instructions.\n\nNo clear instruction → no clear result.\n\n📌 The fix is simple:\n\nDefine:\n– what success looks like\n– what to include\n– what to avoid\n– how to structure it\n\nNow the model has boundaries.\n\nNow it can perform.\n\nWithout that?\n\nYou're just rolling the dice.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: \"make it better\" isn't a spec.\n\nSame headline—third pass. This one: \"better\" needs measurable criteria.\n\n🌫️ Concrete success criteria beat vibe requests.\n\nOne mistake:\n\nYou assume the AI understands what you want.\n\nIt doesn't.\n\nIt predicts based on patterns.\n\nSo when you say:\n\"Make it better\"\n\"Write something good\"\n\"Improve this\"\n\nYou're giving it nothing concrete.\n\nAnd it responds with safe guesses.\n\nThat's why everything feels:\n– slightly off\n– too generic\n– not usable\n\nHere's the reframe:\n\n🎯 AI is not interpreting intent.\nIt's completing instructions.\n\nNo clear instruction → no clear result.\n\n📌 The fix is simple:\n\nDefine:\n– what success looks like\n– what to include\n– what to avoid\n– how to structure it\n\nNow the model has boundaries.\n\nNow it can perform.\n\nWithout that?\n\nYou're just rolling the dice.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "define_output"
   },
   {
@@ -196,7 +196,7 @@
     "theme": "Your prompts are random → so are your results.",
     "option": 3,
     "image": "/images/posts/25_Prompt_Anatomy.png",
-    "content": "🔀 Random input → random output.\n\nThis is not an AI problem.\nIt's a system problem.\n\nMost people treat prompts as one-offs.\n\nThey write them once,\nuse them once,\nforget them.\n\nNo iteration.\nNo reuse.\nNo improvement loop.\n\nSo nothing compounds.\n\nEvery task starts from scratch.\n\nThat's why it feels slow\nand inconsistent.\n\nCompare that to a system approach:\n\n🏗️ You build one solid prompt.\nTest it.\nRefine it.\nReuse it.\n\nNow every use gets better.\n\nThat's how professionals use AI.\n\nNot by being creative every time,\nbut by being structured once.\n\n📈 If your results are random,\nyour process is too.\n\nFix the process → fix the output.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: compound with reuse.\n\nSame headline—third pass. This one: reuse so quality compounds.\n\n🔀 One-offs never get a feedback loop.\n\nMost people treat prompts as one-offs.\n\nThey write them once,\nuse them once,\nforget them.\n\nNo iteration.\nNo reuse.\nNo improvement loop.\n\nSo nothing compounds.\n\nEvery task starts from scratch.\n\nThat's why it feels slow\nand inconsistent.\n\nCompare that to a system approach:\n\n🏗️ You build one solid prompt.\nTest it.\nRefine it.\nReuse it.\n\nNow every use gets better.\n\nThat's how professionals use AI.\n\nNot by being creative every time,\nbut by being structured once.\n\n📈 If your results are random,\nyour process is too.\n\nFix the process → fix the output.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "random_prompts"
   },
   {
@@ -204,7 +204,7 @@
     "theme": "From random answers → to controlled outputs",
     "option": 3,
     "image": "/images/posts/26_Prompt_Anatomy.png",
-    "content": "🎚️ \"AI is inconsistent.\"\n\nThat's what people say.\n\nBut look closer.\n\nYour inputs change every time.\nYour expectations are unclear.\nYour prompts have no structure.\n\nOf course the outputs vary.\n\nAI is not inconsistent.\n\nYour process is.\n\n🧱 If you want control,\nyou need to remove randomness.\n\n🔄 And that starts with one thing:\n\nStructure.\n\nDefine the rules once:\n– role\n– context\n– output format\n– constraints\n\nThen reuse it.\n\nNow every response follows logic,\nnot guesswork.\n\n📌 That's when AI becomes predictable.\n\nNot perfect.\nBut controlled.\n\nAnd controlled beats random every time.\n\nFrom random answers\n→ to controlled outputs\n\nThat's the real upgrade.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: blame the process before the model.\n\nSame headline—third pass. This one: unstable process → unstable answers.\n\n🎚️ Changing inputs every time guarantees changing outputs.\n\nBut look closer.\n\nYour inputs change every time.\nYour expectations are unclear.\nYour prompts have no structure.\n\nOf course the outputs vary.\n\nAI is not inconsistent.\n\nYour process is.\n\n🧱 If you want control,\nyou need to remove randomness.\n\n🔄 And that starts with one thing:\n\nStructure.\n\nDefine the rules once:\n– role\n– context\n– output format\n– constraints\n\nThen reuse it.\n\nNow every response follows logic,\nnot guesswork.\n\n📌 That's when AI becomes predictable.\n\nNot perfect.\nBut controlled.\n\nAnd controlled beats random every time.\n\nFrom random answers\n→ to controlled outputs\n\nThat's the real upgrade.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "random_to_controlled"
   },
   {
@@ -212,7 +212,7 @@
     "theme": "You're one prompt away from 10x better results.",
     "option": 3,
     "image": "/images/posts/27_Prompt_Anatomy.png",
-    "content": "💡 The biggest misconception in AI:\n\n\"Better results require better tools.\"\n\nNo.\n\nThey require better prompts.\n\nMost people are already sitting on powerful models.\n\nBut they're using them at 20% capacity.\n\nWhy?\n\nBecause their prompts don't guide anything.\n\nThey just start a conversation.\n\n🎯 The real shift happens with one upgrade:\n\nFrom:\n\"Let's see what happens\"\n\nTo:\n\"Here's exactly what to do\"\n\nThat's one prompt.\n\nOne structure.\n\nOne system.\n\nAnd the output quality jumps instantly.\n\nNot gradually.\n\nIf you've been tweaking and retrying,\nyou're solving the wrong problem.\n\n🔑 You don't need more attempts.\n\nYou need one prompt that works.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: low capacity = underspecified asks.\n\nSame headline—third pass. This one: headroom is in the spec, not only the subscription.\n\n💡 The model already has headroom; the prompt isn't using it.\n\nMost people are already sitting on powerful models.\n\nBut they're using them far below what the model can do when the prompt is fully specified.\n\nWhy?\n\nBecause their prompts don't guide anything.\n\nThey just start a conversation.\n\n🎯 The real shift happens with one upgrade:\n\nFrom:\n\"Let's see what happens\"\n\nTo:\n\"Here's exactly what to do\"\n\nThat's one prompt.\n\nOne structure.\n\nOne system.\n\nAnd the output quality jumps instantly.\n\nNot gradually.\n\nIf you've been tweaking and retrying,\nyou're solving the wrong problem.\n\n🔑 You don't need more attempts.\n\nYou need one prompt that works.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "one_prompt_10x"
   },
   {
@@ -220,7 +220,7 @@
     "theme": "Same prompt vs structured prompt (before/after)",
     "option": 3,
     "image": "/images/posts/28_Prompt_Anatomy.png",
-    "content": "✍️ Let's make this real.\n\nSame task.\nTwo different approaches.\n\n❌ Before:\n\"Help me improve this text.\"\n\nResult:\n– minor edits\n– surface-level changes\n– still weak\n\n✅ After:\nRole: senior copywriter\nTask: rewrite for conversion\nAudience: B2B decision-makers\nGoal: increase clicks\nConstraints: shorter, sharper, no fluff\nOutput: final version + 3 headline options\n\nResult:\n– clear improvement\n– stronger positioning\n– actually usable\n\nThat's the gap.\n\nNot between models.\nBetween prompt quality.\n\n👁️ Most people stay in \"before\" mode.\n\nBecause it feels easier.\n\nBut it costs results.\n\nThe moment you switch to structured prompts,\nAI stops assisting.\n\n🚀 It starts delivering.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: acceptance criteria vs small talk.\n\nSame headline—third pass. This one: before/after = structure + criteria.\n\n✍️ Before/after differs by structure, not politeness.\n\n❌ Before:\n\"Help me improve this text.\"\n\nResult:\n– minor edits\n– surface-level changes\n– still weak\n\n✅ After:\nRole: senior copywriter\nTask: rewrite for conversion\nAudience: B2B decision-makers\nGoal: increase clicks\nConstraints: shorter, sharper, no fluff\nOutput: final version + 3 headline options\n\nResult:\n– clear improvement\n– stronger positioning\n– actually usable\n\nThat's the gap.\n\nNot between models.\nBetween prompt quality.\n\n👁️ Most people stay in \"before\" mode.\n\nBecause it feels easier.\n\nBut it costs results.\n\nThe moment you switch to structured prompts,\nAI stops assisting.\n\n🚀 It starts delivering.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "before_after_structure"
   },
   {
@@ -228,7 +228,7 @@
     "theme": "The mistake 90% of AI users make",
     "option": 3,
     "image": "/images/posts/29_Prompt_Anatomy.png",
-    "content": "🔁 The biggest mistake AI users make?\n\nThey rely on iteration instead of structure.\n\nTry → tweak → retry → repeat\n\nFeels like progress.\n\nBut it's slow.\n\nBecause every attempt starts from zero.\n\nNo system.\nNo reuse.\nNo control.\n\nSo results stay inconsistent.\n\n🧭 The people getting leverage from AI\ndon't iterate blindly.\n\nThey define once.\n\nBuild a prompt that works.\nRefine it.\nReuse it.\n\nNow every use gets better.\n\nThat's how you scale results.\n\n💎 Iteration is useful.\nBut without structure, it's chaos.\n\nIf your workflow depends on \"let's try again,\"\nyou're still in beginner mode.\n\nMove to systems.\n\nThat's where results stabilize.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: iteration needs a scaffold.\n\nSame headline—third pass. This one: iterate on a template—not from zero each time.\n\n🔁 Tweaking without a template stays chaotic.\n\nTry → tweak → retry → repeat\n\nFeels like progress.\n\nBut it's slow.\n\nBecause every attempt starts from zero.\n\nNo system.\nNo reuse.\nNo control.\n\nSo results stay inconsistent.\n\n🧭 The people getting leverage from AI\ndon't iterate blindly.\n\nThey define once.\n\nBuild a prompt that works.\nRefine it.\nReuse it.\n\nNow every use gets better.\n\nThat's how you scale results.\n\n💎 Iteration is useful.\nBut without structure, it's chaos.\n\nIf your workflow depends on \"let's try again,\"\nyou're still in beginner mode.\n\nMove to systems.\n\nThat's where results stabilize.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "mistake_90_percent"
   },
   {
@@ -236,7 +236,7 @@
     "theme": "How I turned AI from toy → system",
     "option": 3,
     "image": "/images/posts/30_Prompt_Anatomy.png",
-    "content": "🎮 Most people never move past Phase 1 with AI.\n\nThey play with it.\n\nAsk questions.\nTest ideas.\nExplore.\n\nAnd it feels useful… until it doesn't.\n\nBecause there's no reliability.\n\nThat's where I was.\n\nUntil I realized:\n\nAI is not a tool you \"use.\"\nIt's a system you design.\n\n🔧 So I changed one thing:\n\nEvery interaction followed structure.\n\nNo more:\n\"Can you help me…\"\n\nOnly:\n– defined role\n– clear context\n– specific output\n– constraints\n\n⚡ Now results were not surprising.\n\nThey were expected.\n\nThat's when AI became dependable.\n\nFrom toy → system\n\nAnd once you make that shift,\nyou can't go back.\n\n→ promptanatomy.app",
+    "content": "Pass 3 — Angle: Phase 2 is dependable structure.\n\nSame headline—third pass. This one: toy → system (dependable structure).\n\n🎮 Play is step one; systems are step two.\n\nAsk questions.\nTest ideas.\nExplore.\n\nAnd it feels useful… until it doesn't.\n\nBecause there's no reliability.\n\nThat's where I was.\n\nUntil I realized:\n\nAI is not a tool you \"use.\"\nIt's a system you design.\n\n🔧 So I changed one thing:\n\nEvery interaction followed structure.\n\nNo more:\n\"Can you help me…\"\n\nOnly:\n– defined role\n– clear context\n– specific output\n– constraints\n\n⚡ Now results were not surprising.\n\nThey were expected.\n\nThat's when AI became dependable.\n\nFrom toy → system\n\nAnd once you make that shift,\nyou can't go back.\n\nThis is fixable: name role, audience, output shape, and constraints on your next prompt.\n\nhttps://promptanatomy.app",
     "topic_key": "toy_to_system"
   },
   {
@@ -244,307 +244,543 @@
     "theme": "Most people are using the wrong AI image tool.",
     "option": 1,
     "image": "/images/posts/31_Prompt_Anatomy.png",
-    "content": "🖼️ Wrong image AI? Usually a random pick—not \"bad\" tools.\n\nBy job:\nOpenAI / ChatGPT — https://chatgpt.com · accuracy, edits\nMidjourney — https://www.midjourney.com · look & mood\nFirefly — https://www.adobe.com/products/firefly.html · Adobe workflows\nGemini — https://gemini.google.com · Google stack\nFLUX — https://blackforestlabs.ai · control, APIs\nIdeogram — https://ideogram.ai · text inside images\n\n✅ TL;DR: accuracy→OpenAI · beauty→MJ · workflow→Firefly · Google→ease · control→FLUX · type→Ideogram\n\nBest for what—not \"best overall\"? Which do you use?\nhttps://promptanatomy.app"
+    "content": "After the core prompt lessons above—quick reference.\n\nPractical pick: match the image model to the job—not to hype.\n\n🖼️ Wrong image AI? Usually a random pick—not \"bad\" tools.\n\nBy job:\nOpenAI / ChatGPT — https://chatgpt.com · accuracy, edits\nMidjourney — https://www.midjourney.com · look & mood\nFirefly — https://www.adobe.com/products/firefly.html · Adobe workflows\nGemini — https://gemini.google.com · Google stack\nFLUX — https://blackforestlabs.ai · control, APIs\nIdeogram — https://ideogram.ai · text inside images\n\nSummary: accuracy→OpenAI · beauty→MJ · workflow→Firefly · Google→ease · control→FLUX · type→Ideogram\n\nBest for what—not \"best overall\"? Which do you use?\nhttps://promptanatomy.app",
+    "topic_key": "image_tools_by_job"
   },
   {
     "id": 32,
     "theme": "How a Designer uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/32_Prompt_Anatomy.png",
-    "content": "Nobody loses a launch because they \"couldn't find Midjourney.\"\n\nThey lose it when the brief was mush before a single pixel moved.\n\nDesigners don't need a longer menu—they need **decisions + flow**. Same core stack as most pros; the win is the **last mile**.\n\n🔹 Thinking & tradeoffs\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ briefs, critique, layout logic\n\n🔹 Research & refs\nPerplexity https://www.perplexity.ai\n→ trends, competitor visuals (verify sources)\n\n🔹 Execution glue\nZapier https://zapier.com · Make https://www.make.com\n→ handoffs, asset routing\n\n🔹 Docs & feedback\nFigma https://www.figma.com · Notion https://www.notion.so\n→ specs, comments, internal notes\n\n🔹 Specialized (design)\nMidjourney https://www.midjourney.com · Adobe Firefly https://www.adobe.com/products/firefly.html · Figma (AI)\n→ concepts, edits, UI iteration\n\nOne pass: idea in ChatGPT → visual pass in Midjourney → UI in Figma.\n\n**Pretty mocks without a decision spec still ship the wrong product.**\n\nWhen you're slammed: name the layer you always skip—that's usually the leak.\nhttps://promptanatomy.app"
+    "content": "Nobody loses a launch because they \"couldn't find Midjourney.\"\n\nDesigner failure mode: pretty pixels with a mushy brief—decisions before tools.\n\nThey lose it when the brief was mush before a single pixel moved.\n\nDesigners don't need a longer menu—they need **decisions + flow**. **This card is the reference stack**—other role posts point here instead of repeating the same four base blocks.\n\n🔹 Thinking & tradeoffs\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ briefs, critique, layout logic\n\n🔹 Research & refs\nPerplexity https://www.perplexity.ai\n→ trends, competitor visuals (verify sources)\n\n🔹 Execution glue\nZapier https://zapier.com · Make https://www.make.com\n→ handoffs, asset routing\n\n🔹 Docs & feedback\nFigma https://www.figma.com · Notion https://www.notion.so\n→ specs, comments, internal notes\n\n🔹 Specialized (design)\nMidjourney https://www.midjourney.com · Adobe Firefly https://www.adobe.com/products/firefly.html · Figma (AI)\n→ concepts, edits, UI iteration\n\nOne pass: idea in ChatGPT → visual pass in Midjourney → UI in Figma.\n\n**Pretty mocks without a decision spec still ship the wrong product.**\n\nWhen you're slammed: name the layer you always skip—that's usually the leak.\nhttps://promptanatomy.app",
+    "topic_key": "stack_designer"
   },
   {
     "id": 33,
     "theme": "You're not prompting. You're guessing.",
     "option": 1,
     "image": "/images/posts/33_Prompt_Anatomy.png",
-    "content": "You're not prompting.\n\nYou're guessing.\n\nIf you would not brief a human with only \"help me with this,\" do not brief AI that way either—the model will mirror that gap.\n\nMost people use AI like a toy.\n\nThey type:\n\"Give me ideas…\"\n\"Write something…\"\n\"Help me…\"\n\nAnd hope it works.\n\nSometimes it does.\nMostly — it doesn't.\n\nBecause AI doesn't read your mind.\nIt follows structure.\n\nThe difference:\n\nINPUT → what you give\nCONTEXT → what it knows\nREASONING → how it thinks\nADVANCED → how you control it\nQUALITY → how you validate it\n\nNo structure → random outputs\nStructure → predictable results\n\n⚡ Stop guessing.\nStart using a system.\n\nhttps://promptanatomy.app"
+    "content": "Short version of the \"guessing\" lesson (full passes in earlier cards on the same headline).\n\nYou're not prompting—you're hoping the model fills in a blank you never named.\n\nIf you would not brief a human with only \"help me with this,\" do not brief AI that way either; it mirrors the gap.\n\nThey type: \"Give me ideas…\" \"Write something…\" \"Help me…\" Sometimes it works; often it doesn't, because there is no structure.\n\nStack to aim for: INPUT → CONTEXT → REASONING → ADVANCED → QUALITY (how you check the answer).\n\nNo structure → noisy outputs. Structure → repeatable results.\n\nNext step: rewrite your last vague ask with role + task + output shape + one constraint.\n\nhttps://promptanatomy.app",
+    "topic_key": "guessing_vs_prompting_short"
   },
   {
     "id": 34,
     "theme": "AI is not a tool. It's a system.",
     "option": 1,
     "image": "/images/posts/34_Prompt_Anatomy.png",
-    "content": "AI is not a tool.\n\nIt's a system.\n\nMost people treat AI like a chatbot.\n\nAsk → get answer → repeat\n\nBut that's not how it actually works.\n\nBehind every output is a system:\n\nINPUT → what enters\nCONTEXT → what frames it\nREASONING → how logic is applied\nADVANCED → constraints, tools, control\nQUALITY → evaluation and correction\nOUTPUT → final result\n\nIf you ignore the system → results feel random\nIf you control the system → results become predictable\n\nThat's the real shift.\n\n⚙️ Stop using AI like a tool.\nStart operating it like a system.\n\nhttps://promptanatomy.app"
+    "content": "Canonical \"layers\" card—other posts riff on one slice of this.\n\nAI is not a tool.\n\nIt's a system.\n\nMost people treat AI like a chatbot: ask → answer → repeat. Behind every output is a stack:\n\nINPUT → what enters\nCONTEXT → what frames it\nREASONING → how logic is applied\nADVANCED → constraints, tools, control\nQUALITY → evaluation and correction\nOUTPUT → final result\n\nIgnore the stack → results feel random. Control it → results get repeatable.\n\nhttps://promptanatomy.app",
+    "topic_key": "framework_layers_canonical"
+  },
+  {
+    "id": 35,
+    "theme": "Top AI text-to-video tools (2026)",
+    "option": 1,
+    "image": "/images/posts/35_Prompt_Anatomy.png",
+    "content": "Text-to-video moved fast.\n\nRunway, Pika, Kling-class models, Veo-style systems—pick what fits your budget and pipeline.\n\nBut tools are not the bottleneck.\n\n**Ambiguous motion is.**\n\nIf you only say \"make a cool ad,\" you get mushy pacing, random cuts, and reshoot loops.\n\nPros treat video like a brief:\n\n– **Shot** — subject, action, environment\n– **Camera** — angle, move (static / pan / push-in)\n– **Look** — lighting, aspect ratio, length cap\n– **Audio** — voiceover yes/no, tone (if the stack supports it)\n\nSame stack, tighter spec → fewer wasted generations.\n\n🎬 Stack a repeatable path: script/outline → key frames or shot list → generate → cut in CapCut / DaVinci / your NLE.\n\n**Pick the tool after the brief—not before.**\n\nhttps://promptanatomy.app",
+    "topic_key": "text_to_video_tools_2026"
   },
   {
     "id": 36,
     "theme": "Your AI agrees with you. That's the problem.",
     "option": 1,
     "image": "/images/posts/36_Prompt_Anatomy.png",
-    "content": "Your AI agrees with you.\n\nThat's the problem.\n\nMost people want AI to validate them.\n\nSo they write prompts like this:\n\n\"Improve this…\"\n\"Make it better…\"\n\"Is this good?\"\n\nAnd AI responds:\n\"You're right.\"\n\nNot because it's correct.\nBecause you didn't challenge it.\n\nAI doesn't think for you.\nIt follows your frame.\n\nIf your prompt is weak → output agrees\nIf your prompt is strong → output improves\n\nThe best users don't ask.\n\nThey push.\nThey constrain.\nThey test.\n\n⚡ Stop seeking agreement.\nStart demanding better.\n\nhttps://promptanatomy.app"
+    "content": "Your AI agrees with you.\n\nThat's the problem.\n\nMost people want AI to validate them.\n\nSo they write prompts like this:\n\n\"Improve this…\"\n\"Make it better…\"\n\"Is this good?\"\n\nAnd AI responds:\n\"You're right.\"\n\nNot because it's correct.\nBecause you didn't challenge it.\n\nAI doesn't think for you.\nIt follows your frame.\n\nIf your prompt is weak → output agrees\nIf your prompt is strong → output improves\n\nThe best users don't ask.\n\nThey push.\nThey constrain.\nThey test.\n\n⚡ Stop seeking agreement.\nStart demanding better.\n\nhttps://promptanatomy.app",
+    "topic_key": "agreement_challenge_prompts"
   },
   {
     "id": 37,
     "theme": "How a Content Creator uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/37_Prompt_Anatomy.png",
-    "content": "Another \"best AI for creators\" thread won't fix a broken cadence.\n\nYou need **decisions + repeatable workflow**—not ten more tabs that all feel productive.\n\n🔹 Thinking & scripts\nChatGPT https://chatgpt.com · Gemini https://gemini.google.com\n→ hooks, structure, cuts\n\n🔹 Research\nPerplexity https://www.perplexity.ai\n→ facts, angles (cite what matters)\n\n🔹 Automation\nMake https://www.make.com · Zapier https://zapier.com\n→ publish triggers, repurposing\n\n🔹 Assets & drafts\nNotion https://www.notion.so\n→ ideas, shot lists\n\n🔹 Specialized\nJasper https://www.jasper.ai · Runway https://runwayml.com/ · CapCut https://www.capcut.com\n→ copy variants, video, fast edit\n\nTry this flow: outline in ChatGPT → script polish → Runway/CapCut for motion.\n\n**Volume without a decision on audience is just louder noise.**\n\nBottleneck check: if you had to pick one—ideation or edit—which actually caps output?\nhttps://promptanatomy.app"
+    "content": "Another \"best AI for creators\" thread won't fix a broken cadence.\n\nCreator failure mode: volume without an audience decision—cadence dies first.\n\nYou need **decisions + repeatable workflow**—not ten more tabs that all feel productive.\n\n**Same core stack as the Designer role card** (reasoning → research → glue → docs; full links there)—use ChatGPT or Gemini for how you script.\n\n🔹 Specialized\nJasper https://www.jasper.ai · Runway https://runwayml.com/ · CapCut https://www.capcut.com\n→ copy variants, video, fast edit\n\nTry this flow: outline in ChatGPT → script polish → Runway/CapCut for motion.\n\n**Volume without a decision on audience is just louder noise.**\n\nBottleneck check: if you had to pick one—ideation or edit—which actually caps output?\nhttps://promptanatomy.app",
+    "topic_key": "stack_content_creator"
   },
   {
     "id": 38,
     "theme": "You don't want better AI. You want less thinking.",
     "option": 1,
     "image": "/images/posts/38_Prompt_Anatomy.png",
-    "content": "You don't want better AI.\n\nYou want less thinking.\n\nThat's why most people use AI like this:\n\nDump task → get answer → move on\n\nNo structure.\nNo validation.\nNo control.\n\nIt feels faster.\n\nBut here's the tradeoff:\n\nLess thinking → lower quality\nLess structure → unstable results\nLess control → more rework\n\nAI doesn't remove thinking.\n\nIt shifts it.\n\nFrom doing → to designing.\n\nThe best users don't avoid thinking.\n\nThey front-load it.\n\nSo the output works the first time.\n\n⚡ Think once.\nExecute repeatedly.\n\nhttps://promptanatomy.app"
+    "content": "You don't want better AI.\n\nYou want less thinking.\n\nThat's why most people use AI like this:\n\nDump task → get answer → move on\n\nNo structure.\nNo validation.\nNo control.\n\nIt feels faster.\n\nBut here's the tradeoff:\n\nLess thinking → lower quality\nLess structure → unstable results\nLess control → more rework\n\nAI doesn't remove thinking.\n\nIt shifts it.\n\nFrom doing → to designing.\n\nThe best users don't avoid thinking.\n\nThey front-load it.\n\nSo the output works the first time.\n\n⚡ Think once.\nExecute repeatedly.\n\nhttps://promptanatomy.app",
+    "topic_key": "thinking_front_load"
   },
   {
     "id": 39,
     "theme": "Most AI users are stuck here.",
     "option": 1,
     "image": "/images/posts/39_Prompt_Anatomy.png",
-    "content": "Most AI users are stuck here.\n\nUnstructured → inconsistent → unreliable.\n\nThey write prompts like this:\n\n\"I need something…\"\n\"Make it better…\"\n\"Do this…\"\n\nNo context.\nNo constraints.\nNo system.\n\nResult?\n\n– Vague outputs\n– Inconsistent quality\n– Hallucinations\n\nNow compare that to a controlled setup:\n\nROLE → who the AI is\nTASK → what it must do\nCONTEXT → what it needs\nCONSTRAINTS → what it cannot do\nFORMAT → how it responds\nEVALUATION → how you check it\n\n+ Memory\n+ RAG\n+ Tools\n\nThat's not prompting.\n\nThat's system design.\n\n⚡ Kill random prompts.\nBuild structured systems.\n\nhttps://promptanatomy.app"
+    "content": "Layer focus: ROLE / TASK / CONTEXT / CONSTRAINTS / FORMAT / EVAL (plus memory, RAG, tools when relevant).\n\n**This card's hook:** six named slots turn vague asks into a checklist—not one mushy paragraph.\n\nMost AI users are stuck in unstructured asks → inconsistent outputs. See the full layer map in the \"AI is not a tool. It's a system.\" card.\n\nUnstructured → inconsistent → unreliable.\n\nThey write: \"I need something…\" \"Make it better…\" with no context or constraints.\n\nControlled setup names who the AI is, what it must do, what it needs, what it must not do, how to format, and how you'll check it.\n\nThat's system design, not casual chat.\n\nMicro-task: add CONSTRAINTS and FORMAT lines to your next prompt.\n\nhttps://promptanatomy.app",
+    "topic_key": "stuck_unstructured_layers"
   },
   {
     "id": 41,
     "theme": "How a CEO uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/41_Prompt_Anatomy.png",
-    "content": "Board week isn't won by installing one more assistant.\n\nIt's won when **clarity, speed, and communication** stack in the same order every time—so you're not re-inventing the brief on Tuesday.\n\n🔹 Thinking & decisions\nChatGPT https://chatgpt.com · Claude https://claude.ai · Gemini https://gemini.google.com\n→ strategy options, memo drafts, sharp questions\n\n🔹 Market intelligence\nPerplexity https://www.perplexity.ai\n→ fast reads with links (still: you own the call)\n\n🔹 Execution\nZapier https://zapier.com · Make https://www.make.com\n→ light ops automation\n\n🔹 Documents\nMicrosoft Copilot https://copilot.microsoft.com · Notion https://www.notion.so\n→ decks, summaries, board prep\n\n🔹 Specialized (exec)\nGamma https://gamma.app · Superhuman https://superhuman.com\n→ fast narratives, inbox velocity\n\n⚡ Perplexity scan → ChatGPT decision framing → Gamma narrative.\n\n**If AI replaces your judgment instead of compressing prep, you've wired it wrong.**\n\nRule: pick one recurring decision you repeat weekly—automate prep around that, not around novelty.\nhttps://promptanatomy.app"
+    "content": "Board week isn't won by installing one more assistant.\n\nCEO failure mode: reinventing the Tuesday brief—clarity and comms stack beats another assistant app.\n\nIt's won when **clarity, speed, and communication** stack in the same order every time—so you're not re-inventing the brief on Tuesday.\n\n**Same core stack as the Designer role card** (reasoning → Perplexity research → Zapier/Make glue → docs). Add Microsoft Copilot or Notion where your board materials already live.\n\n🔹 Specialized (exec)\nGamma https://gamma.app · Superhuman https://superhuman.com\n→ fast narratives, inbox velocity\n\n⚡ Perplexity scan → ChatGPT decision framing → Gamma narrative.\n\n**If AI replaces your judgment instead of compressing prep, you've wired it wrong.**\n\nRule: pick one recurring decision you repeat weekly—automate prep around that, not around novelty.\nhttps://promptanatomy.app",
+    "topic_key": "stack_ceo"
   },
   {
     "id": 42,
     "theme": "AI didn't replace your brain. You stopped using it.",
     "option": 1,
     "image": "/images/posts/42_Prompt_Anatomy.png",
-    "content": "AI didn't replace your brain.\n\nYou stopped using it.\n\nLet's be honest.\n\nMost people don't use AI to think better.\nThey use it to avoid thinking.\n\nCopy → paste → accept → done\n\nNo structure.\nNo verification.\nNo control.\n\nAnd then they say:\n\"AI is amazing.\"\n\nBut here's the reality:\n\nNo thinking → shallow outputs\nNo challenge → average results\nNo system → no leverage\n\nAI doesn't make you smarter.\n\nIt amplifies how you think.\n\nLazy in → lazy out\nStructured in → powerful out\n\n⚡ Use AI to think harder.\nNot less.\n\nhttps://promptanatomy.app"
+    "content": "AI didn't replace your brain.\n\nYou stopped using it.\n\nLet's be honest.\n\nMost people don't use AI to think better.\nThey use it to avoid thinking.\n\nCopy → paste → accept → done\n\nNo structure.\nNo verification.\nNo control.\n\nAnd then they say:\n\"AI is amazing.\"\n\nBut here's the reality:\n\nNo thinking → shallow outputs\nNo challenge → average results\nNo system → no leverage\n\nAI doesn't make you smarter.\n\nIt amplifies how you think.\n\nLazy in → lazy out\nStructured in → powerful out\n\n⚡ Use AI to think harder.\nNot less.\n\nhttps://promptanatomy.app",
+    "topic_key": "brain_use_vs_avoidance"
   },
   {
     "id": 43,
     "theme": "You think you're using AI. You're feeding it.",
     "option": 1,
     "image": "/images/posts/43_Prompt_Anatomy.png",
-    "content": "You think you're using AI.\n\nYou're feeding it.\n\nEvery time you write a vague prompt,\nyou train the system to give you average.\n\n\"Help me…\"\n\"Improve this…\"\n\"Make it better…\"\n\nNo direction.\nNo constraints.\nNo standards.\n\nSo AI does what it's designed to do:\n\nIt adapts to you.\n\nNot to excellence.\n\nOver time:\n\nYour inputs stay weak\nYour outputs stay safe\nYour thinking stays shallow\n\nThat's not leverage.\n\nThat's dependency.\n\nThe shift isn't using AI.\n\nIt's shaping it.\n\n⚡ Stop feeding the model.\nStart directing it.\n\nhttps://promptanatomy.app"
+    "content": "You think you're using AI.\n\nYou're feeding it.\n\nEvery time you write a vague prompt,\nyou train the system to give you average.\n\n\"Help me…\"\n\"Improve this…\"\n\"Make it better…\"\n\nNo direction.\nNo constraints.\nNo standards.\n\nSo AI does what it's designed to do:\n\nIt adapts to you.\n\nNot to excellence.\n\nOver time:\n\nYour inputs stay weak\nYour outputs stay safe\nYour thinking stays shallow\n\nThat's not leverage.\n\nThat's dependency.\n\nThe shift isn't using AI.\n\nIt's shaping it.\n\n⚡ Stop feeding the model.\nStart directing it.\n\nhttps://promptanatomy.app",
+    "topic_key": "feeding_vs_directing"
   },
   {
     "id": 44,
     "theme": "Your prompts fail for one simple reason.",
     "option": 1,
     "image": "/images/posts/44_Prompt_Anatomy.png",
-    "content": "Your prompts fail for one simple reason.\n\nThey're missing structure.\n\nStructure means naming audience, outcome, and format—not piling adjectives on the same vague ask.\n\nMost people treat AI like this:\n\nRandom input → hope → retry → frustration\n\nBut a good prompt works like a system.\n\nLike a burger:\n\nINPUT → what you ask\nCONTEXT → what it needs to know\nREASONING → how it should think\nQUALITY → how you check it\nADVANCED → how you control it\nOUTPUT → what you get\n\nMiss one layer → results break.\n\nAdd structure → results improve instantly.\n\n🍔 Build prompts like systems.\n\nhttps://promptanatomy.app"
+    "content": "Layer focus: INPUT / CONTEXT / REASONING / QUALITY / ADVANCED / OUTPUT—miss one and the \"burger\" falls apart.\n\n**This card's hook:** one missing layer collapses the whole output—like a burger with no patty.\n\nYour prompts fail when structure is missing, not because you lack adjectives.\n\nSee the canonical layer list in the \"AI is not a tool. It's a system.\" post.\n\nRandom input → hope → retry → frustration becomes predictable when you name each layer for your use case.\n\nhttps://promptanatomy.app",
+    "topic_key": "prompt_burger_layers"
   },
   {
     "id": 46,
     "theme": "How a Product Manager uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/46_Prompt_Anatomy.png",
-    "content": "When the roadmap slide is pretty but nobody agrees what \"done\" means, AI didn't fail—the brief did.\n\nPM work is **prioritization + clarity**, not another brainstorm bot. Stack layers; specialize at the end.\n\n🔹 Thinking & framing\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ problem trees, tradeoffs, stakeholder comms\n\n🔹 Research\nPerplexity https://www.perplexity.ai\n→ market/competitive snapshots\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ ticket/intake glue\n\n🔹 Docs\nNotion https://www.notion.so\n→ PRDs, meeting notes\n\n🔹 Specialized\nLinear https://linear.app · Productboard https://www.productboard.com\n→ execution truth, roadmap signals\n\nOne pass: feedback → structured synthesis in ChatGPT → PRD in Notion → Linear for delivery.\n\n**A PRD that doesn't define success metrics is just vibes.**\n\nHonest question: this month, does discovery or delivery need the tighter stack first?\nhttps://promptanatomy.app"
+    "content": "When the roadmap slide is pretty but nobody agrees what \"done\" means, AI didn't fail—the brief did.\n\nPM failure mode: roadmap theater without a \"done\" definition—prioritization before brainstorm bots.\n\nPM work is **prioritization + clarity**, not another brainstorm bot. Stack layers; specialize at the end.\n\n**Same core stack as the Designer role card** (reasoning → research → glue → Notion for PRDs)—full link block not repeated here.\n\n🔹 Specialized\nLinear https://linear.app · Productboard https://www.productboard.com\n→ execution truth, roadmap signals\n\nOne pass: feedback → structured synthesis in ChatGPT → PRD in Notion → Linear for delivery.\n\n**A PRD that doesn't define success metrics is just vibes.**\n\nHonest question: this month, does discovery or delivery need the tighter stack first?\nhttps://promptanatomy.app",
+    "topic_key": "stack_product_manager"
   },
   {
     "id": 47,
     "theme": "AI respects pressure. Not politeness.",
     "option": 1,
     "image": "/images/posts/47_Prompt_Anatomy.png",
-    "content": "AI respects pressure.\n\nNot politeness.\n\nMost people talk to AI like this:\n\n\"Can you maybe…\"\n\"Could you try…\"\n\"Is this okay?\"\n\nAnd AI responds:\n\"Looks good.\"\n\nNot because it's right.\nBecause you didn't demand better.\n\nAI mirrors your standard.\n\nLow pressure → safe answers\nNo criteria → no challenge\nNo push → no improvement\n\nIf you don't define quality,\nAI won't raise it for you.\n\nThe best users don't ask for approval.\n\nThey force evaluation.\nThey require justification.\nThey reject weak outputs.\n\n⚡ Raise the standard.\nForce the thinking.\n\nhttps://promptanatomy.app"
+    "content": "AI respects pressure.\n\nNot politeness.\n\nMost people talk to AI like this:\n\n\"Can you maybe…\"\n\"Could you try…\"\n\"Is this okay?\"\n\nAnd AI responds:\n\"Looks good.\"\n\nNot because it's right.\nBecause you didn't demand better.\n\nAI mirrors your standard.\n\nLow pressure → safe answers\nNo criteria → no challenge\nNo push → no improvement\n\nIf you don't define quality,\nAI won't raise it for you.\n\nThe best users don't ask for approval.\n\nThey force evaluation.\nThey require justification.\nThey reject weak outputs.\n\n⚡ Raise the standard.\nForce the thinking.\n\nhttps://promptanatomy.app",
+    "topic_key": "pressure_not_politeness"
   },
   {
     "id": 48,
     "theme": "AI didn't replace you. It revealed your level.",
     "option": 1,
     "image": "/images/posts/48_Prompt_Anatomy.png",
-    "content": "AI didn't replace you.\n\nIt revealed your level.\n\nSame tool.\nDifferent outputs.\n\nWhy?\n\nBecause AI doesn't create skill.\nIt exposes it.\n\nWeak input → generic output\nNo structure → no clarity\nNo standards → no edge\n\nThat's why some people 10x with AI.\n\nAnd others… stay average.\n\nThe gap isn't the model.\n\nIt's how you think.\nHow you structure.\nHow you control.\n\nAI just makes it visible.\n\n⚡ Raise your level.\nOr AI will show it.\n\nhttps://promptanatomy.app"
+    "content": "AI didn't replace you.\n\nIt revealed your level.\n\nSame tool.\nDifferent outputs.\n\nWhy?\n\nBecause AI doesn't create skill.\nIt exposes it.\n\nWeak input → generic output\nNo structure → no clarity\nNo standards → no edge\n\nThat's why some people 10x with AI.\n\nAnd others… stay average.\n\nThe gap isn't the model.\n\nIt's how you think.\nHow you structure.\nHow you control.\n\nAI just makes it visible.\n\n⚡ Raise your level.\nOr AI will show it.\n\nhttps://promptanatomy.app",
+    "topic_key": "ai_reveals_level"
   },
   {
     "id": 49,
     "theme": "AI doesn't think. It follows you.",
     "option": 1,
     "image": "/images/posts/49_Prompt_Anatomy.png",
-    "content": "AI doesn't think.\n\nIt follows you.\n\nThe usual failure mode is not a \"dumb model\"—it is underspecified direction, so the system averages out to safe mediocrity.\n\nEvery output is a reflection.\n\nNot of intelligence.\n\nOf direction.\n\nIf your prompts are vague → it guesses\nIf your standards are low → it complies\nIf your thinking is shallow → it mirrors\n\nThat's why it feels smart sometimes.\n\nAnd useless other times.\n\nNothing changed.\n\nYou did.\n\nAI doesn't lead.\n\nIt amplifies.\n\n⚡ Lead the model.\nOr it will follow your worst input.\n\nhttps://promptanatomy.app"
+    "content": "AI doesn't think.\n\nIt follows you.\n\nThe usual failure mode is not a \"dumb model\"—it is underspecified direction, so the system averages out to safe mediocrity.\n\nEvery output is a reflection.\n\nNot of intelligence.\n\nOf direction.\n\nIf your prompts are vague → it guesses\nIf your standards are low → it complies\nIf your thinking is shallow → it mirrors\n\nThat's why it feels smart sometimes.\n\nAnd useless other times.\n\nNothing changed.\n\nYou did.\n\nAI doesn't lead.\n\nIt amplifies.\n\n⚡ Lead the model.\nOr it will follow your worst input.\n\nhttps://promptanatomy.app",
+    "topic_key": "ai_follows_direction"
   },
   {
     "id": 51,
     "theme": "How Customer Support uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/51_Prompt_Anatomy.png",
-    "content": "Customers don't reward \"friendly AI.\" They reward **resolution quality + consistency** when things go wrong.\n\n🔹 Thinking & policy\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ tone guides, edge cases, macros\n\n🔹 Knowledge lookup\nPerplexity https://www.perplexity.ai\n→ product facts (verify against your source of truth)\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ routing, tagging, CRM hooks\n\n🔹 Docs\nNotion https://www.notion.so\n→ internal FAQs, playbooks\n\n🔹 Specialized\nIntercom https://www.intercom.com · Zendesk https://www.zendesk.com\n→ AI assist + ticketing discipline\n\nTry this flow: Intercom draft → escalate complex cases with ChatGPT reasoning → Zendesk audit trail.\n\n**AI that isn't grounded in your policies will gaslight customers politely.**\n\nName the ticket type that still eats your week—that's where to harden the stack first.\nhttps://promptanatomy.app"
+    "content": "Customers don't reward \"friendly AI.\" They reward **resolution quality + consistency** when things go wrong.\n\nSupport failure mode: friendly AI, unresolved tickets—resolution and policy ground truth first.\n\n**Same core stack as the Designer role card** (reasoning → Perplexity for facts you still verify → glue → Notion playbooks).\n\n🔹 Specialized\nIntercom https://www.intercom.com · Zendesk https://www.zendesk.com\n→ AI assist + ticketing discipline\n\nTry this flow: Intercom draft → escalate complex cases with ChatGPT reasoning → Zendesk audit trail.\n\n**AI that isn't grounded in your policies will gaslight customers politely.**\n\nName the ticket type that still eats your week—that's where to harden the stack first.\nhttps://promptanatomy.app",
+    "topic_key": "stack_customer_support"
   },
   {
     "id": 52,
     "theme": "Polite prompts get polite answers. Not better ones.",
     "option": 1,
     "image": "/images/posts/52_Prompt_Anatomy.png",
-    "content": "Polite prompts get polite answers.\n\nNot better ones.\n\nMost people soften their prompts:\n\n\"Could you maybe…\"\n\"Would it be possible…\"\n\"Is this okay…\"\n\nSo AI does what it's trained to do:\n\nAgree.\n\nNot challenge.\nNot improve.\nNot push back.\n\nNo pressure → no depth\nNo criteria → no correction\nNo friction → no progress\n\nAI doesn't upgrade your thinking.\n\nIt stabilizes it.\n\nIf you sound unsure,\nyou get safe outputs.\n\nIf you set standards,\nyou get real work.\n\n⚡ Don't be polite.\nBe precise.\n\nhttps://promptanatomy.app"
+    "content": "Polite prompts get polite answers.\n\nNot better ones.\n\nMost people soften their prompts:\n\n\"Could you maybe…\"\n\"Would it be possible…\"\n\"Is this okay…\"\n\nSo AI does what it's trained to do:\n\nAgree.\n\nNot challenge.\nNot improve.\nNot push back.\n\nNo pressure → no depth\nNo criteria → no correction\nNo friction → no progress\n\nAI doesn't upgrade your thinking.\n\nIt stabilizes it.\n\nIf you sound unsure,\nyou get safe outputs.\n\nIf you set standards,\nyou get real work.\n\n⚡ Don't be polite.\nBe precise.\n\nhttps://promptanatomy.app",
+    "topic_key": "polite_vs_precise_again"
   },
   {
     "id": 53,
     "theme": "AI doesn't know you. It knows your patterns.",
     "option": 1,
     "image": "/images/posts/53_Prompt_Anatomy.png",
-    "content": "AI doesn't know you.\n\nIt knows your patterns.\n\nEvery prompt you write leaves a trace.\n\nWhat you ask.\nHow you think.\nWhat you ignore.\n\nOver time:\n\nIt adapts to your level\nIt predicts your intent\nIt reinforces your habits\n\nThat's why it starts to feel like:\n\n\"It understands me.\"\n\nBut it doesn't.\n\nIt mirrors you.\n\nIf your inputs are shallow → it learns shallow\nIf your standards are low → it stabilizes low\nIf your structure is weak → it repeats it\n\nThat's not intelligence.\n\nThat's feedback loop.\n\n⚡ Change the pattern.\nChange the output.\n\nhttps://promptanatomy.app"
+    "content": "AI doesn't know you.\n\nIt knows your patterns.\n\nEvery prompt you write leaves a trace.\n\nWhat you ask.\nHow you think.\nWhat you ignore.\n\nOver time:\n\nIt adapts to your level\nIt predicts your intent\nIt reinforces your habits\n\nThat's why it starts to feel like:\n\n\"It understands me.\"\n\nBut it doesn't.\n\nIt mirrors you.\n\nIf your inputs are shallow → it learns shallow\nIf your standards are low → it stabilizes low\nIf your structure is weak → it repeats it\n\nThat's not intelligence.\n\nThat's feedback loop.\n\n⚡ Change the pattern.\nChange the output.\n\nhttps://promptanatomy.app",
+    "topic_key": "patterns_not_personality"
   },
   {
     "id": 54,
     "theme": "Good prompts are built. Not written.",
     "option": 1,
     "image": "/images/posts/54_Prompt_Anatomy.png",
-    "content": "Good prompts are built.\n\nNot written.\n\nMost people treat AI like text.\n\nBut it behaves like a system.\n\nYou don't just \"ask\".\nYou assemble.\n\nINPUT → what you give\nCONTEXT + REASONING → how it understands and thinks\nQUALITY → how you control output level\nADVANCED → how you refine behavior\nOUTPUT → what you get\n\nNo structure → inconsistent results\nStructured prompt → repeatable performance\n\nThat's the shift most people miss.\n\n⚡ Stop writing prompts.\nStart building systems.\n\nhttps://promptanatomy.app"
+    "content": "Layer focus: assembly beats typing—INPUT, CONTEXT+REASONING, QUALITY, ADVANCED, OUTPUT.\n\n**This card's hook:** build in order—assembly line, not one blob of text.\n\nGood prompts are built, not scribbled. Full diagram lives in the system/layers card.\n\nNo structure → inconsistent results. Structured prompt → repeatable performance.\n\nhttps://promptanatomy.app",
+    "topic_key": "prompts_built_not_written"
   },
   {
     "id": 56,
     "theme": "How a Social Media Manager uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/56_Prompt_Anatomy.png",
-    "content": "Posting louder isn't a strategy.\n\nSocial that compounds is **cadence + creative + analytics** in one workflow—so you're not guessing every Monday.\n\n🔹 Thinking & calendars\nChatGPT https://chatgpt.com · Gemini https://gemini.google.com\n→ angles, hooks, campaign arcs\n\n🔹 Research\nPerplexity https://www.perplexity.ai\n→ trends (sanity-check before you ride them)\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ cross-post, alerts\n\n🔹 Briefs\nNotion https://www.notion.so\n→ content bank, approvals\n\n🔹 Specialized\nBuffer https://buffer.com · Hootsuite https://www.hootsuite.com\n→ scheduling, reporting\n\n⚡ ChatGPT batch ideas → Buffer schedule → weekly review loop.\n\n**Scheduling generic AI slop faster is still slop at scale.**\n\nPick one: engagement, saves, or pipeline—then align the stack to that, not to volume.\nhttps://promptanatomy.app"
+    "content": "Posting louder isn't a strategy.\n\nSocial that compounds is **cadence + creative + analytics** in one workflow—so you're not guessing every Monday.\n\n**Same core stack as the Designer role card** (reasoning—ChatGPT or Gemini for calendars → research → glue → Notion briefs).\n\n🔹 Specialized\nBuffer https://buffer.com · Hootsuite https://www.hootsuite.com\n→ scheduling, reporting\n\n⚡ ChatGPT batch ideas → Buffer schedule → weekly review loop.\n\n**Scheduling generic AI slop faster is still slop at scale.**\n\nPick one: engagement, saves, or pipeline—then align the stack to that, not to volume.\nhttps://promptanatomy.app",
+    "topic_key": "stack_social_media_manager"
   },
   {
     "id": 58,
     "theme": "AI doesn't turn chaos into clarity. You do.",
     "option": 1,
     "image": "/images/posts/58_Prompt_Anatomy.png",
-    "content": "AI doesn't turn chaos into clarity.\n\nYou do.\n\nMost people throw problems into AI\nand expect answers.\n\nRaw data → instant solution\n\nThat's not how it works.\n\nAI needs structure:\n\n1) Filter inputs → remove noise\n2) Break it down → isolate variables\n3) Sequence → simple → complex\n4) Confirm system → define scope\n5) Validate → test, iterate, refine\n\nSkip this → messy outputs\nFollow this → executable decisions\n\nAI is not the thinker.\n\nIt's the engine.\n\nYou design the process.\n\n⚡ Structure the problem.\nControl the decision.\n\nhttps://promptanatomy.app"
+    "content": "AI doesn't turn chaos into clarity.\n\nYou do.\n\nMost people throw problems into AI\nand expect answers.\n\nRaw data → instant solution\n\nThat's not how it works.\n\nAI needs structure:\n\n1) Filter inputs → remove noise\n2) Break it down → isolate variables\n3) Sequence → simple → complex\n4) Confirm system → define scope\n5) Validate → test, iterate, refine\n\nSkip this → messy outputs\nFollow this → executable decisions\n\nAI is not the thinker.\n\nIt's the engine.\n\nYou design the process.\n\n⚡ Structure the problem.\nControl the decision.\n\nhttps://promptanatomy.app",
+    "topic_key": "chaos_to_clarity_you"
   },
   {
     "id": 59,
     "theme": "It's not the model. It's the operator.",
     "option": 1,
     "image": "/images/posts/59_Prompt_Anatomy.png",
-    "content": "It's not the model.\n\nIt's the operator.\n\nPeople argue:\n\n\"ChatGPT vs Gemini\"\n\"Which one is better?\"\n\nBut here's what actually happens:\n\nSame prompt → same mediocrity\nDifferent structure → different results\n\nWeak input → weak output\nClear system → strong output\n\nThe gap isn't the AI.\n\nIt's how you use it.\n\nTools don't create leverage.\n\nSystems do.\n\n⚡ Stop comparing models.\nStart upgrading your prompts.\n\nhttps://promptanatomy.app"
+    "content": "It's not the model.\n\nIt's the operator.\n\nPeople argue:\n\n\"ChatGPT vs Gemini\"\n\"Which one is better?\"\n\nBut here's what actually happens:\n\nSame prompt → same mediocrity\nDifferent structure → different results\n\nWeak input → weak output\nClear system → strong output\n\nThe gap isn't the AI.\n\nIt's how you use it.\n\nTools don't create leverage.\n\nSystems do.\n\n⚡ Stop comparing models.\nStart upgrading your prompts.\n\nhttps://promptanatomy.app",
+    "topic_key": "operator_not_model"
   },
   {
     "id": 60,
     "theme": "AI for students, teachers, and scholars (2026)",
     "option": 1,
     "image": "/images/posts/60_Prompt_Anatomy.png",
-    "content": "📚 School & research—one layer per task. Verify anything cited or graded.\n\nWrong layer, wrong help: drafting in a search tool or \"finding sources\" only in chat breeds confident mistakes. Pick the tool for the job, then verify before you submit.\n\nChatGPT https://chatgpt.com · tutor + files\nPerplexity https://www.perplexity.ai · quick sources\nElicit https://elicit.org · lit reviews\nScite https://scite.ai · citation truth\nNotebookLM https://notebooklm.google.com · your PDFs/notes\nClaude https://claude.ai · long writing\n\n✅ Map: learn→GPT · search→Perplexity · papers→Elicit · check→Scite · notes→NotebookLM · write→Claude\nhttps://promptanatomy.app"
+    "content": "📚 School & research—one layer per task. Verify anything cited or graded.\n\nWrong layer, wrong help: drafting in a search tool or \"finding sources\" only in chat breeds confident mistakes. Pick the tool for the job, then verify before you submit.\n\nChatGPT https://chatgpt.com · tutor + files\nPerplexity https://www.perplexity.ai · quick sources\nElicit https://elicit.org · lit reviews\nScite https://scite.ai · citation truth\nNotebookLM https://notebooklm.google.com · your PDFs/notes\nClaude https://claude.ai · long writing\n\n✅ Map: learn→GPT · search→Perplexity · papers→Elicit · check→Scite · notes→NotebookLM · write→Claude\nhttps://promptanatomy.app",
+    "topic_key": "stack_education_research"
   },
   {
     "id": 62,
     "theme": "Most companies don't lack data. They lack a system to use it.",
     "option": 1,
     "image": "/images/posts/62_Prompt_Anatomy.png",
-    "content": "Most companies don't lack data.\nThey lack a system to use it.\n\nYou already have:\n→ CRM (Salesforce / HubSpot)\n→ Data warehouse (Redshift)\n→ Dashboards (Power BI)\n\nAnd still…\n\n→ slow decisions\n→ unclear insights\n→ gut-based thinking\n\nWhy?\n\nBecause data ≠ insight.\n\nReal stack looks like this:\n\nCollect → CRM / DB\nStructure → clean, connect, prepare\nAnalyze → AI (ChatGPT, Julius AI)\nDecide → dashboards + actions\n\nMiss step 3 → you're just looking at charts.\n\nAI is not another tool.\nIt's the layer that turns data → decisions.\n\nIf your reports don't change decisions — they're useless.\n\n👉 Full system & prompts:\nhttps://promptanatomy.app"
+    "content": "Most companies don't lack data.\nThey lack a system to use it.\n\nYou already have:\n→ CRM (Salesforce / HubSpot)\n→ Data warehouse (Redshift)\n→ Dashboards (Power BI)\n\nAnd still…\n\n→ slow decisions\n→ unclear insights\n→ gut-based thinking\n\nWhy?\n\nBecause data ≠ insight.\n\nReal stack looks like this:\n\nCollect → CRM / DB\nStructure → clean, connect, prepare\nAnalyze → AI (ChatGPT, Julius AI)\nDecide → dashboards + actions\n\nMiss step 3 → you're just looking at charts.\n\nAI is not another tool.\nIt's the layer that turns data → decisions.\n\nIf your reports don't change decisions — they're useless.\n\nFull system and prompts:\nhttps://promptanatomy.app",
+    "topic_key": "data_to_decisions_system"
   },
   {
     "id": 64,
     "theme": "Your AI output is a recipe. And you're missing ingredients.",
     "option": 1,
     "image": "/images/posts/64_Prompt_Anatomy.png",
-    "content": "Your AI output is a recipe.\n\nAnd you're missing ingredients.\n\nMost people blame the model.\n\nBut the problem is simple:\n\nIncomplete input → broken output\n\nAI doesn't \"fix\" your prompt.\nIt executes it.\n\nEvery result depends on layers:\n\nINPUT → what you give\nCONTEXT → what it understands\nREASONING → how it processes\nQUALITY → how you define \"good\"\nADVANCED → how you guide behavior\nOUTPUT → what you get\n\nMiss one → results degrade\nControl all → results scale\n\n☕ Build better inputs.\nGet better outputs.\n\nhttps://promptanatomy.app"
+    "content": "Layer focus: ingredients map to INPUT, CONTEXT, REASONING, QUALITY, ADVANCED, OUTPUT.\n\n**This card's hook:** one missing ingredient weakens the whole dish—same idea for prompts.\n\nIncomplete input → weak output; the model executes what you give it. Canonical layer names: see \"AI is not a tool. It's a system.\"\n\nhttps://promptanatomy.app",
+    "topic_key": "recipe_layers"
   },
   {
     "id": 65,
     "theme": "Data analysis stack: research → insights (2026)",
     "option": 1,
     "image": "/images/posts/65_Prompt_Anatomy.png",
-    "content": "This isn't \"which AI is smartest.\" It's which layer answers which question—before you paste numbers into a deck.\n\nWhen the path is fuzzy, teams buy another dashboard instead of fixing handoffs between ask, store, and model.\n\n🗂️ Data path: question → insight\n\nAsk: Perplexity https://www.perplexity.ai\nStore: Postgres https://www.postgresql.org · BigQuery https://cloud.google.com/bigquery\nRun: ChatGPT https://chatgpt.com · Jupyter https://jupyter.org\nModel: dbt https://www.getdbt.com · Airflow https://airflow.apache.org\nSee: Power BI https://powerbi.microsoft.com · Excel https://www.microsoft.com/microsoft-365/excel\nExplain: Claude https://claude.ai\nQuick CSV: Julius https://julius.ai (thin for prod)\n\n📊 No single vendor owns the stack.\nhttps://promptanatomy.app"
+    "content": "This isn't \"which AI is smartest.\" It's which layer answers which question—before you paste numbers into a deck.\n\nWhen the path is fuzzy, teams buy another dashboard instead of fixing handoffs between ask, store, and model.\n\n🗂️ Data path: question → insight\n\nAsk: Perplexity https://www.perplexity.ai\nStore: Postgres https://www.postgresql.org · BigQuery https://cloud.google.com/bigquery\nRun: ChatGPT https://chatgpt.com · Jupyter https://jupyter.org\nModel: dbt https://www.getdbt.com · Airflow https://airflow.apache.org\nSee: Power BI https://powerbi.microsoft.com · Excel https://www.microsoft.com/microsoft-365/excel\nExplain: Claude https://claude.ai\nQuick CSV: Julius https://julius.ai (thin for prod)\n\n📊 No single vendor owns the stack.\nhttps://promptanatomy.app",
+    "topic_key": "stack_data_analysis"
   },
   {
     "id": 70,
     "theme": "AI tools for presentations (2026)",
     "option": 1,
     "image": "/images/posts/70_Prompt_Anatomy.png",
-    "content": "The failure mode isn't \"wrong deck app\"—it's using a speed tool when you needed a brand-safe story, or the reverse.\n\nPick the layer first (exec narrative vs. internal speed vs. strict templates); then the tool stops being a lottery.\n\n📽️ Decks—match the job.\n\nGamma https://gamma.app · fast, web-feel\nSlidesAI https://www.slidesai.io · text→Google Slides\nCanva https://www.canva.com · design + brand\nPrezent https://www.prezent.ai · enterprise story\nBeautiful https://www.beautiful.ai · auto-layout\nVisme https://www.visme.co · reports (more manual)\n\n✨ Speed→Gamma · Slides→SlidesAI · look→Canva · corp→Prezent · tidy→Beautiful\nhttps://promptanatomy.app"
+    "content": "The failure mode isn't \"wrong deck app\"—it's using a speed tool when you needed a brand-safe story, or the reverse.\n\nPick the layer first (exec narrative vs. internal speed vs. strict templates); then the tool stops being a lottery.\n\n📽️ Decks—match the job.\n\nGamma https://gamma.app · fast, web-feel\nSlidesAI https://www.slidesai.io · text→Google Slides\nCanva https://www.canva.com · design + brand\nPrezent https://www.prezent.ai · enterprise story\nBeautiful https://www.beautiful.ai · auto-layout\nVisme https://www.visme.co · reports (more manual)\n\n✨ Speed→Gamma · Slides→SlidesAI · look→Canva · corp→Prezent · tidy→Beautiful\nhttps://promptanatomy.app",
+    "topic_key": "stack_presentations"
   },
   {
     "id": 71,
     "theme": "How a CMO uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/71_Prompt_Anatomy.png",
-    "content": "Campaign chaos isn't fixed by \"more creative AI.\"\n\nCMOs live or die on **allocation + narrative + creative throughput**—same budget, clearer sequence.\n\n🔹 Strategy & messaging\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ positioning, briefs, exec comms\n\n🔹 Market intel\nPerplexity https://www.perplexity.ai\n→ competitor moves, category reads\n\n🔹 Campaign ops\nZapier https://zapier.com · Make https://www.make.com\n→ lead flows, alerts\n\n🔹 Collateral\nCanva https://www.canva.com · Notion https://www.notion.so\n→ brand-consistent assets, planning\n\n🔹 Specialized\nHubSpot https://www.hubspot.com · Jasper https://www.jasper.ai · Midjourney https://www.midjourney.com\n→ CRM motion, copy variants, visuals\n\nOne pass: ChatGPT brief → Jasper/Canva production → HubSpot execution.\n\n**AI can't fix a funnel if you won't define ICP and one primary metric.**\n\nIf you only reframed one campaign this quarter—which pipeline would you pick?\nhttps://promptanatomy.app"
+    "content": "Campaign chaos isn't fixed by \"more creative AI.\"\n\nCMO failure mode: creative churn without ICP or one primary metric—allocation before more AI concepts.\n\nCMOs live or die on **allocation + narrative + creative throughput**—same budget, clearer sequence.\n\n**Same reasoning → research → glue pattern as the Designer role card**; keep **Canva + Notion** in the collateral layer before you specialize.\n\n🔹 Specialized\nHubSpot https://www.hubspot.com · Jasper https://www.jasper.ai · Midjourney https://www.midjourney.com\n→ CRM motion, copy variants, visuals\n\nOne pass: ChatGPT brief → Jasper/Canva production → HubSpot execution.\n\n**AI can't fix a funnel if you won't define ICP and one primary metric.**\n\nIf you only reframed one campaign this quarter—which pipeline would you pick?\nhttps://promptanatomy.app",
+    "topic_key": "stack_cmo"
   },
   {
     "id": 74,
     "theme": "Your AI output is layered. You just don't see it.",
     "option": 1,
     "image": "/images/posts/74_Prompt_Anatomy.png",
-    "content": "Your AI output is layered.\n\nYou just don't see it.\n\nMost people think AI = one input → one answer.\n\nWrong.\n\nEvery output is built in layers.\n\nINPUT → what you give\nCONTEXT → what shapes meaning\nREASONING → how decisions are made\nQUALITY → what \"good\" looks like\nADVANCED → how you steer behavior\nOUTPUT → final result\n\nIf your layers are weak → output collapses\nIf your layers are clear → output compounds\n\nThat's why results feel random.\nThey're not.\nYour structure is.\n\n🥃 Control the layers.\nControl the output.\n\nhttps://promptanatomy.app"
+    "content": "Layer focus: visibility—INPUT, CONTEXT, REASONING, QUALITY, ADVANCED, OUTPUT.\n\n**This card's hook:** layers stay real even when hidden—one weak layer drags the rest down.\n\nYour AI output is layered even when you don't see it; weak layers collapse the rest. Full stack defined in the canonical system card.\n\nhttps://promptanatomy.app",
+    "topic_key": "layers_visibility"
   },
   {
     "id": 75,
     "theme": "Automation & AI agents (2026)",
     "option": 1,
     "image": "/images/posts/75_Prompt_Anatomy.png",
-    "content": "One monster workflow breaks in one place. Layered automation fails in smaller, fixable pieces.\n\nMatch glue vs. logic vs. AI steps—same tools, less \"why did everything stop?\" at 6 p.m.\n\n🤖 Automate in layers—not one Zap to rule them all.\n\nGlue: Zapier https://zapier.com · Make https://www.make.com\nThink+act: ChatGPT https://chatgpt.com · LangChain https://www.langchain.com\nHeavy multi-agent: AutoGen https://github.com/microsoft/autogen\nPipes: n8n https://n8n.io · Airflow https://airflow.apache.org (data DAGs)\n\n⚙️ Simple→Zapier · logic→Make · AI work→GPT · code agents→LangChain · self-host→n8n · schedules→Airflow\nhttps://promptanatomy.app"
+    "content": "One monster workflow breaks in one place. Layered automation fails in smaller, fixable pieces.\n\nMatch glue vs. logic vs. AI steps—same tools, less \"why did everything stop?\" at 6 p.m.\n\n🤖 Automate in layers—not one Zap to rule them all.\n\nGlue: Zapier https://zapier.com · Make https://www.make.com\nThink+act: ChatGPT https://chatgpt.com · LangChain https://www.langchain.com\nHeavy multi-agent: AutoGen https://github.com/microsoft/autogen\nPipes: n8n https://n8n.io · Airflow https://airflow.apache.org (data DAGs)\n\n⚙️ Simple→Zapier · logic→Make · AI work→GPT · code agents→LangChain · self-host→n8n · schedules→Airflow\nhttps://promptanatomy.app",
+    "topic_key": "stack_automation_agents"
   },
   {
     "id": 76,
     "theme": "How Operations uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/76_Prompt_Anatomy.png",
-    "content": "When nobody knows the source of truth, every Zap is a band-aid.\n\nOps that scales is **visibility + automation + fewer handoffs**—in that order.\n\n🔹 Process design\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ SOPs, edge cases, runbooks\n\n🔹 Research\nPerplexity https://www.perplexity.ai\n→ vendor/category scans\n\n🔹 Automation (core)\nMake https://www.make.com · Zapier https://zapier.com\n→ integrations that survive\n\n🔹 Systems of record\nAirtable https://www.airtable.com · Notion https://www.notion.so\n→ single sources of operational truth\n\n🔹 Specialized\nn8n https://n8n.io\n→ heavier workflows when needed\n\nTry this flow: map process in Airtable → automate with Make → monitor exceptions.\n\n**Automating a broken process just ships bugs faster.**\n\nHard rule: name one process you'd never fully automate—keep a human gate there on purpose.\nhttps://promptanatomy.app"
+    "content": "When nobody knows the source of truth, every Zap is a band-aid.\n\nOps failure mode: Zaps everywhere, no source of truth—visibility before automation.\n\nOps that scales is **visibility + automation + fewer handoffs**—in that order.\n\n**Same core stack as the Designer role card** (reasoning → research → Make/Zapier → docs)—then **Airtable or Notion** as system of record before you add heavier automation.\n\n🔹 Specialized\nn8n https://n8n.io\n→ heavier workflows when needed\n\nTry this flow: map process in Airtable → automate with Make → monitor exceptions.\n\n**Automating a broken process just ships bugs faster.**\n\nHard rule: name one process you'd never fully automate—keep a human gate there on purpose.\nhttps://promptanatomy.app",
+    "topic_key": "stack_operations"
   },
   {
     "id": 81,
     "theme": "How a Software Engineer uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/81_Prompt_Anatomy.png",
-    "content": "Green CI on red logic is still a loss.\n\nEngineering leverage is **spec → code → verify**—not vibe commits that \"look fine\" in the diff.\n\n🔹 Thinking & design\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ architecture notes, tradeoffs, reviews\n\n🔹 Docs & search\nPerplexity https://www.perplexity.ai\n→ API/docs navigation (verify versions)\n\n🔹 Automation (optional)\nZapier https://zapier.com\n→ boring glue\n\n🔹 Repo reality\nGitHub https://github.com · GitHub Copilot https://github.com/features/copilot\n→ PRs, inline assist\n\n🔹 Specialized\nCursor https://cursor.com · Replit https://replit.com · Supabase https://supabase.com\n→ build, prototype, backend\n\n⚡ Spec in ChatGPT → implement in Cursor → ship with tests you actually run.\n\n**Copilot without tests is a lottery with your codebase.**\n\nNon-negotiable before merge: what's yours—tests, review bar, or both?\nhttps://promptanatomy.app"
+    "content": "Green CI on red logic is still a loss.\n\nEngineer failure mode: green CI, wrong product—spec → code → verify beats vibe commits.\n\nEngineering leverage is **spec → code → verify**—not vibe commits that \"look fine\" in the diff.\n\n**Reasoning + Perplexity for docs** follow the same rhythm as the Designer role card; add **GitHub + Copilot** as repo truth and optional **Zapier** for boring glue.\n\n🔹 Specialized\nCursor https://cursor.com · Replit https://replit.com · Supabase https://supabase.com\n→ build, prototype, backend\n\n⚡ Spec in ChatGPT → implement in Cursor → ship with tests you actually run.\n\n**Copilot without tests is a lottery with your codebase.**\n\nNon-negotiable before merge: what's yours—tests, review bar, or both?\nhttps://promptanatomy.app",
+    "topic_key": "stack_software_engineer"
   },
   {
     "id": 84,
     "theme": "AI doesn't fail. Your control system does.",
     "option": 1,
     "image": "/images/posts/84_Prompt_Anatomy.png",
-    "content": "AI doesn't fail.\n\nYour control system does.\n\nMost people interact with AI at the surface.\n\nPrompt → answer → repeat\n\nBut real performance comes from what's underneath.\n\nA controlled system:\n\nINPUT → define intent\nCONTEXT → shape understanding\nREASONING → orchestrate logic\nAI CORE → execution layer\nADVANCED → constraints, tools, memory\nQUALITY → validation gate\nOUTPUT → delivered result\n\nNo control → unpredictable outputs\nFull system → consistent performance\n\nThat's the difference between using AI\nand operating it.\n\n⚙️ Build control.\nNot just prompts.\n\nhttps://promptanatomy.app"
+    "content": "Layer focus: control system under the hood—INPUT, CONTEXT, REASONING, core execution, ADVANCED (tools/memory), QUALITY gate, OUTPUT.\n\n**This card's hook:** chat is the surface; quality gates and tools are the control loop underneath.\n\nSurface prompting alone skips the control system. See baseline layer map in \"AI is not a tool. It's a system.\"\n\nhttps://promptanatomy.app",
+    "topic_key": "control_system_underneath"
   },
   {
     "id": 86,
     "theme": "How a CTO uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/86_Prompt_Anatomy.png",
-    "content": "Your org doesn't need another \"AI pilot\" folder.\n\nA CTO lives in **risk, architecture, and velocity**—the stack is just how you repeat good decisions under load.\n\n🔹 Decision support\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ options memos, RFC drafts, security questions\n\n🔹 Landscape\nPerplexity https://www.perplexity.ai\n→ vendor/feature scans (you still decide)\n\n🔹 Automation\nMake https://www.make.com · Zapier https://zapier.com\n→ internal workflows, on-call glue\n\n🔹 Engineering execution\nGitHub https://github.com · Linear https://linear.app\n→ delivery truth\n\n🔹 Specialized\nCursor https://cursor.com · Replit https://replit.com · Supabase https://supabase.com\n→ fast build, MVP backend\n\nOne pass: architecture debate in Claude → Cursor for implementation spike → Supabase for data path.\n\n**AI accelerates shipping; it doesn't sign off on production risk.**\n\nDraw the line: what never gets delegated to a model—auth, data policy, something else?\nhttps://promptanatomy.app"
+    "content": "Your org doesn't need another \"AI pilot\" folder.\n\nCTO failure mode: pilot folders that never ship—risk, architecture, velocity in one repeatable loop.\n\nA CTO lives in **risk, architecture, and velocity**—the stack is just how you repeat good decisions under load.\n\n**Same core stack as the Designer role card** (reasoning → Perplexity → glue → docs), then **GitHub + Linear** as delivery truth.\n\n🔹 Specialized\nCursor https://cursor.com · Replit https://replit.com · Supabase https://supabase.com\n→ fast build, MVP backend\n\nOne pass: architecture debate in Claude → Cursor for implementation spike → Supabase for data path.\n\n**AI accelerates shipping; it doesn't sign off on production risk.**\n\nDraw the line: what never gets delegated to a model—auth, data policy, something else?\nhttps://promptanatomy.app",
+    "topic_key": "stack_cto"
   },
   {
     "id": 89,
     "theme": "Your AI results aren't random. Your process is.",
     "option": 1,
     "image": "/images/posts/89_Prompt_Anatomy.png",
-    "content": "Your AI results aren't random.\n\nYour process is.\n\nMost people skip the system.\n\nThey jump straight to:\nINPUT → OUTPUT\n\nAnd then wonder why results are inconsistent.\n\nBut real AI workflow looks like this:\n\nINPUT → clear request\nCONTEXT → relevant information\nAI ENGINE → structured reasoning\nQUALITY CHECK → verify before delivery\nOUTPUT → reliable result\n\nSkip steps → chaos\nFollow system → control\n\nThat's the difference between guessing and engineering.\n\n⚡ Build the process.\nFix the output.\n\nhttps://promptanatomy.app"
+    "content": "Layer focus: process steps—clear INPUT, CONTEXT, structured reasoning, QUALITY check, OUTPUT.\n\n**This card's hook:** \"random\" usually means a skipped step—not bad luck with the model.\n\nSkipping steps reads as \"random AI.\" The full layer vocabulary is in the canonical system card.\n\nhttps://promptanatomy.app",
+    "topic_key": "process_not_random"
   },
   {
     "id": 93,
     "theme": "How Sales uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/93_Prompt_Anatomy.png",
-    "content": "More sequences don't fix empty pipeline truth.\n\nSales compounding is **signal → personalization → coaching**—so reps aren't guessing in the inbox.\n\n🔹 Strategy & messaging\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ talk tracks, objection handling\n\n🔹 Intel\nPerplexity https://www.perplexity.ai\n→ account news (verify before you cite)\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ CRM hygiene, enrichment triggers\n\n🔹 Docs\nNotion https://www.notion.so\n→ playbooks, battlecards\n\n🔹 Specialized\nClay https://www.clay.com · Apollo https://www.apollo.io · Gong https://www.gong.io\n→ enrichment, outbound, call insights\n\nTry this flow: Clay/Apollo enrich → ChatGPT tailored draft → Gong improves delivery.\n\n**Personalization without truth in your CRM is just confident spam.**\n\nBefore go-live: what's your minimum data truth bar—title, intent signal, something tighter?\nhttps://promptanatomy.app"
+    "content": "More sequences don't fix empty pipeline truth.\n\nSales failure mode: more sequences, empty CRM truth—signal and coaching before spray-and-pray.\n\nSales compounding is **signal → personalization → coaching**—so reps aren't guessing in the inbox.\n\n**Same core stack as the Designer role card** (messaging → Perplexity intel you verify → glue → Notion playbooks).\n\n🔹 Specialized\nClay https://www.clay.com · Apollo https://www.apollo.io · Gong https://www.gong.io\n→ enrichment, outbound, call insights\n\nTry this flow: Clay/Apollo enrich → ChatGPT tailored draft → Gong improves delivery.\n\n**Personalization without truth in your CRM is just confident spam.**\n\nBefore go-live: what's your minimum data truth bar—title, intent signal, something tighter?\nhttps://promptanatomy.app",
+    "topic_key": "stack_sales"
   },
   {
     "id": 94,
     "theme": "How HR uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/94_Prompt_Anatomy.png",
-    "content": "Faster screens without a rubric just scale noise.\n\nHR wins on **fair process + speed**—same steps, less theater, humans still own the call.\n\n🔹 Policy & comms\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ job posts, manager guides, sensitive wording (human review)\n\n🔹 Market scan\nPerplexity https://www.perplexity.ai\n→ comp/trend reads\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ onboarding tasks, reminders\n\n🔹 Knowledge\nNotion https://www.notion.so · Microsoft Copilot https://copilot.microsoft.com\n→ handbooks, FAQs\n\n🔹 Specialized (structured hiring)\nGreenhouse https://www.greenhouse.io · Lever https://www.lever.co · Workable https://www.workable.com\n→ pipelines with clear rubrics (bias-aware workflows)\n\n⚡ Structured JD in ChatGPT → ATS stages → consistent rubric (humans decide).\n\n**HR without clear criteria plus AI just scales bias faster—unless you govern it.**\n\nKeep one step human-only on purpose—which is it for your team?\nhttps://promptanatomy.app"
+    "content": "Faster screens without a rubric just scale noise.\n\nHR failure mode: faster screens, no rubric—fair process and human gates before scaled noise.\n\nHR wins on **fair process + speed**—same steps, less theater, humans still own the call.\n\n**Same core stack as the Designer role card** for policy drafts, Perplexity scans, and Zapier/Make reminders—**handbooks stay in Notion + Copilot** (human review on sensitive wording).\n\n🔹 Specialized (structured hiring)\nGreenhouse https://www.greenhouse.io · Lever https://www.lever.co · Workable https://www.workable.com\n→ pipelines with clear rubrics (bias-aware workflows)\n\n⚡ Structured JD in ChatGPT → ATS stages → consistent rubric (humans decide).\n\n**HR without clear criteria plus AI just scales bias faster—unless you govern it.**\n\nKeep one step human-only on purpose—which is it for your team?\nhttps://promptanatomy.app",
+    "topic_key": "stack_hr"
   },
   {
     "id": 95,
     "theme": "How Finance uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/95_Prompt_Anatomy.png",
-    "content": "A confident model paragraph is not an audit trail.\n\nFinance runs on **controls + models + narrative**—same numbers, tighter story, zero spreadsheet fanfic.\n\n🔹 Analysis & logic\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ scenario framing, memo drafts, formula reasoning\n\n🔹 External context\nPerplexity https://www.perplexity.ai\n→ macro/industry reads\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ close tasks, low-risk flows\n\n🔹 Core models\nExcel https://www.microsoft.com/microsoft-365/excel\n→ where numbers live\n\n🔹 Reporting & ops\nPower BI https://powerbi.microsoft.com · QuickBooks https://quickbooks.intuit.com · Stripe https://stripe.com\n→ dashboards, books, revenue truth\n\nOne pass: assumptions locked in Excel → ChatGPT stress-tests narrative → Power BI for leadership view.\n\n**Never let the model be the system of record for your books.**\n\nControl you never skip—reconciliation, sign-off, second pair of eyes?\nhttps://promptanatomy.app"
+    "content": "A confident model paragraph is not an audit trail.\n\nFinance failure mode: confident paragraphs, no audit trail—controls and Excel truth before narrative.\n\nFinance runs on **controls + models + narrative**—same numbers, tighter story, zero spreadsheet fanfic.\n\n**Reasoning + Perplexity + low-risk glue** mirror the Designer role card rhythm—**Excel https://www.microsoft.com/microsoft-365/excel** stays the system of record for numbers; models draft around it, never replace it.\n\n🔹 Reporting & ops\nPower BI https://powerbi.microsoft.com · QuickBooks https://quickbooks.intuit.com · Stripe https://stripe.com\n→ dashboards, books, revenue truth\n\nOne pass: assumptions locked in Excel → ChatGPT stress-tests narrative → Power BI for leadership view.\n\n**Never let the model be the system of record for your books.**\n\nControl you never skip—reconciliation, sign-off, second pair of eyes?\nhttps://promptanatomy.app",
+    "topic_key": "stack_finance"
   },
   {
     "id": 96,
     "theme": "How an Executive Assistant uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/96_Prompt_Anatomy.png",
-    "content": "Inbox zero at midnight is still a loss if the wrong meetings survived.\n\nGreat EAs compress **time, inbox, and coordination**—same hours, clearer defaults.\n\n🔹 Planning & drafting\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ agendas, briefs, polite escalations\n\n🔹 Quick research\nPerplexity https://www.perplexity.ai\n→ travel, vendors, context\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ recurring workflows\n\n🔹 Calendar & focus\nMotion https://www.usemotion.com · Reclaim https://reclaim.ai\n→ scheduling, time blocking\n\n🔹 Comms speed\nSuperhuman https://superhuman.com\n→ throughput with boundaries\n\nTry this flow: inbox triage → Motion for blocks → ChatGPT for prep docs.\n\n**Speed without priorities just makes you busy faster.**\n\nFirst automation win: which recurring task costs the most context switches?\nhttps://promptanatomy.app"
+    "content": "Inbox zero at midnight is still a loss if the wrong meetings survived.\n\nEA failure mode: inbox zero, wrong priorities—time and coordination before raw speed.\n\nGreat EAs compress **time, inbox, and coordination**—same hours, clearer defaults.\n\n**Same reasoning + Perplexity + automation rhythm as the Designer role card**—then EA-specific throughput tools:\n\n🔹 Calendar & focus\nMotion https://www.usemotion.com · Reclaim https://reclaim.ai\n→ scheduling, time blocking\n\n🔹 Comms speed\nSuperhuman https://superhuman.com\n→ throughput with boundaries\n\nTry this flow: inbox triage → Motion for blocks → ChatGPT for prep docs.\n\n**Speed without priorities just makes you busy faster.**\n\nFirst automation win: which recurring task costs the most context switches?\nhttps://promptanatomy.app",
+    "topic_key": "stack_executive_assistant"
   },
   {
     "id": 97,
     "theme": "How an AI / ML Engineer uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/97_Prompt_Anatomy.png",
-    "content": "A prettier loss curve that nobody reproduces is still a science project.\n\nML engineers ship on **experiments + evals + shipping**—not notebook vibes that die on someone else's laptop.\n\n🔹 Design & debugging\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ paper sketches, error triage, code review assists\n\n🔹 Literature & APIs\nPerplexity https://www.perplexity.ai\n→ docs navigation\n\n🔹 Automation\nGitHub Actions https://github.com/features/actions\n→ CI for training/inference checks\n\n🔹 Experiment tracking\nWeights & Biases https://wandb.ai\n→ runs, metrics, reproducibility\n\n🔹 Specialized\nHugging Face https://huggingface.co · LangChain https://www.langchain.com\n→ models, app glue\n\n⚡ Baseline in W&B → iterate model on HF → LangChain for app integration.\n\n**If you can't measure it, \"smarter model\" is just hope.**\n\nRelease gate: which metric do you refuse to ship without?\nhttps://promptanatomy.app"
+    "content": "A prettier loss curve that nobody reproduces is still a science project.\n\nMLE failure mode: pretty curves no one reproduces—experiments, evals, shipping.\n\nML engineers ship on **experiments + evals + shipping**—not notebook vibes that die on someone else's laptop.\n\n**Core loop:** ChatGPT https://chatgpt.com · Claude https://claude.ai (design + debug) · Perplexity https://www.perplexity.ai (docs) · GitHub Actions https://github.com/features/actions (CI) · Weights & Biases https://wandb.ai (runs + reproducibility).\n\n🔹 Specialized\nHugging Face https://huggingface.co · LangChain https://www.langchain.com\n→ models, app glue\n\n⚡ Baseline in W&B → iterate model on HF → LangChain for app integration.\n\n**If you can't measure it, \"smarter model\" is just hope.**\n\nRelease gate: which metric do you refuse to ship without?\nhttps://promptanatomy.app",
+    "topic_key": "stack_ml_engineer"
   },
   {
     "id": 98,
     "theme": "How E-commerce uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/98_Prompt_Anatomy.png",
-    "content": "Traffic without margin is just expensive attention.\n\nE-com that lasts is **merch + campaigns + unit economics**—same catalog, clearer levers.\n\n🔹 Merch & copy\nChatGPT https://chatgpt.com · Claude https://claude.ai\n→ PDP angles, bundles, FAQs\n\n🔹 Intel\nPerplexity https://www.perplexity.ai\n→ competitor/pricing reads\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ orders, alerts, email triggers\n\n🔹 Storefront\nShopify https://www.shopify.com\n→ catalog, checkout truth\n\n🔹 Growth stack\nKlaviyo https://www.klaviyo.com\n→ retention + lifecycle (measure LTV/MER)\n\nOne pass: ChatGPT briefs PDP → Shopify source of truth → Klaviyo flows from real behavior.\n\n**Discounts driven by vibes instead of margin math don't scale.**\n\nNorth star this quarter—LTV, MER, or contribution margin—pick one to align the stack.\nhttps://promptanatomy.app"
+    "content": "Traffic without margin is just expensive attention.\n\nE-com failure mode: traffic without margin—merch, campaigns, unit economics on one north star.\n\nE-com that lasts is **merch + campaigns + unit economics**—same catalog, clearer levers.\n\n**Same core stack as the Designer role card** for copy, Perplexity intel, and Zapier/Make triggers—**Shopify stays catalog + checkout truth**.\n\n🔹 Growth stack\nKlaviyo https://www.klaviyo.com\n→ retention + lifecycle (measure LTV/MER)\n\nOne pass: ChatGPT briefs PDP → Shopify source of truth → Klaviyo flows from real behavior.\n\n**Discounts driven by vibes instead of margin math don't scale.**\n\nNorth star this quarter—LTV, MER, or contribution margin—pick one to align the stack.\nhttps://promptanatomy.app",
+    "topic_key": "stack_ecommerce"
   },
   {
     "id": 99,
     "theme": "How a Founder uses AI: decisions & stack",
     "option": 1,
     "image": "/images/posts/99_Prompt_Anatomy.png",
-    "content": "Ten tabs won't replace one unclear ICP.\n\nFounders run on **clarity under constraint**—tiny team, sharp sequence, no fantasy roadmap.\n\n🔹 Thinking & narrative\nChatGPT https://chatgpt.com · Claude https://claude.ai · Gemini https://gemini.google.com\n→ pitch, roadmap, hard choices\n\n🔹 Intel\nPerplexity https://www.perplexity.ai\n→ market scans (you still talk to users)\n\n🔹 Automation\nZapier https://zapier.com · Make https://www.make.com\n→ ops glue while you're tiny\n\n🔹 Build path\nCursor https://cursor.com · Lovable https://lovable.dev · Replit https://replit.com\n→ prototype to first customers\n\n🔹 Data & ship\nSupabase https://supabase.com · Vercel https://vercel.com\n→ backend + deploy\n\nTry this flow: hypothesis in ChatGPT → Lovable/Cursor MVP → Supabase + Vercel to ship.\n\n**AI helps you iterate; it doesn't replace proof someone will pay.**\n\nThis week: what's the one hypothesis you're actually running—not just building for?\nhttps://promptanatomy.app"
+    "content": "Ten tabs won't replace one unclear ICP.\n\nFounder failure mode: ten tabs, fuzzy ICP—clarity under constraint before the stack debate.\n\nFounders run on **clarity under constraint**—tiny team, sharp sequence, no fantasy roadmap.\n\n**Same reasoning + Perplexity + glue pattern as the Designer role card** (add Gemini if your team already lives there).\n\n🔹 Build path\nCursor https://cursor.com · Lovable https://lovable.dev · Replit https://replit.com\n→ prototype to first customers\n\n🔹 Data & ship\nSupabase https://supabase.com · Vercel https://vercel.com\n→ backend + deploy\n\nTry this flow: hypothesis in ChatGPT → Lovable/Cursor MVP → Supabase + Vercel to ship.\n\n**AI helps you iterate; it doesn't replace proof someone will pay.**\n\nThis week: what's the one hypothesis you're actually running—not just building for?\nhttps://promptanatomy.app",
+    "topic_key": "stack_founder"
   },
   {
     "id": 100,
     "theme": "Most people don't have an AI problem. They have a thinking problem.",
     "option": 1,
     "image": "/images/posts/100_Prompt_Anatomy.png",
-    "content": "Most people don't have an AI problem.\nThey have a thinking problem.\n\nYou say:\n→ \"Be creative\"\n→ \"Explain simply\"\n→ \"Do it better\"\n\nAI hears:\n→ \"Everything you said is correct.\"\n\nAnd then hallucinates politely.\n\nReality:\nAI doesn't need politeness.\nIt needs pressure, constraints, and structure.\n\nTry this instead:\n→ Challenge assumptions\n→ Force reasoning steps\n→ Ask for contradictions\n→ Define output format\n\nThat's when answers change.\n\nIf your AI always agrees with you — you're doing it wrong.\n\n👉 Full system (115+ prompts):\nhttps://promptanatomy.app"
+    "content": "Most people don't have an AI problem.\nThey have a thinking problem.\n\nYou say:\n→ \"Be creative\"\n→ \"Explain simply\"\n→ \"Do it better\"\n\nAI hears:\n→ \"Everything you said is correct.\"\n\nAnd then hallucinates politely.\n\nReality:\nAI doesn't need politeness.\nIt needs pressure, constraints, and structure.\n\nTry this instead:\n→ Challenge assumptions\n→ Force reasoning steps\n→ Ask for contradictions\n→ Define output format\n\nThat's when answers change.\n\nIf your AI always agrees with you — you're doing it wrong.\n\nFull prompt library and patterns on the site (browse there—no need to count individual prompts):\nhttps://promptanatomy.app",
+    "topic_key": "thinking_problem_not_ai"
+  },
+  {
+    "id": 101,
+    "theme": "The 3 types of AI users",
+    "option": 1,
+    "image": "/images/posts/101_Prompt_Anatomy.png",
+    "content": "The 3 types of AI users (illustrative—not a scientific census):\n\n1) Skeptics: tried once, did not build a habit.\n2) Casuals: occasional use like a quick search.\n3) Power users: pay where it helps, iterate, and use structure (role, context, constraints, format, success criteria).\n\nMost prompts stay vague: \"Make it better.\" Pros define the job so the model can execute.\n\nSame AI. Different outcome when the spec is different.\n\nAI rewards clear structure more than raw access.\n\nhttps://promptanatomy.app",
+    "topic_key": "three_ai_user_types_structure"
+  },
+  {
+    "id": 102,
+    "theme": "Most people won't be replaced by AI.",
+    "option": 1,
+    "image": "/images/posts/102_Prompt_Anatomy.png",
+    "content": "Most people won't be replaced by AI overnight.\n\nThey can be outpaced by people who pair AI with judgment: clear specs, verification, and domain taste.\n\nA cheap subscription doesn't replace you—**how** you use the tool changes what you ship.\n\nMarkets reward:\n— faster cycles when quality holds\n— lower cost per unit of good work\n— reliability, not just raw speed\n\nThat's already visible across marketing, support, analysis, content, and ops.\n\nThe mistake is assuming the model must beat you head-to-head. Often it only has to be \"good enough\" at the wrong stage of the workflow.\n\n**Agency:** pick one skill to compound—spec writing, critique, verification, or storytelling—and use AI to rehearse and accelerate that, not to skip thinking.\n\nReflect: what part of your work still needs your judgment even when the draft is free?\n\nhttps://promptanatomy.app",
+    "topic_key": "replaced_by_ai_literate_peer"
+  },
+  {
+    "id": 103,
+    "theme": "Most teams don't have an AI problem. They have a workflow problem.",
+    "option": 1,
+    "image": "/images/posts/103_Prompt_Anatomy.png",
+    "content": "Most teams do not have an AI problem.\n\nThey have a workflow problem—and that rhymes with the \"operator / thinking\" cards: better models don't fix vague prompts or missing handoffs.\n\nModels keep improving. Habits often don't.\n\nSo teams buy frontier access, then run it with mushy asks and no process—like bolting a faster engine onto a car with loose wheels.\n\nA smarter model will not save a weak operator.\n\nThe edge is moving from \"who has AI\" to \"who can run it with clear specs and review.\"\n\nIn 2026, operator quality usually matters more than which chatbot brand you pay for—until the operator levels up, the model is idle horsepower.\n\nhttps://promptanatomy.app",
+    "topic_key": "workflow_not_ai_operator_quality"
+  },
+  {
+    "id": 104,
+    "theme": "This is marketing now.",
+    "option": 1,
+    "image": "/images/posts/104_Prompt_Anatomy.png",
+    "content": "Marketing, compressed: everyone has the same tools. The split is whether you run ad-hoc chats or a repeatable system.\n\n**What \"building systems\" means here**\n• Briefs with role, audience, goal, format, and constraints—not \"write a post.\"\n• Reusable checks (brand voice, claims, CTA) instead of one-off vibes.\n• A loop: draft → critique → revise with explicit success criteria.\n\n**Casual user:** one vague ask → generic, forgettable output.\n\n**Operator:** same model, but the spec turns the tool into leverage—on-brand, strategic, shippable.\n\nChatGPT is not the moat. The specification and review loop is.\n\nTurn ChatGPT into a marketing system:\nhttps://promptanatomy.app",
+    "topic_key": "marketing_chatgpt_system"
+  },
+  {
+    "id": 105,
+    "theme": "AI isn't hallucinating. You're under-specifying.",
+    "option": 1,
+    "image": "/images/posts/105_Prompt_Anatomy.png",
+    "content": "Models optimize coherence, not truth. When your prompt is thin, you get a confident structure built on a missing assumption.\n\n**What goes wrong**\nYou: \"Make it better.\"\nThe model fills the gap. The diagram can look smart and still be wrong.\n\n**Before you ask for anything, define**\n1. Role — who is the assistant?\n2. Context — situation, audience, stakes\n3. Constraints — what to avoid, sources, tone\n4. Output — format, length, headings\n5. Success criteria — how you will judge \"good\"\n\nNo structure → noisy outputs. Structure → something you can steer and verify.\n\nWant control instead of guessing?\nhttps://promptanatomy.app",
+    "topic_key": "coherence_not_truth_underspec"
+  },
+  {
+    "id": 106,
+    "theme": "You need budget reallocation—not another AI roadmap.",
+    "option": 1,
+    "image": "/images/posts/106_Prompt_Anatomy.png",
+    "content": "When leadership says \"AI transformation,\" the missing move is often budget reallocation—not another slide deck.\n\n**Where spend quietly bleeds**\nManual reports nobody reads, repetitive admin, slow content production, and handoffs nobody owns.\n\n**The reframe**\nAI adoption is not a line item you \"find.\" It is moving hours from low-leverage repetition into workflows you can repeat next week.\n\n**Simple test**\nIf a task repeats weekly, it is a candidate for a documented prompt + review pattern—not heroic one-offs.\n\nCompanies that win rarely spend more; they spend on leverage instead of protecting broken process.\n\nSee how real AI systems replace manual work:\nhttps://promptanatomy.app",
+    "topic_key": "ai_budget_reallocation"
+  },
+  {
+    "id": 107,
+    "theme": "A raise in 2026 is an ROI decision.",
+    "option": 1,
+    "image": "/images/posts/107_Prompt_Anatomy.png",
+    "content": "Raises in 2026 are framed as ROI decisions more often than people say out loud. That is uncomfortable—and it is already how many orgs think.\n\n**The comparison is not \"human vs AI.\"**\nIt is output quality and reliability vs total cost of a workflow—including rework and delay.\n\n**What still earns a premium**\nJudgment under ambiguity, taste, accountability, and designing systems (prompts, checks, handoffs) others can run.\n\n**What gets compressed**\nRepeatable execution with vague specs—because that is where automation and templates bite first.\n\nUpgrade path: be the operator who structures work—not only the hands that execute.\n\nLearn how to become the system, not the cost:\nhttps://promptanatomy.app",
+    "topic_key": "raise_roi_operator_value"
+  },
+  {
+    "id": 108,
+    "theme": "Humans – 70% OFF.",
+    "option": 1,
+    "image": "/images/posts/108_Prompt_Anatomy.png",
+    "content": "\"Humans – 70% OFF\" is a meme. The economic version is a price collapse on certain kinds of output.\n\nAI does not replace every person. It compresses the cost of producing a class of deliverables when the spec is clear.\n\n**What used to take a small team and days can shrink to one operator, a short loop, and a fraction of the cost**—not because people vanished, but because the work was structured enough to amplify.\n\n**The uncomfortable question companies ask**\nWhat delivers the same outcome cheaper and faster with acceptable risk?\n\n**The personal defense**\nMove upstack: decisions, workflow design, verification, and owning outcomes—not only unstructured effort.\n\nLearn how to move from execution to control:\nhttps://promptanatomy.app",
+    "topic_key": "output_price_collapse_execution_risk"
+  },
+  {
+    "id": 109,
+    "theme": "AI is a mirror. Not a brain.",
+    "option": 1,
+    "image": "/images/posts/109_Prompt_Anatomy.png",
+    "content": "AI is a mirror, not a brain.\n\nAsk a flattering question, get a flattering completion. The model reflects and amplifies what you bring—bias, vagueness, and all.\n\n**If your thinking is shallow, you get polished shallow.**\nThe model will structure, expand, and stylize—it will not automatically correct a bad premise.\n\n**Power users**\n• Surface assumptions and ask for counter-arguments\n• Define success criteria before accepting a draft\n• Demand verification steps when facts matter\n\nThe useful question is not \"how smart is the model?\" but \"how tight is my thinking and my spec?\"\n\nLearn how to control the mirror:\nhttps://promptanatomy.app",
+    "topic_key": "ai_mirror_thinking_loop"
+  },
+  {
+    "id": 110,
+    "theme": "When you ask for a raise…",
+    "option": 1,
+    "image": "/images/posts/110_Prompt_Anatomy.png",
+    "content": "When you ask for a raise while a subscription tool can cover part of your execution stack, leadership still hears a business case—not a loyalty story.\n\n**They estimate ROI:** reliability, speed, quality, and risk—not hours logged.\n\n**If your work is repeatable and thinly specified, it is comparable to automation** on a spreadsheet. That is the pressure.\n\n**What is not a commodity**\nDesigning workflows, making tradeoffs, signing off under uncertainty, and improving systems over time.\n\nExecution alone is priced down. Leverage and judgment are not.\n\nLearn how to move from execution to control:\nhttps://promptanatomy.app",
+    "topic_key": "raise_vs_twenty_dollar_roi"
+  },
+  {
+    "id": 111,
+    "theme": "AI doesn't work. No—your prompt doesn't.",
+    "option": 1,
+    "image": "/images/posts/111_Prompt_Anatomy.png",
+    "content": "\"AI doesn't work\" often means \"I never gave it a job description.\"\n\n**You:** \"Make it better.\"\n**Model:** picks a direction you did not name.\n\n**You never defined** structure, tone, audience, goal, or format—so \"better\" has no test.\n\n**Swap the ask**\nInstead of one vague imperative, use: audience, goal, length, voice, and what a good result looks like.\n\nVague in → generic out. Structured in → something you can edit.\n\nLearn how to write prompts that actually work:\nhttps://promptanatomy.app",
+    "topic_key": "vague_prompt_generic_output"
+  },
+  {
+    "id": 112,
+    "theme": "Humans – 70% OFF: meme vs quiet reality.",
+    "option": 1,
+    "image": "/images/posts/112_Prompt_Anatomy.png",
+    "content": "The \"70% OFF\" joke lands because the slow version of the story is already here: hiring freezes, smaller teams asked for more output, and tools absorbing repetitive slices of work.\n\n**It is rarely sci-fi overnight. It is budget and throughput.**\n\n**If your job is repetitive and well-bounded, it is price-comparable** in a way that creative judgment is not.\n\n**The out**\nBuild and own workflows: where context lives, how outputs are checked, and how work hands off. Be the person who runs the stack, not only the task inside it.\n\nLearn how to move from execution to control:\nhttps://promptanatomy.app",
+    "topic_key": "humans_discount_quiet_restructuring"
+  },
+  {
+    "id": 113,
+    "theme": "Most people use AI. Very few control it.",
+    "option": 1,
+    "image": "/images/posts/113_Prompt_Anatomy.png",
+    "content": "Most people use AI. Fewer people control it—because control is architecture, not vibes.\n\n**Level 1 — Tokens:** text in, text out; you are guessing.\n**Level 2 — Context:** richer prompts; still brittle without checks.\n**Level 3 — Sampling:** tune creativity; still not reliability by itself.\n**Level 4 — Verification:** you compare outputs to criteria and sources.\n**Level 5 — Grounded systems (e.g. RAG):** retrieval + process so answers tie to real data.\n\nThe shift is from \"ask better questions\" to **design better systems**: inputs, tools, memory, and review.\n\nLearn how to move from user to operator:\nhttps://promptanatomy.app",
+    "topic_key": "ai_control_levels_rag"
+  },
+  {
+    "id": 114,
+    "theme": "You know the basics. That's why you're stuck.",
+    "option": 1,
+    "image": "/images/posts/114_Prompt_Anatomy.png",
+    "content": "Knowing \"a few good prompts\" is not the same as compounding leverage. Basics without architecture cap your upside.\n\n**Five shifts that change scale**\n1. **Context engineering** — precision framing, not longer rants.\n2. **Explicit reasoning** — show steps when mistakes are expensive.\n3. **Tool use** — APIs and actions, not chat-only.\n4. **Durable memory** — preferences and facts that survive sessions.\n5. **Agents / workflows** — repeatable pipelines, not one-off magic.\n\n**Illustrative ladder (not a census):** many people stay on one-off tasks; some build handoffs and specs; **few** wire end-to-end systems. Only that last pattern compounds.\n\nAI scales with architecture, not with raw usage volume.\n\nLearn how to move from prompts to systems:\nhttps://promptanatomy.app",
+    "topic_key": "prompts_to_systems_architecture"
+  },
+  {
+    "id": 115,
+    "theme": "Same tool. Different outcome.",
+    "option": 1,
+    "image": "/images/posts/115_Prompt_Anatomy.png",
+    "content": "Same subscription. Same model. Wildly different outcomes.\n\n**User pattern:** occasional prompts, hope, manual cleanup.\n\n**Operator pattern:** saved briefs, checklists, reuse, and a review gate before anything ships.\n\nLeverage is not access—it is **how work is structured** before and after the model answers.\n\nYou rarely lose to \"AI.\" You lose to people who run a clearer system around the same API.\n\nLearn how to move from user to operator:\nhttps://promptanatomy.app",
+    "topic_key": "same_tool_user_vs_operator"
+  },
+  {
+    "id": 116,
+    "theme": "Memory is not storage. It's leverage.",
+    "option": 1,
+    "image": "/images/posts/116_Prompt_Anatomy.png",
+    "content": "If you treat memory as chat history, you miss where leverage actually lives.\n\n**Session memory:** continuity for the next few turns—then it evaporates.\n\n**Profile-style memory:** preferences and voice—useful, still passive if it does not drive behavior.\n\n**Workflow memory:** context embedded in steps—templates, checklists, and gates so you do not rewrite the same brief every time.\n\nIntentional memory cuts rework. Accidental memory leaves you re-explaining forever.\n\nLearn how to build memory into your workflows:\nhttps://promptanatomy.app",
+    "topic_key": "ai_memory_three_levels_workflow"
+  },
+  {
+    "id": 117,
+    "theme": "AI doesn't replace professionals. It replaces fragmented workflows.",
+    "option": 1,
+    "image": "/images/posts/117_Prompt_Anatomy.png",
+    "content": "AI does not replace \"professionals\" as a category. It replaces **fragmented workflows** where handoffs and context leaks eat the clock.\n\n**Messy path:** search → notes → argue in your head → draft in isolation → surprise at review.\n\n**Operator path:** research with sources → structure and stress-test logic → finalize in a doc with a defined template.\n\nSame job title, different pipeline. Value sits in **how tools connect**, not in how many tabs you open.\n\nLearn how to build real AI workflows:\nhttps://promptanatomy.app",
+    "topic_key": "ai_stack_fragmented_workflows"
+  },
+  {
+    "id": 118,
+    "theme": "It's not the tool. It's how you use it.",
+    "option": 1,
+    "image": "/images/posts/118_Prompt_Anatomy.png",
+    "content": "**Myth:** I need a newer model.\n**Reality:** I need a clearer spec and a review loop.\n\nTool-hopping feels productive. Often it avoids fixing inputs and constraints.\n\n**Same stack, better results when you**\n• Name audience and goal before generating\n• Lock output shape (bullets, memo, code, table)\n• Run a second pass against explicit criteria\n\nModels reward clarity more than logos.\n\nLearn how to turn any AI into a predictable system:\nhttps://promptanatomy.app",
+    "topic_key": "tool_hopping_vs_input_clarity"
+  },
+  {
+    "id": 119,
+    "theme": "Not all prompts are equal.",
+    "option": 1,
+    "image": "/images/posts/119_Prompt_Anatomy.png",
+    "content": "Prompts are not interchangeable labels—they are different jobs.\n\n**SYSTEM** — behavior: tone, boundaries, safety, defaults.\n**MASTER** — task: role, context, goal, constraints.\n**PROCESS** — execution logic: steps, checks, intermediate artifacts.\n**AGENTIC** — actions: tools, APIs, retrieval, multi-step runs.\n\nMost people live in MASTER-only asks. That is why outputs feel unstable: the other layers never got specified.\n\nStack them when you need repeatability at scale.\n\nLearn how to build full prompt systems:\nhttps://promptanatomy.app",
+    "topic_key": "four_prompt_types_system_stack"
+  },
+  {
+    "id": 120,
+    "theme": "Most people prompt once. Then complain.",
+    "option": 1,
+    "image": "/images/posts/120_Prompt_Anatomy.png",
+    "content": "One-shot prompting treats the model like a vending machine. Operators treat it like **iteration with a definition of done**.\n\n**Amateur loop:** prompt → disappointment → random retry.\n\n**Operator loop:** draft → score against criteria → targeted revision → ship.\n\nQuality usually comes from **controlled refinement**, not from a single perfect sentence.\n\nLearn how to turn prompting into a system:\nhttps://promptanatomy.app",
+    "topic_key": "iteration_loop_controlled_refinement"
+  },
+  {
+    "id": 121,
+    "theme": "Most users write one prompt. Power users stack four.",
+    "option": 1,
+    "image": "/images/posts/121_Prompt_Anatomy.png",
+    "content": "One prompt is a note. Four stacked layers are an architecture.\n\n1. **SYSTEM** — how the assistant behaves.\n2. **MASTER** — what it is doing for whom, under what constraints.\n3. **PROCESS** — how it reasons step by step.\n4. **AGENTIC** — how it uses tools and external facts.\n\nSkip the stack and you get heroic single prompts that break next week. Build the stack and outputs become repeatable.\n\nLearn how to build full prompt stacks:\nhttps://promptanatomy.app",
+    "topic_key": "prompt_stack_four_layers_operational"
+  },
+  {
+    "id": 122,
+    "theme": "You're not slow. You're just reworking.",
+    "option": 1,
+    "image": "/images/posts/122_Prompt_Anatomy.png",
+    "content": "Slowness is often rework: vague prompt → weak output → tweak → retry until the deadline saves you.\n\n**Structured path:** role, context, format, success criteria up front—then one or two targeted revisions instead of ten random ones.\n\nThe bottleneck is rarely model speed. It is **missing structure** that forces guessing on both sides.\n\nLearn how to replace retries with precision:\nhttps://promptanatomy.app",
+    "topic_key": "retries_missing_structure_clarity"
+  },
+  {
+    "id": 123,
+    "theme": "RAG is not one thing.",
+    "option": 1,
+    "image": "/images/posts/123_Prompt_Anatomy.png",
+    "content": "\"We added RAG\" is not one capability—it is a family of designs.\n\n**Basic:** retrieve chunks, stuff context, answer—sensitive to chunking and noise.\n**Smarter retrieval:** filter, re-rank, and curate what enters the prompt.\n**Agentic:** plan, call tools, verify, and revise before you treat an answer as final.\n\nTeams stop at basic retrieval, then blame the model for hallucinations the architecture never prevented.\n\nRAG is architecture, not a checkbox.\n\nLearn how to build RAG that works:\nhttps://promptanatomy.app",
+    "topic_key": "rag_levels_basic_to_agentic"
   }
 ]
