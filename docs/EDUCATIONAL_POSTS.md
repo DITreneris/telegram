@@ -18,12 +18,17 @@ Use this doc when you want **longer, non-stub** copy than the short blocks in [`
 
 Keep Telegram-facing bot copy **English** per project rules.
 
+## PNG vs body (asset backlog)
+
+Some slots (e.g. **9, 19, 29**) may keep a **confrontational or percentage-style hook on the PNG** while **body** copy follows epistemic hygiene (no fake census stats). **Aligning image and body** requires new or revised artwork—not only `posts.json`. Track as a design backlog item when refreshing the deck.
+
 **Role-stack cards** (“How [role] uses AI: decisions & stack”): you may vary **hooks, bridges, and closings** to reduce repetitive rhythm as long as **layer meanings, tool names, and URLs** in each `🔹` block stay the same and the lesson remains *decisions + layered workflow*.
 
 ## Quiz design rules
 
 - **One lesson per post:** The question should fail if the reader only memorized “pick the longer option.”
 - **Plausible wrong option:** Same topic, wrong lever (e.g. “switch models” vs “tighten constraints”).
+- **Binary default:** The bot manifest and UX assume **two options** today. **Three-option** (near-miss distractors) is allowed by [schemas.py](../schemas.py) and Telegram, but needs a deliberate product pass (copy + any handler copy). See also [CURRICULUM_UX_AUDIT.md](CURRICULUM_UX_AUDIT.md) §4.
 - **`theme_note`:** Short debrief after the quiz—tie back to the post headline when possible.
 - **Batch tooling:** [`scripts/fill_stub_posts_and_expand_polls.py`](../scripts/fill_stub_posts_and_expand_polls.py) fills coverage; [`scripts/apply_poll_lesson_patches.py`](../scripts/apply_poll_lesson_patches.py) can refresh lesson quizzes when themes stay on the “prompt craft” track.
 - **Heuristic QA:** [`scripts/audit_post_quiz_semantics.py`](../scripts/audit_post_quiz_semantics.py) — lists generic stub bodies, `theme_note` vs `theme` mismatches, and low token overlap between poll `question` and post text (rough signal only).

@@ -15,7 +15,10 @@ These steps mirror [`.github/workflows/ci.yml`](../.github/workflows/ci.yml). A 
 | Python tests | `pip install -r requirements-dev.txt` then `python -m pytest` | From repo root; `pytest.ini` sets `pythonpath` and `testpaths`. |
 | Content alignment audit | `python scripts/audit_posts_png_quizzes.py` | Fails on broken `posts.json` ↔ PNG ↔ `polls.json` alignment. |
 | API TypeScript | `npm ci` then `npm run check:api` | Root `package-lock.json`; Node **22.x** (see `.nvmrc`). |
+| API unit tests | `npm ci` then `npm run test:api` | `node:test` + `tsx`; covers `api/publish_helpers.ts` (publish URL / auth helpers). |
 | Web build | `node scripts/sync_polls_to_web.mjs` then `cd web && npm ci && npm run build` | Ensures synced polls + Vite build. |
+| npm audit (advisory) | CI job **dependency_audit**: `npm audit --omit=dev` at repo root and in `web/` | Steps use `continue-on-error: true` so PRs stay mergeable; triage the log. |
+| pip-audit (advisory) | CI job **pip_audit**: `pip-audit -r requirements.txt` | Same: visibility without blocking merges. |
 
 **Optional local “full mirror”** (see [RUNBOOK.md](RUNBOOK.md#running-tests)): run the rows above in order after substantive changes.
 
@@ -27,10 +30,12 @@ These are the **long-lived contracts** from [ARCHITECTURE.md](ARCHITECTURE.md). 
 
 ### Queue and state
 
-- **`peek_next_item`** never persists state; it only reads manifest + `state.json`.
+- **`peek_next_item`** never persists state; it only reads manifest + queue state (`config.STATE_PATH`, default `data/state.json`; env **`QUEUE_STATE_PATH`** on hosts like Railway + volume).
 - **`record_delivered`** runs **only after** a successful Telegram send (`/next` and scheduled jobs share this rule).
+- **Optional X posting** (`ENABLE_X_POSTING`): after that Telegram success, handlers may attempt a **best-effort** X post for **`photo` items only**; X failure **does not** block `record_delivered`.
+- **`x_posted_item_ids`** in the state file (optional list of strings, default `[]`) records item ids successfully posted to X; omit or preserve when editing state by hand.
 - Failed send or failed peek must **not** advance `last_delivered_id`.
-- State is read/written only through **`state_store.py`** (`load`, `save_atomic`, `default_state`); handlers must not hand-edit `data/state.json`.
+- State is read/written only through **`state_store.py`** (`load`, `save_atomic`, `default_state`); handlers must not hand-edit the state file path configured for the process (default `data/state.json`).
 - **One send implementation:** `send_content_item` in `bot/handlers.py` for both `/next` and `run_scheduled_delivery`.
 - **Serialization:** shared `asyncio.Lock` around peek → send → record for `/next` and scheduled delivery.
 
@@ -80,6 +85,7 @@ When you touch an area, run **`python -m pytest`**; prefer adding or extending t
 | Posts + polls → manifest sync | `tests/test_queue_manifest_sync.py` |
 | Config / env validation | `tests/test_config_validate.py` |
 | `LOG_LEVEL` | `tests/test_config_log_level.py` |
+| `api/publish` helpers (SSRF host check, bearer match) | `api/publish_helpers.test.ts` (`npm run test:api`) |
 
 ---
 
@@ -88,7 +94,9 @@ When you touch an area, run **`python -m pytest`**; prefer adding or extending t
 Authoring and regeneration are documented in [AGENTS.md](../AGENTS.md) and [QUEUE_SYNC.md](QUEUE_SYNC.md). Golden rules:
 
 - Prefer **`python scripts/sync_queue_from_posts.py`** (with or without `--in-place`) over hand-editing `data/content.json`.
-- After edits to **`web/public/posts.json`**, **`data/polls.json`**, or post images under **`web/public/images/posts/`** / **`data/images/`**, run **`python scripts/audit_posts_png_quizzes.py`** locally (CI always runs it).
+- After edits to **`web/public/posts.json`**, **`data/polls.json`**, or post images under **`web/public/images/posts/`** / **`data/images/`**, run **`python scripts/audit_posts_png_quizzes.py`** locally (CI always runs it after pytest in the **python** job).
+- After **`data/polls.json`** copy changes, run **`node scripts/sync_polls_to_web.mjs`** before a local **`web/`** build — same order as the **web** CI job (sync, then `npm ci` / `npm run build`).
+- **Optional (not CI):** **`python scripts/audit_post_quiz_semantics.py`** for heuristic post ↔ quiz wording overlap; **`python scripts/rotate_poll_correct_options.py`** when intentionally rebalancing binary **`correct_option_id`** positions ([CURRICULUM_UX_AUDIT.md](CURRICULUM_UX_AUDIT.md) §4).
 - Regenerating the manifest can **reorder** items; `last_delivered_id` may point at a different “next” item—operators must account for that (see [RUNBOOK.md](RUNBOOK.md#content-manifest)).
 
 ---
@@ -99,6 +107,7 @@ Update **`docs/golden_standard.md`** when you:
 
 - add or remove a **CI job** or change its commands;
 - introduce a **new invariant** (e.g. new item type, new state field, new env var required at startup);
-- add a **new test file** that is part of the regression story.
+- add a **new test file** that is part of the regression story;
+- change **required** local steps for the content pipeline (e.g. new audit script in CI, or a new mandatory sync step before web build).
 
 Keep the **automated gate** table in §1 in sync with `.github/workflows/ci.yml`.

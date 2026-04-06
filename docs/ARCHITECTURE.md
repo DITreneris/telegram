@@ -2,14 +2,14 @@
 
 ## Overview
 
-An admin-only Telegram bot (MVP) built with **python-telegram-bot** 21+ (`Application`, `CommandHandler`, `CallbackQueryHandler`). It exposes `/start` (intro + inline **Next** / **Status**), `/next`, and `/status`. **Command menu** (`set_my_commands`): empty default scope; `/start`, `/next`, `/status` registered for the admin’s private chat (`BotCommandScopeChat(ADMIN_CHAT_ID)`). Canonical user-facing English strings and BotFather paste text live in `bot/bot_copy.py`. Only the configured **admin user** (Telegram user id in `ADMIN_CHAT_ID`) can use commands or callbacks. Optional **scheduled** delivery (08:00, 08:30, 19:00, and 19:30 local time via `SCHEDULE_TZ`) uses the same queue as `/next` when `ENABLE_SCHEDULED_POSTING` is enabled.
+An admin-only Telegram bot (MVP) built with **python-telegram-bot** 21+ (`Application`, `CommandHandler`, `CallbackQueryHandler`). It exposes `/start` (intro + inline **Next** / **Status**), `/next`, and `/status`. **Command menu** (`set_my_commands`): empty default scope; `/start`, `/next`, `/status` registered for the admin’s private chat (`BotCommandScopeChat(ADMIN_CHAT_ID)`). Canonical user-facing English strings and BotFather paste text live in `bot/bot_copy.py`. Only the configured **admin user** (Telegram user id in `ADMIN_CHAT_ID`) can use commands or callbacks. Optional **scheduled** delivery (08:00, 08:15, 08:30, 19:00, 19:15, and 19:30 local time via `SCHEDULE_TZ`) uses the same queue as `/next` when `ENABLE_SCHEDULED_POSTING` is enabled.
 
 ## Runtime flow
 
 1. **Entry**: `run.py` calls `bot.main.run_bot()`.
 2. **Startup**: `validate_config()` ensures `BOT_TOKEN` and `ADMIN_CHAT_ID` are set. `logging.basicConfig` uses `resolve_log_level()` from `config.py` (optional `LOG_LEVEL` env). An `Orchestrator` is constructed with paths from `config.py`, then `load_manifest()` loads `data/content.json`.
 3. **Application**: `Application.builder().token(...).post_init(...).build()` runs **`post_init`** to register bot commands (scoped menu for admin DM only), registers command + callback handlers, and a **global `error_handler`** that logs uncaught exceptions from update handlers (it does not send user-facing Telegram text). `bot_data` holds `orchestrator`, `admin_chat_id` (the admin’s numeric **user** id; env name unchanged), and when scheduling is on, `schedule_target_chat_id` (resolved at startup: explicit `SCHEDULE_TARGET_CHAT_ID` or, if unset, **`ADMIN_CHAT_ID`** — see `validate_config()` in `config.py`).
-4. **Optional jobs**: If `ENABLE_SCHEDULED_POSTING`, `application.job_queue` registers four `run_daily` jobs (`scheduled_morning_1`, `scheduled_morning_2`, `scheduled_evening_1`, `scheduled_evening_2` at 08:00, 08:30, 19:00, 19:30) calling `run_scheduled_delivery` in `bot/handlers.py` (same peek → send → `record_delivered` contract as `/next`). Requires `python-telegram-bot[job-queue]` and a valid IANA `SCHEDULE_TZ` (default `Europe/Vilnius`); `tzdata` is listed in `requirements.txt` for Windows `ZoneInfo` support.
+4. **Optional jobs**: If `ENABLE_SCHEDULED_POSTING`, `application.job_queue` registers six `run_daily` jobs (`scheduled_morning_1`…`scheduled_morning_3`, `scheduled_evening_1`…`scheduled_evening_3` at 08:00, 08:15, 08:30, 19:00, 19:15, 19:30) calling `run_scheduled_delivery` in `bot/handlers.py` (same peek → send → `record_delivered` contract as `/next`). Requires `python-telegram-bot[job-queue]` and a valid IANA `SCHEDULE_TZ` (default `Europe/Vilnius`); `tzdata` is listed in `requirements.txt` for Windows `ZoneInfo` support.
 5. **Polling**: `application.run_polling(drop_pending_updates=True)`.
 
 Run **one** bot process when scheduling is enabled; multiple processes sharing `state.json` can interleave queue advances.
@@ -18,14 +18,14 @@ Run **one** bot process when scheduling is enabled; multiple processes sharing `
 
 | Module | Responsibility |
 |--------|------------------|
-| `config.py` | `BASE_DIR`, `CONTENT_PATH`, `STATE_PATH`, env vars, `validate_config()` (incl. optional schedule flags), `resolve_log_level()` |
+| `config.py` | `BASE_DIR`, `CONTENT_PATH`, `STATE_PATH` (default `data/state.json`; override with env **`QUEUE_STATE_PATH`** for hosts like Railway + volume), env vars, `validate_config()` (incl. optional schedule flags), `resolve_log_level()` |
 | `bot/main.py` | Build app, wire `bot_data`, **`post_init`** (`set_my_commands`), optional `JobQueue` daily jobs, register handlers, start polling |
 | `bot/handlers.py` | Admin check, `/start`, `/next`, `/status`, inline **`callback_nav`** (`nav_next` / `nav_status`); shared **`_run_next`** / **`_run_status`**; `send_content_item`, `run_scheduled_delivery`; send text, photo, document, or **poll** (Telegram quiz) per `ContentItem`; **`split_telegram_text_chunks`** splits **`text`** bodies and poll **`theme_note`** into ≤ **`MAX_MESSAGE_CHARS`** (4096) segments; shared **`asyncio.Lock`** (`_next_lock`) serializes `/next`, callbacks, and scheduled delivery |
 | `bot/bot_copy.py` | Canonical EN copy: `/start` body, BotFather Description/About (manual paste), `bot_menu_commands()` for `set_my_commands` |
 | `orchestrator.py` | Load manifest, `peek_next_item` / `record_delivered`, `status_text()` (includes next item `id` and `type`, same rule as `peek_next_item`) |
 | `content_loader.py` | Read JSON from disk, `parse_manifest()` |
 | `schemas.py` | `ContentItem`, `ContentManifest`, manifest validation (`version` must be `1`; optional media `caption` max `MAX_CAPTION_CHARS`) |
-| `state_store.py` | Load/save `data/state.json` with atomic write and `updated_at` timestamp |
+| `state_store.py` | Load/save queue state JSON (`config.STATE_PATH`) with atomic write and `updated_at` timestamp |
 
 ## Keep it simple (KISS)
 
@@ -82,7 +82,7 @@ The repository exposes **two independent families** of sends to Telegram: the **
 
 | Path | Entry | Content source | State |
 |------|--------|----------------|--------|
-| **Polling bot (queue)** | `python run.py` → [`bot/main.py`](../bot/main.py) | `data/content.json` via `Orchestrator` | `last_delivered_id` in `data/state.json` advances only after a successful bot send (`peek` → send → `record_delivered`) |
+| **Polling bot (queue)** | `python run.py` → [`bot/main.py`](../bot/main.py) | `data/content.json` via `Orchestrator` | `last_delivered_id` in the state file (default `data/state.json`, or **`QUEUE_STATE_PATH`**) advances only after a successful bot send (`peek` → send → `record_delivered`) |
 | **Scheduled queue** | Same process: `JobQueue` → `run_scheduled_delivery` | Same manifest and `Orchestrator` as `/next` | Same as queue; sends to `SCHEDULE_TARGET_CHAT_ID` if set, else `ADMIN_CHAT_ID` (see **Target chat** below) |
 | **HTTP publish (web UI)** | Browser → `POST /api/publish` → [`api/publish.ts`](../api/publish.ts) | Post text from the social copy UI (not the manifest queue); optional `photo` URL (HTTPS, **same host** as the request) for `sendPhoto` | No queue cursor; caption up to ~1024 characters, then remaining text in ~4096-character messages |
 
@@ -111,7 +111,7 @@ flowchart TB
 ## Data
 
 - **`data/content.json`**: Manifest with `version: 1` and `items[]`. Each item has `id`, `type` (`text` \| `photo` \| `document` \| `poll`), and fields per type (e.g. `text`, or `path` relative to repo root for media with optional `caption` up to **140** characters when set; for **`poll`**, quiz fields `question`, `options`, `correct_option_id`, plus optional `theme_note` and `related_post_id`—see `parse_manifest` in [`schemas.py`](../schemas.py) and [QUEUE_SYNC.md](QUEUE_SYNC.md)).
-- **`data/state.json`**: `last_delivered_id` (string or null), `updated_at` (ISO string). Created/updated by `state_store.save_atomic`.
+- **Queue state file** (default **`data/state.json`**; set **`QUEUE_STATE_PATH`** for a persistent path, e.g. on a Railway volume): `last_delivered_id` (string or null), `updated_at` (ISO string), optional `x_posted_item_ids`. Created/updated by `state_store.save_atomic`.
 
 ## Queue semantics
 
@@ -125,21 +125,23 @@ flowchart TB
 
 **Recommended pattern in this repo (no extra schema fields):** use **two consecutive `items`** in `content.json`:
 
-1. A **`photo`** or **`document`** item with an optional **`caption`** that acts as a short **hook**. The manifest enforces **at most 140 characters** for `caption` when it is set. That hook is suitable for Telegram’s caption and is intended to double as copy for a future **X/Twitter**-style short post (same text source).
-2. A following **`text`** item with the **full body**, including any **call to action**. That long block is delivered via `send_message` and is **not** intended for reuse on Twitter when a short-form integration is added—the Twitter path should use only the hook-sized caption field.
+1. A **`photo`** or **`document`** item with an optional **`caption`** that acts as a short **hook**. The manifest enforces **at most 140 characters** for `caption` when it is set. That hook is suitable for Telegram’s caption and, when optional X posting is enabled, is reused as the **X post text** for **`photo`** items only (same file + caption).
+2. A following **`text`** item with the **full body**, including any **call to action**. That long block is delivered via `send_message` and is **not** posted to X—the X path uses only the hook-sized caption on the preceding **`photo`** item.
+
+**Optional X (Twitter) mirror:** when `ENABLE_X_POSTING` and Twitter OAuth env vars are set (`config.validate_config`), `bot/handlers.py` calls `x_poster.post_photo_with_caption` **after** a successful Telegram `send_photo` and **before** `record_delivered`. Only **`photo`** manifest items are mirrored; **`text`**, **`poll`**, and **`document`** are skipped. X failure does not block the queue: `last_delivered_id` still advances. Successful X posts for an item `id` are tracked in `state.json` under **`x_posted_item_ids`** (`state_store.load` / `Orchestrator.mark_x_posted`) to avoid duplicate X posts if the same item is ever retried after a partial failure.
 
 One logical “drop” therefore requires **two `/next` invocations** in order. The queue is **cyclic**: after the last item, the next item wraps to the first—keep paired hook + body entries adjacent in the manifest if you want them delivered back-to-back in each cycle.
 
 ## Scheduled posting (configuration)
 
-- **`ENABLE_SCHEDULED_POSTING`**: when true, four daily jobs run at **08:00**, **08:30**, **19:00**, and **19:30** in `SCHEDULE_TZ` (IANA; default `Europe/Vilnius`).
+- **`ENABLE_SCHEDULED_POSTING`**: when true, six daily jobs run at **08:00**, **08:15**, **08:30**, **19:00**, **19:15**, and **19:30** in `SCHEDULE_TZ` (IANA; default `Europe/Vilnius`).
 - **`SCHEDULE_TARGET_CHAT_ID`**: optional in `.env`. If unset, **`validate_config()`** sets the runtime target to **`ADMIN_CHAT_ID`** (private DM with the bot). If you use `/next` in a **group**, the group’s chat id differs from your user id—set `SCHEDULE_TARGET_CHAT_ID` to that group id so scheduled posts land in the same place as manual `/next` there.
 
 `schedule_next_delivery()` in `orchestrator.py` remains a no-op stub; timing is owned by `JobQueue` in `bot/main.py`.
 
 ## Production shape (hosting)
 
-- **Queue bot** (`run.py`, polling, optional `JobQueue`): deployed as one long-running worker on **[Railway](https://railway.com/)** — see [RUNBOOK.md](RUNBOOK.md#hosting-the-queue-bot-railway) and repo [`railway.toml`](../railway.toml).
+- **Queue bot** (`run.py`, polling, optional `JobQueue`): deployed as one long-running worker on **[Railway](https://railway.com/)** — see [RUNBOOK.md](RUNBOOK.md#hosting-the-queue-bot-railway) and repo [`railway.toml`](../railway.toml). Use **`QUEUE_STATE_PATH`** on a mounted volume so redeploys do not reset the queue cursor ([RUNBOOK.md](RUNBOOK.md) — `data/state.json` on Railway).
 - **Social web + HTTP publish** (`/api/publish`): **Vercel** (or static host) — separate from the bot process; does not advance `state.json`.
 
 ## Future expansion (not implemented)
