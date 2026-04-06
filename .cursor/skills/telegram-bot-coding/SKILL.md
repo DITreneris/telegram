@@ -19,7 +19,7 @@ description: >-
 ## Conventions
 
 - **Handlers** live in `bot/handlers.py`; register new commands in `bot/main.py`.
-- Use `context.bot_data["orchestrator"]` and `context.bot_data["admin_chat_id"]`. Handlers may read `schedule_notify_on_failure`; when scheduling is on, also `schedule_target_chat_id`. Keep the admin gate for privileged actions; serialize `/next` and scheduled sends with the shared `_next_lock` in `bot/handlers.py`.
+- Use `context.bot_data["orchestrator"]` and `context.bot_data["admin_chat_id"]`. Handlers may read `schedule_notify_on_failure`; when scheduling is on, also `schedule_target_chat_id`. When X posting is enabled, also `enable_x_posting`, `x_notify_on_failure`, and `x_twitter_credentials` (see `bot/main.py`). Keep the admin gate for privileged actions; serialize `/next` and scheduled sends with the shared `_next_lock` in `bot/handlers.py`.
 - **Orchestration** (next item, state, status text) stays in `orchestrator.py`; **validation** in `schemas.py` / `content_loader.py`.
 - **User-visible strings** (Telegram messages) stay **English** unless the user explicitly requests another language.
 - Prefer small, focused diffs; match existing typing and `from __future__ import annotations`.
@@ -42,4 +42,5 @@ description: >-
 | Posts + polls → manifest | `queue_manifest_sync.py`, `scripts/sync_queue_from_posts.py` — [QUEUE_SYNC.md](../../../docs/QUEUE_SYNC.md), [AGENTS.md](../../../AGENTS.md) **Content pipeline** |
 | Audit posts / PNG / quizzes | `scripts/audit_posts_png_quizzes.py`, [CONTENT_INVENTORY.md](../../../docs/CONTENT_INVENTORY.md) |
 | Secrets / paths | `config.py`, `.env.example`, [RUNBOOK.md](../../../docs/RUNBOOK.md) |
+| Optional X mirror (queue `photo` only) | `x_poster.py`, handlers after Telegram `send_photo`; [ARCHITECTURE.md](../../../docs/ARCHITECTURE.md), [RUNBOOK.md](../../../docs/RUNBOOK.md) |
 | Deploy queue bot | [railway.toml](../../../railway.toml) (**RAILPACK**, `python run.py`), [RUNBOOK.md](../../../docs/RUNBOOK.md#hosting-the-queue-bot-railway) |

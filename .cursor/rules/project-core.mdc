@@ -22,7 +22,8 @@ alwaysApply: true
 ## Layout
 
 - Bot wiring: `bot/main.py`, handlers in `bot/handlers.py`.
-- Queue and state: `orchestrator.py`, `state_store.py`, `data/content.json`, `data/state.json`.
+- Queue and state: `orchestrator.py`, `state_store.py`, `data/content.json`, queue state file (default `data/state.json`; env **`QUEUE_STATE_PATH`** on Railway + volume — see `docs/RUNBOOK.md`).
+- Optional X (Twitter) mirror for **`photo`** queue items only: [`x_poster.py`](../../x_poster.py) — env and behavior in [docs/RUNBOOK.md](../../docs/RUNBOOK.md), [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md).
 
 ## Social content and manifest (scale)
 
@@ -33,4 +34,5 @@ alwaysApply: true
 ## Quality assurance
 
 - After meaningful Python changes, run **`python -m pytest`** from the repo root with dev deps installed ([docs/RUNBOOK.md](../../docs/RUNBOOK.md#running-tests)). CI also runs `python scripts/audit_posts_png_quizzes.py` after pytest.
+- After editing [data/polls.json](../../data/polls.json) copy for the web UI, run **`node scripts/sync_polls_to_web.mjs`** (the **web** CI job does this before `npm run build`). Optional local checks: **`python scripts/audit_post_quiz_semantics.py`** (heuristic quiz ↔ post overlap), **`python scripts/rotate_poll_correct_options.py`** when rebalancing binary answer positions ([docs/CURRICULUM_UX_AUDIT.md](../../docs/CURRICULUM_UX_AUDIT.md) §4).
 - Regression checklist and invariants: [docs/golden_standard.md](../../docs/golden_standard.md). See **Quality assurance** in [AGENTS.md](../../AGENTS.md).

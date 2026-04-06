@@ -11,7 +11,7 @@ description: >-
 
 ## Instructions
 
-1. **Start from the index**: Read [docs/INDEX.md](../../../docs/INDEX.md) to see canonical docs and paths. For **regression / CI / invariants**, also [docs/golden_standard.md](../../../docs/golden_standard.md).
+1. **Start from the index**: Read [docs/INDEX.md](../../../docs/INDEX.md) to see canonical docs and paths. For **regression / CI / invariants**, also [docs/golden_standard.md](../../../docs/golden_standard.md). For **dated long-term milestones** (planning only, not a contract), [docs/ROADMAP.md](../../../docs/ROADMAP.md).
 2. **Content at scale**: Do not use [archive/30_posts.txt](../../../docs/archive/30_posts.txt) as current scope. For post/quiz/PNG counts use [web/public/posts.json](../../../web/public/posts.json), [data/polls.json](../../../data/polls.json), and `python scripts/audit_posts_png_quizzes.py`. **POST_IMAGES** + **CONTENT_INVENTORY** = actual coverage; **POST_IMAGES_GAP_1_100** = planned 1–100 slots only.
 3. **Versioning and history**: Use [docs/VERSIONING.md](../../../docs/VERSIONING.md) for doc-management rules; use [CHANGELOG.md](../../../CHANGELOG.md) for what changed when.
 4. **Answer from sources**: Prefer [docs/ARCHITECTURE.md](../../../docs/ARCHITECTURE.md), [docs/RUNBOOK.md](../../../docs/RUNBOOK.md), and [AGENTS.md](../../../AGENTS.md). Read code only when the docs are silent or you must verify behavior.

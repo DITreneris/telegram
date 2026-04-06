@@ -15,8 +15,9 @@ alwaysApply: false
 
 ## Content docs at scale
 
-- Do **not** cite [docs/archive/30_posts.txt](../../docs/archive/30_posts.txt) or legacy “30 posts” as current counts. Canonical: [web/public/posts.json](../../web/public/posts.json), [data/polls.json](../../data/polls.json), and `python scripts/audit_posts_png_quizzes.py`.
+- Do **not** cite [docs/archive/30_posts.txt](../../docs/archive/30_posts.txt) or legacy “30 posts” as current counts. Canonical: [web/public/posts.json](../../web/public/posts.json), [data/polls.json](../../data/polls.json), and `python scripts/audit_posts_png_quizzes.py` (currently **98** post rows; `id` range has intentional gaps — see [CURRICULUM_UX_AUDIT.md](../../docs/CURRICULUM_UX_AUDIT.md) §1).
 - Distinguish in summaries: **actual coverage** ([POST_IMAGES.md](../../docs/POST_IMAGES.md), [CONTENT_INVENTORY.md](../../docs/CONTENT_INVENTORY.md), `audit_post_images.py` / `audit_posts_png_quizzes.py`) vs **planned 1–100 slots** ([POST_IMAGES_GAP_1_100.md](../../docs/POST_IMAGES_GAP_1_100.md)).
+- **Quiz copy QA (optional, not CI):** `python scripts/audit_post_quiz_semantics.py` — see batch checklist in [EDUCATIONAL_POSTS.md](../../docs/EDUCATIONAL_POSTS.md). **`correct_option_id` rotation:** [scripts/rotate_poll_correct_options.py](../../scripts/rotate_poll_correct_options.py); rationale in [CURRICULUM_UX_AUDIT.md](../../docs/CURRICULUM_UX_AUDIT.md) §4.
 
 ## Changelog
 
