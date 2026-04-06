@@ -1,4 +1,6 @@
 .env
+# Local scratch / notes (not part of the repo)
+best_tools.txt
 .venv/
 venv/
 __pycache__/
