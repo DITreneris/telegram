@@ -15,6 +15,7 @@ from telegram.ext import ContextTypes
 from bot.bot_copy import START_MESSAGE
 from orchestrator import Orchestrator
 from schemas import MAX_MESSAGE_CHARS, ContentItem
+from x_poster import post_photo_with_caption
 
 logger = logging.getLogger(__name__)
 
@@ -154,6 +155,70 @@ async def _notify_admin_schedule_send_failure(
         logger.exception("scheduled_delivery: could not notify admin")
 
 
+async def _notify_admin_x_post_failure(
+    bot: Bot,
+    admin_chat_id: int,
+    *,
+    item: ContentItem,
+    exc: BaseException,
+) -> None:
+    """Best-effort DM when X post fails after Telegram succeeded."""
+    try:
+        text = (
+            f"X (Twitter) post failed after Telegram delivery: id={item.id}. "
+            f"{type(exc).__name__}: {exc}"
+        )
+        if len(text) > MAX_MESSAGE_CHARS:
+            text = text[: MAX_MESSAGE_CHARS - 3] + "..."
+        await bot.send_message(chat_id=admin_chat_id, text=text)
+    except Exception:
+        logger.exception("x_post: could not notify admin")
+
+
+async def _maybe_post_photo_to_x(
+    context: ContextTypes.DEFAULT_TYPE,
+    orch: Orchestrator,
+    item: ContentItem,
+) -> None:
+    """After Telegram success: optional X mirror for photo items only (best-effort)."""
+    if not context.bot_data.get("enable_x_posting"):
+        return
+    if item.type != "photo" or not item.path:
+        return
+    if orch.is_x_posted(item.id):
+        return
+    creds = context.bot_data.get("x_twitter_credentials")
+    if not isinstance(creds, dict):
+        return
+    path = Path(item.path)
+    caption = item.caption or ""
+    try:
+        await asyncio.to_thread(
+            post_photo_with_caption,
+            path,
+            caption,
+            api_key=str(creds["api_key"]),
+            api_secret=str(creds["api_secret"]),
+            access_token=str(creds["access_token"]),
+            access_token_secret=str(creds["access_token_secret"]),
+        )
+    except Exception as exc:
+        logger.exception("x_post: failed for item_id=%s", item.id)
+        if context.bot_data.get("x_notify_on_failure", True):
+            await _notify_admin_x_post_failure(
+                context.bot, _admin_id(context), item=item, exc=exc
+            )
+        return
+    try:
+        orch.mark_x_posted(item.id)
+    except (OSError, ValueError):
+        logger.exception("x_post: could not persist x_posted_item_ids for item_id=%s", item.id)
+    except Exception:
+        logger.exception(
+            "x_post: unexpected error saving x_posted state for item_id=%s", item.id
+        )
+
+
 async def run_scheduled_delivery(context: ContextTypes.DEFAULT_TYPE) -> None:
     """JobQueue callback: same sequence as /next (peek → send → record on success)."""
     raw_target = context.bot_data.get("schedule_target_chat_id")
@@ -200,6 +265,7 @@ async def run_scheduled_delivery(context: ContextTypes.DEFAULT_TYPE) -> None:
                     context.bot, _admin_id(context), item=item, exc=exc
                 )
             return
+        await _maybe_post_photo_to_x(context, orch, item)
         try:
             orch.record_delivered(item.id)
         except (OSError, ValueError):
@@ -263,6 +329,7 @@ async def _run_next(
             logger.exception("cmd_next: unexpected send error")
             await reply_text("Send failed. Check logs.")
             return
+        await _maybe_post_photo_to_x(context, orch, item)
         try:
             orch.record_delivered(item.id)
         except (OSError, ValueError):

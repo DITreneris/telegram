@@ -11,7 +11,11 @@ from typing import Any
 
 
 def default_state() -> dict[str, Any]:
-    return {"last_delivered_id": None, "updated_at": None}
+    return {
+        "last_delivered_id": None,
+        "updated_at": None,
+        "x_posted_item_ids": [],
+    }
 
 
 def load(path: Path) -> dict[str, Any]:
@@ -30,6 +34,16 @@ def load(path: Path) -> dict[str, Any]:
     if ts is not None and not isinstance(ts, str):
         raise ValueError("updated_at turi būti eilutė arba null.")
     out["updated_at"] = ts
+    raw_x = data.get("x_posted_item_ids")
+    if raw_x is None:
+        out["x_posted_item_ids"] = []
+    elif not isinstance(raw_x, list):
+        raise ValueError("x_posted_item_ids turi būti sąrašas arba nebūti.")
+    else:
+        for i, xid in enumerate(raw_x):
+            if not isinstance(xid, str):
+                raise ValueError(f"x_posted_item_ids[{i}] turi būti eilutė.")
+        out["x_posted_item_ids"] = list(raw_x)
     return out
 
 

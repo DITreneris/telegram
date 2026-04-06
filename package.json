@@ -6,12 +6,14 @@
   },
   "scripts": {
     "check:api": "tsc --project tsconfig.api.json",
-    "verify": "npm run check:api"
+    "test:api": "node --import tsx --test api/publish_helpers.test.ts",
+    "verify": "npm run check:api && npm run test:api"
   },
   "dependencies": {
     "@vercel/node": "^5.5.16"
   },
   "devDependencies": {
+    "tsx": "^4.19.3",
     "typescript": "~5.9.3"
   }
 }

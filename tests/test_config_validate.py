@@ -43,7 +43,7 @@ def test_validate_config_admin_not_integer(monkeypatch: pytest.MonkeyPatch) -> N
     monkeypatch.setenv("BOT_TOKEN", "x")
     monkeypatch.setenv("ADMIN_CHAT_ID", "not-an-int")
     cfg = _reload_config()
-    with pytest.raises(ValueError, match="sveikasis"):
+    with pytest.raises(ValueError, match="integer"):
         cfg.validate_config()
 
 
@@ -51,7 +51,7 @@ def test_validate_config_admin_zero_rejected(monkeypatch: pytest.MonkeyPatch) ->
     monkeypatch.setenv("BOT_TOKEN", "x")
     monkeypatch.setenv("ADMIN_CHAT_ID", "0")
     cfg = _reload_config()
-    with pytest.raises(ValueError, match="negali būti 0"):
+    with pytest.raises(ValueError, match="cannot be 0"):
         cfg.validate_config()
 
 
@@ -126,3 +126,88 @@ def test_validate_config_schedule_target_zero_rejected(
     cfg = _reload_config()
     with pytest.raises(ValueError, match="SCHEDULE_TARGET_CHAT_ID"):
         cfg.validate_config()
+
+
+def test_validate_config_x_posting_requires_twitter_credentials(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("BOT_TOKEN", "x")
+    monkeypatch.setenv("ADMIN_CHAT_ID", "1")
+    monkeypatch.setenv("ENABLE_X_POSTING", "true")
+    monkeypatch.delenv("TWITTER_API_KEY", raising=False)
+    monkeypatch.delenv("TWITTER_API_SECRET", raising=False)
+    monkeypatch.delenv("TWITTER_ACCESS_TOKEN", raising=False)
+    monkeypatch.delenv("TWITTER_ACCESS_TOKEN_SECRET", raising=False)
+    cfg = _reload_config()
+    with pytest.raises(ValueError, match="TWITTER_API_KEY"):
+        cfg.validate_config()
+
+
+def test_validate_config_x_posting_ok_sets_credentials(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("BOT_TOKEN", "x")
+    monkeypatch.setenv("ADMIN_CHAT_ID", "1")
+    monkeypatch.setenv("ENABLE_X_POSTING", "1")
+    monkeypatch.setenv("TWITTER_API_KEY", "k")
+    monkeypatch.setenv("TWITTER_API_SECRET", "ks")
+    monkeypatch.setenv("TWITTER_ACCESS_TOKEN", "t")
+    monkeypatch.setenv("TWITTER_ACCESS_TOKEN_SECRET", "ts")
+    cfg = _reload_config()
+    cfg.validate_config()
+    assert cfg.ENABLE_X_POSTING is True
+    assert cfg.TWITTER_API_KEY == "k"
+    assert cfg.TWITTER_API_SECRET == "ks"
+    assert cfg.TWITTER_ACCESS_TOKEN == "t"
+    assert cfg.TWITTER_ACCESS_TOKEN_SECRET == "ts"
+    assert cfg.X_NOTIFY_ON_FAILURE is True
+
+
+def test_validate_config_queue_state_path_default(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("QUEUE_STATE_PATH", raising=False)
+    monkeypatch.setenv("BOT_TOKEN", "x")
+    monkeypatch.setenv("ADMIN_CHAT_ID", "1")
+    cfg = _reload_config()
+    cfg.validate_config()
+    assert cfg.STATE_PATH == (cfg.BASE_DIR / "data" / "state.json").resolve()
+
+
+def test_validate_config_queue_state_path_absolute(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    target = tmp_path / "vol" / "state.json"
+    monkeypatch.setenv("QUEUE_STATE_PATH", str(target))
+    monkeypatch.setenv("BOT_TOKEN", "x")
+    monkeypatch.setenv("ADMIN_CHAT_ID", "1")
+    cfg = _reload_config()
+    cfg.validate_config()
+    assert cfg.STATE_PATH == target.resolve()
+
+
+def test_validate_config_queue_state_path_relative_to_base(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("QUEUE_STATE_PATH", "data/state_railway_test.json")
+    monkeypatch.setenv("BOT_TOKEN", "x")
+    monkeypatch.setenv("ADMIN_CHAT_ID", "1")
+    cfg = _reload_config()
+    cfg.validate_config()
+    assert cfg.STATE_PATH == (cfg.BASE_DIR / "data" / "state_railway_test.json").resolve()
+
+
+def test_validate_config_x_notify_on_failure_false(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("BOT_TOKEN", "x")
+    monkeypatch.setenv("ADMIN_CHAT_ID", "1")
+    monkeypatch.setenv("ENABLE_X_POSTING", "true")
+    monkeypatch.setenv("TWITTER_API_KEY", "k")
+    monkeypatch.setenv("TWITTER_API_SECRET", "ks")
+    monkeypatch.setenv("TWITTER_ACCESS_TOKEN", "t")
+    monkeypatch.setenv("TWITTER_ACCESS_TOKEN_SECRET", "ts")
+    monkeypatch.setenv("X_NOTIFY_ON_FAILURE", "false")
+    cfg = _reload_config()
+    cfg.validate_config()
+    assert cfg.X_NOTIFY_ON_FAILURE is False

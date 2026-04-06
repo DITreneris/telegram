@@ -3,6 +3,9 @@
 #
 # Builder must be RAILPACK or DOCKERFILE (NIXPACKS is not valid on current Railway).
 # Create a service from repo root, set env vars like `.env.example`, one replica — RUNBOOK.
+#
+# Persist queue cursor: add a service Volume (dashboard), mount e.g. /persist, set
+# QUEUE_STATE_PATH=/persist/state.json — see docs/RUNBOOK.md (data/state.json on Railway).
 
 [build]
 builder = "RAILPACK"

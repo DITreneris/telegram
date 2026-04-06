@@ -179,3 +179,21 @@ def test_status_text_next_when_last_unknown_matches_peek(tmp_path: Path) -> None
     text = orch.status_text()
     assert peek.id == "a"
     assert "Next: id=a, type=text" in text
+
+
+def test_orchestrator_mark_x_posted_and_is_x_posted(tmp_path: Path) -> None:
+    content = {"version": 1, "items": [{"id": "a", "type": "text", "text": "A"}]}
+    content_path = tmp_path / "content.json"
+    content_path.write_text(json.dumps(content, ensure_ascii=False), encoding="utf-8")
+    state_path = tmp_path / "state.json"
+    orch = Orchestrator(
+        content_path=content_path,
+        state_path=state_path,
+        base_dir=tmp_path,
+    )
+    assert orch.is_x_posted("x1") is False
+    orch.mark_x_posted("x1")
+    assert orch.is_x_posted("x1") is True
+    orch.mark_x_posted("x1")
+    st = load_state(state_path)
+    assert st["x_posted_item_ids"] == ["x1"]

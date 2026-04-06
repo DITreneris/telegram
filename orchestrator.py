@@ -45,6 +45,20 @@ class Orchestrator:
         state["last_delivered_id"] = item_id
         save_atomic(self._state_path, state)
 
+    def is_x_posted(self, item_id: str) -> bool:
+        state = load_state(self._state_path)
+        ids = state.get("x_posted_item_ids") or []
+        return item_id in ids
+
+    def mark_x_posted(self, item_id: str) -> None:
+        state = load_state(self._state_path)
+        ids = list(state.get("x_posted_item_ids") or [])
+        if item_id in ids:
+            return
+        ids.append(item_id)
+        state["x_posted_item_ids"] = ids
+        save_atomic(self._state_path, state)
+
     def status_text(self) -> str:
         manifest = self.load_manifest()
         state = load_state(self._state_path)

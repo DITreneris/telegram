@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import asyncio
-from unittest.mock import AsyncMock, MagicMock, call
+from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock, call, patch
 
 from telegram.constants import PollType
 from telegram.error import TelegramError
@@ -13,6 +14,13 @@ from schemas import ContentItem
 
 _TARGET_CHAT = 999888777
 _ADMIN_CHAT_ID = 111222333
+
+_X_CREDENTIALS = {
+    "api_key": "k",
+    "api_secret": "ks",
+    "access_token": "t",
+    "access_token_secret": "ts",
+}
 
 
 def _context(orch: MagicMock, *, notify_on_failure: bool = True) -> MagicMock:
@@ -215,3 +223,55 @@ def test_run_scheduled_delivery_missing_target_skips() -> None:
     asyncio.run(run())
 
     orch.peek_next_item.assert_not_called()
+
+
+@patch("bot.handlers.post_photo_with_caption")
+def test_run_scheduled_delivery_photo_with_x_posting(mock_x_post, tmp_path: Path) -> None:
+    img = tmp_path / "s.png"
+    img.write_bytes(b"\x89PNG\r\n\x1a\n\x00")
+    item = ContentItem(id="sph", type="photo", path=str(img), caption="h")
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    orch.is_x_posted.return_value = False
+    context = _context(orch)
+    context.bot_data["enable_x_posting"] = True
+    context.bot_data["x_twitter_credentials"] = _X_CREDENTIALS
+
+    async def run() -> None:
+        await run_scheduled_delivery(context)
+
+    asyncio.run(run())
+
+    mock_x_post.assert_called_once()
+    orch.mark_x_posted.assert_called_once_with("sph")
+    orch.record_delivered.assert_called_once_with("sph")
+
+
+@patch("bot.handlers.post_photo_with_caption")
+def test_run_scheduled_delivery_photo_x_failure_still_records(
+    mock_x_post, tmp_path: Path
+) -> None:
+    mock_x_post.side_effect = OSError("x api")
+    img = tmp_path / "s2.png"
+    img.write_bytes(b"\x89PNG\r\n\x1a\n\x00")
+    item = ContentItem(id="sph2", type="photo", path=str(img), caption="h")
+    orch = MagicMock()
+    orch.peek_next_item.return_value = item
+    orch.is_x_posted.return_value = False
+    context = _context(orch)
+    context.bot_data["enable_x_posting"] = True
+    context.bot_data["x_twitter_credentials"] = _X_CREDENTIALS
+
+    async def run() -> None:
+        await run_scheduled_delivery(context)
+
+    asyncio.run(run())
+
+    orch.mark_x_posted.assert_not_called()
+    orch.record_delivered.assert_called_once_with("sph2")
+    calls = context.bot.send_message.await_args_list
+    assert any(
+        c.kwargs.get("chat_id") == _ADMIN_CHAT_ID
+        and "X (Twitter) post failed" in c.kwargs.get("text", "")
+        for c in calls
+    )

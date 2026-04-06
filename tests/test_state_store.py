@@ -15,6 +15,7 @@ def test_load_missing_file_returns_default(tmp_path: Path) -> None:
     assert not missing.is_file()
     st = load(missing)
     assert st == default_state()
+    assert st["x_posted_item_ids"] == []
 
 
 def test_load_invalid_json_raises(tmp_path: Path) -> None:
@@ -40,3 +41,39 @@ def test_save_atomic_writes_valid_json_and_timestamp(tmp_path: Path) -> None:
     st = load(path)
     assert st["last_delivered_id"] == "item_a"
     assert st.get("updated_at") is not None
+    assert st["x_posted_item_ids"] == []
+
+
+def test_load_x_posted_item_ids_preserved(tmp_path: Path) -> None:
+    path = tmp_path / "state.json"
+    path.write_text(
+        '{"last_delivered_id": "a", "updated_at": "t", "x_posted_item_ids": ["x1", "x2"]}',
+        encoding="utf-8",
+    )
+    st = load(path)
+    assert st["x_posted_item_ids"] == ["x1", "x2"]
+
+
+def test_load_x_posted_item_ids_not_list_raises(tmp_path: Path) -> None:
+    path = tmp_path / "state.json"
+    path.write_text(
+        '{"last_delivered_id": null, "updated_at": null, "x_posted_item_ids": "bad"}',
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="x_posted_item_ids"):
+        load(path)
+
+
+def test_save_atomic_preserves_x_posted_item_ids(tmp_path: Path) -> None:
+    path = tmp_path / "state.json"
+    save_atomic(
+        path,
+        {
+            "last_delivered_id": "b",
+            "updated_at": None,
+            "x_posted_item_ids": ["p1"],
+        },
+    )
+    st = load(path)
+    assert st["last_delivered_id"] == "b"
+    assert st["x_posted_item_ids"] == ["p1"]

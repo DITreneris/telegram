@@ -1,5 +1,11 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
+import {
+  authorizationMatchesBearer,
+  photoUrlAllowed,
+  siteHostFromRequestHeaders,
+} from "./publish_helpers";
+
 const TELEGRAM_API = "https://api.telegram.org";
 const MAX_MESSAGE_CHARS = 4096;
 /** Telegram Bot API: sendPhoto caption limit. */
@@ -16,31 +22,6 @@ function splitTelegramChunks(text: string): string[] {
     parts.push(text.slice(i, i + MAX_MESSAGE_CHARS));
   }
   return parts;
-}
-
-/** Reject arbitrary URLs (SSRF-style abuse of our server → Telegram). Allow same public host as this request. */
-function photoUrlAllowed(photoUrl: string, req: VercelRequest): boolean {
-  let u: URL;
-  try {
-    u = new URL(photoUrl);
-  } catch {
-    return false;
-  }
-  const proto = u.protocol.toLowerCase();
-  if (proto !== "https:") {
-    if (proto !== "http:") return false;
-    if (!/^(localhost|127\.0\.0\.1)$/i.test(u.hostname)) return false;
-  }
-  const forwarded = req.headers["x-forwarded-host"];
-  const rawHost =
-    typeof forwarded === "string"
-      ? forwarded.split(",")[0]?.trim() ?? ""
-      : typeof req.headers.host === "string"
-        ? req.headers.host
-        : "";
-  if (!rawHost) return false;
-  const allowedHost = rawHost.split(":")[0]?.toLowerCase() ?? "";
-  return u.hostname.toLowerCase() === allowedHost;
 }
 
 function protectionBypassHeaders(): Record<string, string> {
@@ -199,8 +180,7 @@ export default async function handler(
     return;
   }
 
-  const auth = req.headers.authorization ?? "";
-  if (auth !== `Bearer ${bearer}`) {
+  if (!authorizationMatchesBearer(req.headers.authorization, bearer)) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
@@ -265,7 +245,8 @@ export default async function handler(
     return;
   }
 
-  if (hasPhotoUrl && !hasPhotoBase64 && !photoUrlAllowed(photoRaw, req)) {
+  const allowedSiteHost = siteHostFromRequestHeaders(req.headers);
+  if (hasPhotoUrl && !hasPhotoBase64 && !photoUrlAllowed(photoRaw, allowedSiteHost)) {
     res.status(400).json({
       error:
         "Photo URL must be https on the same host as this site (or http://localhost for local dev).",
